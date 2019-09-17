@@ -1,5 +1,5 @@
-#step1
+# step1
 npm i
 
-#step2
+# step2
 npm run dev
