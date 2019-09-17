@@ -1,0 +1,131 @@
+
+//scss的註解 1. '//'打包成css時不會被打包出去,別人看不到
+          //2. '/**/'則否,會保留在css
+// scss 繼承、function、mixin、for
+
+//bootstrap
+@import "~bootstrap/scss/bootstrap";
+//-------------------------------------------------------
+$baseSize: 12px;
+$baseLineSize: 10px;
+$sizeLevel: 4px;
+$paddingLevel: 1.2;
+@function font($level: 0) {
+  @if $level < 0 {
+    $level: 0;
+  }
+  @return $baseSize + $sizeLevel * round($level);
+}
+
+@function rhythm($size) {
+  @return ceil($size * $paddingLevel / $baseLineSize) * $baseLineSize;
+}
+
+@mixin font($level: 1, $line-height: auto) {
+  $size: font($level);
+  $line: rhythm($size);
+
+  font-size: $size;
+  @if $line-height == auto or $line-height < $line {
+    line-height: $line;
+  } @else {
+    line-height: $line-height;
+  }
+}
+
+@function line($count: 1, $baseLineHeight: 10px) {
+  @return $baseLineHeight * $count;
+}
+
+@for $i from 0 through 5{
+  .level#{$i}{
+    @include font($i);
+    margin: line($i/2) auto;
+  }
+}
+//-------------------------------------------------------
+html {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+a{
+  text-decoration: none!important;
+}
+
+.button--green {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #3b8070;
+  color: #3b8070;
+  text-decoration: none;
+  padding: 10px 30px;
+}
+
+.button--green:hover {
+  color: #fff;
+  background-color: #3b8070;
+}
+
+.button--grey {
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid #35495e;
+  color: #35495e;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin-left: 15px;
+}
+
+.button--grey:hover {
+  color: #fff;
+  background-color: #35495e;
+}
+//-------------------------------------------------------
+//全域變數
+$vue-color: #42b983;
+.container {
+  width:100vw;
+  background: linear-gradient(110deg, rgba(234, 161, 101,  0.4)42%, rgba(217, 211, 0, 0.5)65%);
+  background: -moz-linear-gradient(110deg, rgba(234, 161, 101, 1)42%, rgba(217, 211, 0, 0.8)65%);
+  background: -webkit-linear-gradient(110deg, rgba(234, 161, 101, 1)42%, rgba(217, 211, 0, 0.8)65%);
+  background: -o-linear-gradient(110deg, rgba(234, 161, 101, 1)42%, rgba(217, 211, 0, 0.8)65%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  .title {
+    font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+    display: block;
+    font-weight: 300;
+    @include font(5)
+    color: $vue-color;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-weight: 300;
+    font-size: 42px;
+    color: #526488;
+    word-spacing: 5px;
+    padding-bottom: 15px;
+  }
+
+  .links {
+    padding-top: 15px;
+  }
+  .test{
+    margin: 10px 0;
+  }
+}
