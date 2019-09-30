@@ -15,7 +15,7 @@
 
 
   <script>
-    import bus from '~/components/bus.js';
+    // import bus from '~/components/bus.js';
     import icon from '~/assets/test.jpg';
 
     export default {

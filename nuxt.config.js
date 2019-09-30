@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
+  mode:'universal',
   server: {
     port: 80, // default: 3000
     host: '0.0.0.0', // default: localhostff
@@ -20,7 +21,8 @@ module.exports = {
     ]
   },
   script: [
-    {type: 'text/javascript'}
+    {type: 'text/javascript'},
+    // { src: '~/store/store.js' }
   ],
   css: [
     { src: '~assets/main.scss', lang: 'scss' }
@@ -33,7 +35,17 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    plugins: [new webpack.ProvidePlugin({'$': 'jquery'})],
+
+    plugins: [
+      // 免import,build時自動判斷特別字,載入
+      new webpack.ProvidePlugin(
+      {
+        '$': 'jquery',
+        'axios':'axios',
+        Vuex:'vuex',
+        bus: ['~/components/bus.js', 'default']
+      }
+    )],
     /*
     ** Run ESLint on save
     */

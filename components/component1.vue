@@ -9,7 +9,8 @@
 
 
 <script>
-  import bus from '~/components/bus.js';
+  // import bus from '~/components/bus.js';
+  
   export default {
     name:'com1',
     props:{
