@@ -5,25 +5,30 @@ section.container
 
     <ul class="nav">
       <li>
-        <a href="#" @click.prevent="changeView('AppLogo')">home</a>
+        <a href="#" @click.prevent="changeView('AppLogo')">AppLogo</a>
       </li>
       <li>
-        <a href="#" @click.prevent="changeView('VuexList')">posts</a>
+        <a href="#" @click.prevent="changeView('VuexList')">List</a>
       </li>
       <li>
-        <a href="#" @click.prevent="changeView('VuexEdit')">archieve</a>
+        <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
       </li>
     </ul>
 
     h1(style="display:none;" v-for="item in result") {{item.content}}
 
+    //- AppLogo
+    //- VuexList
+    //-   //- slot demo
+    //-   h2 slot demo use img
+    //-   img(src="~/assets/pic_vuex.png")
+    //- VuexEdit(v-show = 'update_show')
+
+    VuexEdit(v-show = 'update_show')
     component(:is="view")
-    AppLogo
-    VuexList
-      //- slot demo
       h2 slot demo use img
       img(src="~/assets/pic_vuex.png")
-    VuexEdit(v-show = 'update_show')
+
 
 </template>
 
@@ -40,7 +45,8 @@ section.container
     },
     data(){
       return{
-        update_show:false
+        update_show:false,
+        view:'AppLogo'
       }
     },
     async asyncData({store}) {
@@ -67,6 +73,9 @@ section.container
       });
     },
     methods:{
+      changeView(c_view){
+        this.view = c_view;
+      },
       parent_method:()=>{
         alert('我是父method！！')
       }
@@ -79,6 +88,10 @@ section.container
     margin:0 auto;
     img{
       margin: 20px 0;
+    }
+    .nav{
+      position: fixed;
+      top: 0;
     }
   }
 
