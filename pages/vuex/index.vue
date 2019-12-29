@@ -11,7 +11,7 @@ section.container
         <a href="#" @click.prevent="changeView('VuexList')">List</a>
       </li>
       <li>
-        <a href="#" @click.prevent="changeView('VuexEdit')">使用 keep-alive 保留表單狀態</a>
+        <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
       </li>
     </ul>
 
@@ -24,14 +24,13 @@ section.container
     //-   img(src="~/assets/pic_vuex.png")
     //- VuexEdit(v-show = 'update_show')
 
-    //- 由於被快取的組件已經不會被摧毀，因此重新顯示的時候並不會觸發 mounted 事件，我們可以透過 activated 與 deactivated  兩個新事件作為組件顯示及離開的觸發時機。
-    <keep-alive include="VuexEdit">
+    //使用keepAlive後List內input文字會被保留
+    keepAlive (include="VuexList")
       component(:is="view")
-        //- VuexEdit(v-show = 'update_show')
+        VuexEdit(v-show = 'update_show')
         //- component 內有寫 slot的才會有圖！！
         h2 slot demo use img
         img(src="~/assets/pic_vuex.png")
-    </keep-alive>
 
 
 
