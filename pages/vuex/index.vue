@@ -1,7 +1,8 @@
 <template lang="pug">
-
+//- slot component:is asyncData await
 section.container
   div
+    h1(style="display:none;" v-for="item in result") {{item.content}}
     AppLogo
     img(src="~/assets/pic_vuex.png")
 
@@ -26,6 +27,13 @@ section.container
         update_show:false
       }
     },
+    async asyncData({store}) {
+      // await store.dispatch('CONTENTS_READ');
+
+  		let { data } =await axios.get('http://localhost:4000/contents');
+      return { 'result': data }
+
+  	},
     created(){},
     mounted(){
       bus.$on('update_show',(res)  => {

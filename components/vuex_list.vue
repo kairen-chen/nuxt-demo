@@ -40,7 +40,7 @@
     created(){},
     mounted(){
       //讀資料
-      this.CONTENTS_READ().then(res => {
+      this.CONTENTS_READ().then(() => {
         console.log('read success',res)
       }).catch(res => {
         if(res == 'Error: Network Error'){
