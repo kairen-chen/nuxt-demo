@@ -2,11 +2,27 @@
 //- slot component:is asyncData await
 section.container
   div
-    h1(style="display:none;" v-for="item in result") {{item.content}}
-    AppLogo
-    img(src="~/assets/pic_vuex.png")
 
+    <ul class="nav">
+      <li>
+        <a href="#" @click.prevent="changeView('AppLogo')">home</a>
+      </li>
+      <li>
+        <a href="#" @click.prevent="changeView('VuexList')">posts</a>
+      </li>
+      <li>
+        <a href="#" @click.prevent="changeView('VuexEdit')">archieve</a>
+      </li>
+    </ul>
+
+    h1(style="display:none;" v-for="item in result") {{item.content}}
+
+    component(:is="view")
+    AppLogo
     VuexList
+      //- slot demo
+      h2 slot demo use img
+      img(src="~/assets/pic_vuex.png")
     VuexEdit(v-show = 'update_show')
 
 </template>
@@ -28,10 +44,17 @@ section.container
       }
     },
     async asyncData({store}) {
-      // await store.dispatch('CONTENTS_READ');
+      await store.dispatch('CONTENTS_READ');
 
-  		let { data } =await axios.get('http://localhost:4000/contents');
+  		let { data } = await axios.get('http://localhost:4000/contents');
       return { 'result': data }
+
+      // return await Promise.all([
+      //   store.dispatch('CONTENTS_READ'),
+      //   axios.get('http://localhost:4000/contents')
+      // ]).catch(res =>{
+      //   console.log('error',res)
+      // });
 
   	},
     created(){},

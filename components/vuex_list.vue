@@ -13,6 +13,7 @@
         </li>
       </ol>
     </div>
+    slot
   </section>
 </template>
 
@@ -40,15 +41,15 @@
     created(){},
     mounted(){
       //讀資料
-      this.CONTENTS_READ().then(() => {
-        console.log('read success',res)
-      }).catch(res => {
-        if(res == 'Error: Network Error'){
-          console.log('出錯拉～',res)
-          console.log('不管,繼續執行些什麼～回首頁')
-          this.$router.replace({name:'index'})
-        }
-      });
+      // this.CONTENTS_READ().then(() => {
+      //   console.log('read success',res)
+      // }).catch(res => {
+      //   if(res == 'Error: Network Error'){
+      //     console.log('出錯拉～',res)
+      //     console.log('不管,繼續執行些什麼～回首頁')
+      //     this.$router.replace({name:'index'})
+      //   }
+      // });
 
     },
     methods:{
@@ -57,11 +58,11 @@
       // 	this.contents = data.data;
       // });
       // },
-      async CONTENTS_READ(){
-         await this.$store.dispatch('CONTENTS_READ');
-         console.log(this.getter_content);
-         console.log(this.getter_content_count);
-      },
+      // async CONTENTS_READ(){
+      //    await this.$store.dispatch('CONTENTS_READ');
+      //    console.log(this.getter_content);
+      //    console.log(this.getter_content_count);
+      // },
       createHandler (){
         if(!this.input) return false;
         axios.post('http://localhost:4000/contents',{
