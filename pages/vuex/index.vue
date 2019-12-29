@@ -11,7 +11,7 @@ section.container
         <a href="#" @click.prevent="changeView('VuexList')">List</a>
       </li>
       <li>
-        <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
+        <a href="#" @click.prevent="changeView('VuexEdit')">使用 keep-alive 保留表單狀態</a>
       </li>
     </ul>
 
@@ -24,10 +24,15 @@ section.container
     //-   img(src="~/assets/pic_vuex.png")
     //- VuexEdit(v-show = 'update_show')
 
-    VuexEdit(v-show = 'update_show')
-    component(:is="view")
-      h2 slot demo use img
-      img(src="~/assets/pic_vuex.png")
+    //- 由於被快取的組件已經不會被摧毀，因此重新顯示的時候並不會觸發 mounted 事件，我們可以透過 activated 與 deactivated  兩個新事件作為組件顯示及離開的觸發時機。
+    <keep-alive include="VuexEdit">
+      component(:is="view")
+        //- VuexEdit(v-show = 'update_show')
+        //- component 內有寫 slot的才會有圖！！
+        h2 slot demo use img
+        img(src="~/assets/pic_vuex.png")
+    </keep-alive>
+
 
 
 </template>
@@ -75,6 +80,7 @@ section.container
     methods:{
       changeView(c_view){
         this.view = c_view;
+        this.update_show = c_view !== 'VuexList'?false:'';
       },
       parent_method:()=>{
         alert('我是父method！！')
@@ -85,13 +91,17 @@ section.container
 
 <style lang="scss" scoped>
   section{
+    display: block;
     margin:0 auto;
     img{
       margin: 20px 0;
     }
     .nav{
-      position: fixed;
-      top: 0;
+      li{
+        border:1px solid gray;
+        border-radius: 10px;
+        padding: 10px;
+      }
     }
   }
 

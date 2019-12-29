@@ -1,5 +1,5 @@
 <template lang="pug">
-  <section>
+  section
     div.button--green(@click='call_method') component call method
     <div>
       <p>
@@ -14,7 +14,7 @@
       </ol>
     </div>
     slot
-  </section>
+
 </template>
 
 
