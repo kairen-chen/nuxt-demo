@@ -1,7 +1,7 @@
   <template lang="pug">
     .container
       .inline
-        app-logo(msg="產品頁")
+        app-logo(msg="產品頁頁頁")
         com1
       div /資料目錄為固定(product)／{{$route.params.PI}}
       div#getID shop_id = {{$route.query.shop_id}}
