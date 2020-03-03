@@ -26,6 +26,7 @@
     },
     created(){},
     mounted(){
+
       //使用bus接事件
       // bus.$on('edit',()  => {
       //    this.input = this.get_uptate_obj.content;

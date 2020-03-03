@@ -69,6 +69,10 @@ section.container
   	},
     created(){},
     mounted(){
+
+
+
+
       bus.$on('update_show',(res)  => {
           this.update_show = res;
       });

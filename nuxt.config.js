@@ -20,6 +20,8 @@ module.exports = {
     //   { rel: 'icon', type: 'image/x-icon', href: '' }
     ]
   },
+
+
   script: [
     {type: 'text/javascript'},
     // { src: '~/store/store.js' }
