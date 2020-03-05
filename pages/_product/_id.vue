@@ -8,9 +8,19 @@
 
 <script type="text/javascript">
   import AppLogo from '~/components/AppLogo.vue';
+
+  if (process.client) {
+    require('~/plugins/tap.js')
+    require('~/plugins/tappay.js')
+  }
+
+
   export default {
     components: {
       AppLogo
+    },
+    mounted(){
+
     }
   }
 </script>

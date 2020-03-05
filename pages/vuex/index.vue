@@ -1,5 +1,6 @@
 <template lang="pug">
 //- slot component:is asyncData await
+
 section.container
   div
 
@@ -15,8 +16,8 @@ section.container
       </li>
     </ul>
 
-    h1(style="display:none;" v-for="item in result") {{item.content}}
 
+    h1(style="display:none;" v-for="item in result") {{item.content}}
     //- AppLogo
     //- VuexList
     //-   //- slot demo
@@ -40,6 +41,8 @@ section.container
   import AppLogo from '~/components/AppLogo.vue';
   import VuexList from '~/components/vuex_list.vue';
   import VuexEdit from '~/components/vuex_Edit.vue';
+
+
 
   export default {
     components: {
@@ -69,12 +72,11 @@ section.container
   	},
     created(){},
     mounted(){
-
-
-
+      console.log('測試:從index改變vuex的值,刷新之後會被洗掉－－>',this.$store.state.obj)
 
       bus.$on('update_show',(res)  => {
           this.update_show = res;
+          bus.obj = {a:'456'};
       });
       bus.$on('call_method',()  => {
           this.parent_method();

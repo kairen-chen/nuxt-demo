@@ -47,8 +47,10 @@
             id:this.get_uptate_obj.id,
             input:this.input
           }).then(()=>{
+            bus.obj = {a:'123'};
+            console.log(123,bus.obj)
             bus.$emit('update_show',false)
-            console.log('success')
+            console.log(456,bus.obj)
           })
         }else{
           bus.$emit('update_show',false)

@@ -49,9 +49,15 @@
 
   <script>
     import AppLogo from '~/components/AppLogo.vue';
-    import skill from '~/components/skill.js'
+    import skill from '~/components/skill.js';
 
     export default {
+      head: {
+        script: [
+          // {src: '~/assets/tap.js', ssr: false }
+
+        ]
+      },
       components: {
         AppLogo
       },
@@ -60,11 +66,14 @@
           title:'Plugin',
           PItest:'PI2019012933900',
           shop_id:'app',
-          skill_arr: skill()
+          skill_arr: ['123','123']
         }
       },
       created(){},
-      mounted(){},
+      mounted(){
+        //改變vuex值
+        this.$store.commit('change_obj','kairen');
+      },
       methods:{
         test(){
           alert(this.$route.name)

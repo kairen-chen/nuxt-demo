@@ -4,6 +4,7 @@ import Vue from 'vue';
 // Vue.use(Vuex)
 
 export const state = () => ({
+  obj:'a',
   contents:[],//要共用的data
   update_param:''
 })
@@ -21,6 +22,9 @@ export const getters = {
   }
 }
 export const mutations = {
+  change_obj(state,data){
+    state.obj= data;
+  },
   SET_CONTENT(state,data){
       state.contents = data;
   },
