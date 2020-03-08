@@ -19,7 +19,7 @@
 
 
 <script>
-  import { mapGetters } from 'vuex';
+  import {mapState, mapGetters } from 'vuex';
 
   export default {
     name:'vuex_list',
@@ -32,14 +32,39 @@
       contents(){
         return this.$store.state.contents
       },
+      //物件展開運算符 -> https://jeremysu0131.github.io/Vue-js-Vuex-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98-6-mapState-%E8%88%87-mapGetters-%E5%90%88%E4%BD%B5%E4%BD%BF%E7%94%A8/
+      ...mapState([
+        'obj'
+      ]),
+      //解釋這神奇用法
+      //mapGetters是一個maping key的method
+      //傳入[要取得的obj key]
+      //回傳1個obj{getter_content:fn1(),....},共三個fn在裡面
+      //再把物件展開(其實是複製) -> computed:{...{obj}}
       ...mapGetters([
         'getter_content',
         'getter_content_count',
-        'getter_content_ById'
-      ])
+        'getter_content_ById',
+      ]),
+      // 以上=以下
+      // getter_content() {
+      //     return this.$store.getters['getter_content']
+      // }
+      //亦可重新命名
+      ...mapGetters({
+        test:'getter_content'
+      })
     },
     created(){},
     mounted(){
+      let obj = {a1:'3',b:'4'}
+      // 複製、合併串聯多個物件
+      // 與陣列不同的是: 有相同屬性名的，合併後只會使用最後一個物件的內容值
+      console.log('物件展開(複製、合併)demo --> ',{ ...{a:'1',b:'2'} , ...obj } )
+
+      console.log('vuex映射取值 -> ',this.obj,this.test,
+        'mapGetters res ->',mapGetters(['getter_content','getter_content_count'])
+      )
       //讀資料
       // this.CONTENTS_READ().then(() => {
       //   console.log('read success',res)

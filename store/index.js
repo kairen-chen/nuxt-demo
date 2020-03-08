@@ -2,14 +2,13 @@ import Vue from 'vue';
 // import Vuex from 'vuex';
 // import axios from 'axios'
 // Vue.use(Vuex)
-
 export const state = () => ({
-  obj:'a',
-  contents:[],//要共用的data
-  update_param:''
+    obj:'a',
+    contents:[],//要共用的data
+    update_param:''
 })
 export const getters = {
-  getter_content: (state) => {
+  getter_content: state => {
       return state.contents.filter(item => item.id != null)
     },
   //使用上一個getter method dosomething
