@@ -66,7 +66,7 @@
           title:'Plugin',
           PItest:'PI2019012933900',
           shop_id:'app',
-          skill_arr: ['123','123']
+          skill_arr:skill()
         }
       },
       created(){},

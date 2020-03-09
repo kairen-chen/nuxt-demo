@@ -3,9 +3,13 @@
     p
       //- 因使用vuex state render computed內無法做set 故v-model會error,替代方案
       input(type='text' :value='get_uptate_obj.content' @keyup='keyup($event.currentTarget.value)')
+
       //- input(type='text'  v-model.trim='input')
 
       a(href='javacript:;' @click='updateHandler')  UPDATE
+    p keepAlive demo --> 
+
+      input(type='text' @keyup='keyup($event.currentTarget.value)')
 </template>
 
 

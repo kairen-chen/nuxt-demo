@@ -26,7 +26,9 @@ section.container
     //- VuexEdit(v-show = 'update_show')
 
     //使用keepAlive後List內input文字會被保留
-    keepAlive (include="VuexList")
+    //- include:  標記「需要」被快取的組件名稱 (其餘都不快取)
+    //- exclude: 標記「不需」被快取的組件名稱 (其餘全部快取)
+    keepAlive(include="VuexEdit")
       component(:is="view")
         VuexEdit(v-show = 'update_show')
         //- component 內有寫 slot的才會有圖！！
