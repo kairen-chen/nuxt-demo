@@ -7,7 +7,7 @@
       //- input(type='text'  v-model.trim='input')
 
       a(href='javacript:;' @click='updateHandler')  UPDATE
-    p keepAlive demo --> 
+    p keepAlive demo -->
 
       input(type='text' @keyup='keyup($event.currentTarget.value)')
 </template>

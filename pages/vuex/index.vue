@@ -17,7 +17,7 @@ section.container
     </ul>
 
 
-    h1(style="display:none;" v-for="item in result") {{item.content}}
+    h4(v-for="item in result") {{item.content}}
     //- AppLogo
     //- VuexList
     //-   //- slot demo
@@ -32,8 +32,8 @@ section.container
       component(:is="view")
         VuexEdit(v-show = 'update_show')
         //- component 內有寫 slot的才會有圖！！
-        h2 slot demo use img
-        img(src="~/assets/pic_vuex.png")
+        h2(slot='title') slot demo use img
+        img(slot='img' src="~/assets/pic_vuex.png")
 
 
 
@@ -59,7 +59,9 @@ section.container
       }
     },
     async asyncData({store}) {
+      //以下兩種方式都可取得內容,因vuex_list走vuex所以用dispatch先灌一次資料
       await store.dispatch('CONTENTS_READ');
+      // return { 'result': data }
 
   		let { data } = await axios.get('http://localhost:4000/contents');
       return { 'result': data }

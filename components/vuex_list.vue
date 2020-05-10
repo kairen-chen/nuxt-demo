@@ -13,8 +13,8 @@
         </li>
       </ol>
     </div>
-    slot
-
+    slot(name='title')
+    slot(name='img')
 </template>
 
 
