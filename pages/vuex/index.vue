@@ -42,7 +42,7 @@ section.container
 <script>
   import AppLogo from '~/components/AppLogo.vue';
   import VuexList from '~/components/vuex_list.vue';
-  import VuexEdit from '~/components/vuex_Edit.vue';
+  import VuexEdit from '~/components/vuex_edit.vue';
 
 
 
