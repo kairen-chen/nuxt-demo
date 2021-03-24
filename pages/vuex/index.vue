@@ -16,8 +16,9 @@ section.container
       </li>
     </ul>
 
-
-    h4(v-for="item in result") {{item.content}}
+    //- async asyncData --> result
+    h4(v-for="item in contents") {{item.content}}
+    
     //- AppLogo
     //- VuexList
     //-   //- slot demo
@@ -25,7 +26,7 @@ section.container
     //-   img(src="~/assets/pic_vuex.png")
     //- VuexEdit(v-show = 'update_show')
 
-    //使用keepAlive後List內input文字會被保留
+    //- 使用keepAlive後List內input文字會被保留
     //- include:  標記「需要」被快取的組件名稱 (其餘都不快取)
     //- exclude: 標記「不需」被快取的組件名稱 (其餘全部快取)
     keepAlive(include="VuexEdit")
@@ -58,21 +59,23 @@ section.container
         view:'AppLogo'
       }
     },
+    computed:{
+      contents(){
+        return this.$store.state.contents
+      },
+    },
     async asyncData({store}) {
-      //以下兩種方式都可取得內容,因vuex_list走vuex所以用dispatch先灌一次資料
       await store.dispatch('CONTENTS_READ');
-      // return { 'result': data }
 
-  		let { data } = await axios.get('http://localhost:4000/contents');
-      return { 'result': data }
+      //如果不寫compute如果不寫compute也可用以下紀錄值
+      return { 'result': store.state.contents }
 
-      // return await Promise.all([
+      // await Promise.all([
       //   store.dispatch('CONTENTS_READ'),
       //   axios.get('http://localhost:4000/contents')
       // ]).catch(res =>{
-      //   console.log('error',res)
+      //    console.log("@@@@", res)
       // });
-
   	},
     created(){},
     mounted(){
@@ -80,7 +83,7 @@ section.container
 
       bus.$on('update_show',(res)  => {
           this.update_show = res;
-          bus.obj = {a:'456'};
+          res ? this.changeView("VuexEdit") : this.changeView("VuexList");
       });
       bus.$on('call_method',()  => {
           this.parent_method();

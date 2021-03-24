@@ -1,19 +1,26 @@
 {
-  "posts": [
+  "__npm": [" json-server --watch db.json --port 400"],
+  "contents": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "content": "Kairen",
+      "id": 1
+    },
+    {
+      "content": "Jack",
+      "id": 2
+    },
+    {
+      "content": "Tino",
+      "id": 3
+    },
+    {
+      "content": "Stacie",
+      "id": 4
     }
   ],
-  "comments": [
+  "test": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "kairen": 123
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

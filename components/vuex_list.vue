@@ -1,15 +1,15 @@
 <template lang="pug">
   section
-    div.button--green(@click='call_method') component call method
+    div.button--green(@click='call_method') component call method of parent
     <div>
       <p>
         <input type="text" name="" v-model.trim='input'>
-        <a href="javacript:;" @click='createHandler'>CREATE</a>
+        <a href="#" @click='createHandler'>CREATE</a>
       </p>
       <ol>
         <li v-for='(item,index) in contents' :key='item.id'>{{item.content}}
-          <a href="javacript:;" @click='updateHandler(index)'>UPDATE</a>
-          <a href="javacript:;" @click='deleteHandler(index)'>DELETE</a>
+          <button @click='updateHandler(index)'>UPDATE</button>
+          <button @click='deleteHandler(index)'>DELETE</button>
         </li>
       </ol>
     </div>
