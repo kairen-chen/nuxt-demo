@@ -111,7 +111,7 @@
       },
       deleteHandler (index){
         let target = this.contents[index];
-
+        
         // axios.delete(`http://localhost:4000/contents/${target.id}`).then(()=>{
         // 	this.contents.splice(index,1)
         // })

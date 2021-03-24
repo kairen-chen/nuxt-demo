@@ -3,7 +3,6 @@
 
 section.container
   div
-
     <ul class="nav">
       <li>
         <a href="#" @click.prevent="changeView('AppLogo')">AppLogo</a>
@@ -15,6 +14,8 @@ section.container
         <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
       </li>
     </ul>
+    h1  
+      a(href = "https://iter01.com/518446.html") ReadMe
     //- async asyncData --> result
     h4(v-for="item in contents") {{item.content}}
     
