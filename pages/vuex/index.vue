@@ -15,7 +15,6 @@ section.container
         <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
       </li>
     </ul>
-
     //- async asyncData --> result
     h4(v-for="item in contents") {{item.content}}
     
@@ -31,12 +30,11 @@ section.container
     //- exclude: 標記「不需」被快取的組件名稱 (其餘全部快取)
     keepAlive(include="VuexEdit")
       component(:is="view")
+
         VuexEdit(v-show = 'update_show')
         //- component 內有寫 slot的才會有圖！！
         h2(slot='title') slot demo use img
         img(slot='img' src="~/assets/pic_vuex.png")
-
-
 
 </template>
 

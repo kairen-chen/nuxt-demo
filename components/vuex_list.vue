@@ -1,5 +1,6 @@
 <template lang="pug">
   section
+    //- 若使用evenBus重複監聽會兩個method都執行,發現先跑 parent method -> compontent method
     div.button--green(@click='call_method') component call method of parent
     <div>
       <p>
@@ -19,7 +20,7 @@
 
 
 <script>
-  import {mapState, mapGetters } from 'vuex';
+  import {mapState, mapGetters, mapMutations } from 'vuex';
 
   export default {
     name:'vuex_list',
@@ -52,7 +53,7 @@
       // }
       //亦可重新命名
       ...mapGetters({
-        test:'getter_content'
+        mapGetters_replace:'getter_content'
       })
     },
     created(){},
@@ -61,9 +62,14 @@
       // 複製、合併串聯多個物件
       // 與陣列不同的是: 有相同屬性名的，合併後只會使用最後一個物件的內容值
       console.log('物件展開(複製、合併)demo --> ',{ ...{a:'1',b:'2'} , ...obj } )
-
-      console.log('vuex映射取值 -> ',this.obj,this.test,
-        'mapGetters res ->',mapGetters(['getter_content','getter_content_count'])
+      console.log(
+        'vuex映射取值 -> ', "\n",
+        this.obj, "\n",
+        
+        'mapGetters res ->',mapGetters(['getter_content','getter_content_count']), "\n",
+        this.getter_content, "\n",
+        this.mapGetters_replace, "\n",
+        this.change_obj, "\n",
       )
       //讀資料
       // this.CONTENTS_READ().then(() => {
@@ -75,9 +81,12 @@
       //     this.$router.replace({name:'index'})
       //   }
       // });
-
     },
     methods:{
+      ...mapMutations([
+        'change_obj',
+        'SET_CONTENT'
+      ]),
       // getHandler(){
       // 	axios.get('http://localhost:4000/contents').then((data)=>{
       // 	this.contents = data.data;
@@ -90,13 +99,14 @@
       // },
       createHandler (){
         if(!this.input) return false;
-        axios.post('http://localhost:4000/contents',{
-          content:this.input
-        }).then((res)=>{
+        let input = this.input;
+        this.$store.dispatch('CONTENTS_CREATE',{input})
+        .then(() => {
           this.input='';
+          // Traditional ->
           // this.contents.push(res.data);
-          //單向資料流寫入方式
-          this.$store.commit('ADD_CONTENT',res.data);
+          // Now -> 單向資料流寫入方式
+          // this.$store.commit('ADD_CONTENT',res.data);
         })
       },
       deleteHandler (index){

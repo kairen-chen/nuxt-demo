@@ -1,5 +1,7 @@
 {
-  "__npm": [" json-server --watch db.json --port 400"],
+  "__npm": [
+    " json-server --watch db.json --port 400"
+  ],
   "contents": [
     {
       "content": "Kairen",
@@ -16,6 +18,10 @@
     {
       "content": "Stacie",
       "id": 4
+    },
+    {
+      "content": "test",
+      "id": 5
     }
   ],
   "test": [
