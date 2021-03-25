@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, namespace } from 'nuxt-property-decorator'
+  import { Vue, Component, namespace } from 'nuxt-property-decorator';
   import AppLogo from '~/components/AppLogo.vue';
   import VuexList from '~/components/vuex_list.vue';
   import VuexEdit from '~/components/vuex_edit.vue';
