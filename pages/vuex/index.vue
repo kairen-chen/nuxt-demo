@@ -1,41 +1,42 @@
 <template lang="pug">
-//- slot component:is asyncData await
+  //- slot component:is asyncData await
 
-section.container
-    //- <ul class="nav">
-    //-   <li>
-    //-     <a href="#" @click.prevent="changeView('AppLogo')">AppLogo</a>
-    //-   </li>
-    //-   <li>
-    //-     <a href="#" @click.prevent="changeView('VuexList')">List</a>
-    //-   </li>
-    //-   <li>
-    //-     <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
-    //-   </li>
-    //- </ul>
-    //- h1  
-    //-   a(href = "https://iter01.com/518446.html") ReadMe
-    //- //- async asyncData --> result
-    //- h4(v-for="item in contents") {{item.content}}
+  section.container
+    | {{ localData }}
+  //-   <ul class="nav">
+  //-     <li>
+  //-       <a href="#" @click.prevent="changeView('AppLogo')">AppLogo</a>
+  //-     </li>
+  //-     <li>
+  //-       <a href="#" @click.prevent="changeView('VuexList')">List</a>
+  //-     </li>
+  //-     <li>
+  //-       <a href="#" @click.prevent="changeView('VuexEdit')">Edit</a>
+  //-     </li>
+  //-   </ul>
+  //-   h1  
+  //-     a(href = "https://iter01.com/518446.html") ReadMe
+  //-   //- async asyncData --> result
+  //-   h4(v-for="item in contents") {{item.content}}
       
-    //- AppLogo
-    //- VuexList
-    //-   //- slot demo
-    //-   h2 slot demo use img
-    //-   img(src="~/assets/pic_vuex.png")
-    //- VuexEdit(v-show = 'update_show')
+  //-   AppLogo
+  //-   VuexList
+  //-     //- slot demo
+  //-     h2 slot demo use img
+  //-     img(src="~/assets/pic_vuex.png")
+  //-   VuexEdit(v-show = 'update_show')
 
-    //- 使用keepAlive後List內input文字會被保留
-    //- include:  標記「需要」被快取的組件名稱 (其餘都不快取)
-    //- exclude: 標記「不需」被快取的組件名稱 (其餘全部快取)
-    //- keepAlive(include="VuexEdit")
-    //-   component(:is="view")
+  //-   //- 使用keepAlive後List內input文字會被保留
+  //-   //- include:  標記「需要」被快取的組件名稱 (其餘都不快取)
+  //-   //- exclude: 標記「不需」被快取的組件名稱 (其餘全部快取)
+  //-   keepAlive(include="VuexEdit")
+  //-     component(:is="view")
 
-    //-     VuexEdit(v-show = 'update_show')
-    //-     //- component 內有寫 slot的才會有圖！！
-    //-     h2(slot='title') slot demo use img
-    //-     img(slot='img' src="~/assets/pic_vuex.png")
-
+  //-       VuexEdit(v-show = 'update_show')
+  //-       //- component 內有寫 slot的才會有圖！！
+  //-       h2(slot='title') slot demo use img
+  //-       img(slot='img' src="~/assets/pic_vuex.png")
+  
 </template>
 
 <script lang="ts">
