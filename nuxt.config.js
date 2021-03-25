@@ -66,5 +66,11 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [],
+  buildModules: ['@nuxt/typescript-build'],
+  typescript: {
+    typeCheck: {
+      eslint: true
+    }
+  }
 }

@@ -7,7 +7,8 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .ts,.js,.vue ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -23,8 +24,15 @@
     "vuex": "^3.1.1"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.15.3",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxt/typescript-runtime": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^6.0.0",
     "eslint": "^6.2.2",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-loader": "^3.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nuxt-property-decorator": "^2.9.1",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^8.0.0",
