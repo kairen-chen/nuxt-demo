@@ -2,7 +2,6 @@
 //- slot component:is asyncData await
 
 section.container
-  div Kairen test123123123
     <ul class="nav">
       <li>
         <a href="#" @click.prevent="changeView('AppLogo')">AppLogo</a>
