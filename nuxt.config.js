@@ -1,7 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = {
-  mode:'universal',
+  // mode:'universal',
+  mode:'spa',
   generate: {
     dir: '/Users/kairenchen/Desktop/dist'
   },
@@ -67,5 +68,7 @@ module.exports = {
     // }
   },
   plugins: [],
-  buildModules: ['@nuxt/typescript-build']
+  buildModules: [
+      '@nuxt/typescript-build'
+  ]
 }

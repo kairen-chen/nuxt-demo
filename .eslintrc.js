@@ -7,14 +7,15 @@ module.exports = {
   parser: "babel-eslint",
   parserOptions: {
     sourceType: "module",
-    ecmaVersion: 2015,
+    ecmaVersion: 2015
   },
   // required to lint *.vue files
-  // plugins: [
-  //   'vue'
-  // ],
-  extends: "plugin:vue/base",
-  plugins: ["import", "vue"],
+  extends: [
+    "plugin:vue/base"
+  ],
+  plugins: [
+    'vue'
+  ],
   // add your custom rules here
   rules: {
   }

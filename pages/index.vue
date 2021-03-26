@@ -29,6 +29,10 @@
         a.button--green(href="/random/PI12374878744344" target="_self") (第二層名稱可變動)
       .links
         a.button--green(href="/random" target="_self") 別亂跑
+
+      .links
+        a.button--green(href=" https://peterhpchen.github.io/VuejsQuest/basic/08_Watcher.html#%E4%BB%8B%E7%B4%B9" target="_self") 勇者鬥 Vue 龍
+       
       .test.button--green(@click = 'test')
         img(src="~/assets/logo/logo.png")
 
