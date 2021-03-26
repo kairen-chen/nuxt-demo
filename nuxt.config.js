@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = {
-  // mode:'universal',
-  mode:'spa',
+  mode:'universal',
+  // mode:'spa',
   generate: {
     dir: '/Users/kairenchen/Desktop/dist'
   },

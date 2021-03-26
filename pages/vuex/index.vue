@@ -56,6 +56,32 @@
 
   export default class Index extends Vue {
 
+
+
+
+
+
+
+    // SSR hook
+    public async asyncData (context: { store: any }) {
+      await context.store.dispatch('CONTENTS_READ');
+      
+      //如果不寫compute如果不寫compute也可用以下紀錄值
+      return { 'result': context.store.state.contents }
+
+      // await Promise.all([
+      //   store.dispatch('CONTENTS_READ'),
+      //   axios.get('http://localhost:4000/contents')
+      // ]).catch(res =>{
+      //    console.log("@@@@", res)
+      // });
+    }
+
+
+
+
+
+
     public update_show: boolean = false;
     public view: string = "AppLogo";
 
@@ -66,6 +92,15 @@
     // computed - End
 
     // lifecycle hooks - Start
+    public beforeCreate(): void {
+      console.log("beforeCreate");
+      
+    }
+
+    public created(): void {
+      console.log("Hello ssr");
+      console.log(this.$store.state.contents);
+    }
     public mounted(): void {
       console.log('測試:從index改變vuex的值,刷新之後會被洗掉－－>',this.$store.state.obj)
 
@@ -80,21 +115,6 @@
     // lifecycle hooks - End
 
     // methods - Start
-    public async asyncData (context: { store: any }) {
-
-      await context.store.dispatch('CONTENTS_READ');
-      
-      //如果不寫compute如果不寫compute也可用以下紀錄值
-      return { 'result': context.store.state.contents }
-
-      // await Promise.all([
-      //   store.dispatch('CONTENTS_READ'),
-      //   axios.get('http://localhost:4000/contents')
-      // ]).catch(res =>{
-      //    console.log("@@@@", res)
-      // });
-    }
-
     public changeView(c_view: string): void{
       this.view = c_view;
       this.update_show = c_view !== 'VuexList' ? false : false ;

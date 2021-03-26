@@ -9,6 +9,7 @@ export const state = () => ({
 })
 export const getters = {
   getter_content: state => {
+      alert("getter有cache機制")
       return state.contents.filter(item => item.id != null)
     },
   //使用上一個getter method dosomething

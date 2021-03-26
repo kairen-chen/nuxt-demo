@@ -2,7 +2,7 @@
 
   section.container
     app-logo
-    div#getID / {{$route.params.product}} (在URl隨便輸入試試) / {{$route.params.id}}
+    div#getID / {{ $route.params.product }} (在URl隨便輸入試試) / {{$route.params.id}}
 
 </template>
 
