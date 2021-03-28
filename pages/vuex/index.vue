@@ -66,7 +66,7 @@
     public async asyncData (context: { store: any }) {
       await context.store.dispatch('CONTENTS_READ');
       
-      //如果不寫compute如果不寫compute也可用以下紀錄值
+      //如果不寫compute也可用以下紀錄值
       return { 'result': context.store.state.contents }
 
       // await Promise.all([
