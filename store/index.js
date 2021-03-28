@@ -59,9 +59,22 @@ export const actions = {
     });
   },
   CONTENTS_READ:(context)=>{
-    return axios.get('http://localhost:4000/contents').then((res)=>{
-       context.commit('SET_CONTENT',res.data);
-    });
+    // return axios.get('http://localhost:4000/contents')
+    // .then((res)=>{
+    //    context.commit('SET_CONTENT',res.data);
+    // });
+
+    return new Promise((reslove, reject) => {
+      reslove(
+        axios.get('http://localhost:4000/contents')
+        .then((res)=>{
+          context.commit('SET_CONTENT',res.data);
+        })
+      )
+      reject(console.log("error!!!"))
+    })
+
+
   },
   CONTENT_UPDATE:(context,{id ,input})=>{
     let item=context.state.contents.find((item)=>{

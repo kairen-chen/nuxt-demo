@@ -15,7 +15,9 @@
     </ul>
     h1  
       a(href = "https://iter01.com/518446.html") ReadMe
-    //- async asyncData --> result
+
+    //- try  --> h4(v-for="item in result") {{item.content}}
+    //- h4(v-for="item in result") {{item.content}}
     h4(v-for="item in contents") {{item.content}}
       
     //- 使用keepAlive後List內input文字會被保留
@@ -37,6 +39,7 @@
   import VuexList from '~/components/vuex_list.vue';
   import VuexEdit from '~/components/vuex_edit.vue';
   import bus from '~/components/bus.js';
+  import axios from '@nuxtjs/axios';
 
   interface contents {
     data: Array<item>
@@ -58,24 +61,34 @@
 
 
 
-
-
-
-
-    // SSR hook
-    public async asyncData (context: { store: any }) {
-      await context.store.dispatch('CONTENTS_READ');
-      
-      //如果不寫compute也可用以下紀錄值
-      return { 'result': context.store.state.contents }
-
-      // await Promise.all([
-      //   store.dispatch('CONTENTS_READ'),
-      //   axios.get('http://localhost:4000/contents')
-      // ]).catch(res =>{
-      //    console.log("@@@@", res)
-      // });
+    // // SSR hook return Promise
+    public asyncData (context: any ){
+      return Promise.all([
+        context.store.dispatch('CONTENTS_READ')
+      ])
+      .then(res => {
+        console.log("@@@",res)
+      })
+      .catch(res =>{
+          console.log("@@@@", res)
+      });
+      // return context.store.dispatch('CONTENTS_READ')
     }
+
+    // // SSR hook
+    // public async asyncData(context: any ): Promise<any> {
+    //   await context.store.dispatch('CONTENTS_READ');
+      
+    //   //如果不寫compute也可用以下紀錄值
+    //   return { 'result': context.store.state.contents }
+
+    //   // await Promise.all([
+    //   //   store.dispatch('CONTENTS_READ'),
+    //   //   axios.get('http://localhost:4000/contents')
+    //   // ]).catch(res =>{
+    //   //    console.log("@@@@", res)
+    //   // });
+    // }
 
 
 
@@ -97,10 +110,7 @@
       
     }
 
-    public created(): void {
-      console.log("Hello ssr");
-      console.log(this.$store.state.contents);
-    }
+    public created(): void {}
     public mounted(): void {
       console.log('測試:從index改變vuex的值,刷新之後會被洗掉－－>',this.$store.state.obj)
 

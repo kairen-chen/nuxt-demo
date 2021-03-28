@@ -32,7 +32,10 @@
 
       .links
         a.button--green(href=" https://peterhpchen.github.io/VuejsQuest/basic/08_Watcher.html#%E4%BB%8B%E7%B4%B9" target="_self") 勇者鬥 Vue 龍
-       
+
+      .links
+        a.button--green(href=" https://medium.com/@dontz1230/nuxt-asyncdata-api-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F-b8bf01c2ae26" target="_self") nuxt life cycle
+      
       .test.button--green(@click = 'test')
         img(src="~/assets/logo/logo.png")
 

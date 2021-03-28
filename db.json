@@ -1,6 +1,6 @@
 {
   "__npm": [
-    " json-server --watch db.json --port 400"
+    "npx json-server --watch db.json --port 4000"
   ],
   "contents": [
     {
