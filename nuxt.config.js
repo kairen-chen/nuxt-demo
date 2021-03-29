@@ -69,11 +69,6 @@ module.exports = {
   },
   plugins: [],
   buildModules: [
-      ['@nuxt/typescript-build'],
-      
-      // 外掛客製化router
-      // ["@nuxtjs/router", {
-      //   fileName: "router.js"
-      // }]
+      ['@nuxt/typescript-build']
   ]
 }
