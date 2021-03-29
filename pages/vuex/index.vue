@@ -17,7 +17,8 @@
       a(href = "https://iter01.com/518446.html") ReadMe
 
     //- try  --> h4(v-for="item in result") {{item.content}}
-    //- h4(v-for="item in result") {{item.content}}
+    h4(v-for="item in result") {{item.content}}
+    hr
     h4(v-for="item in contents") {{item.content}}
       
     //- 使用keepAlive後List內input文字會被保留
@@ -39,7 +40,6 @@
   import VuexList from '~/components/vuex_list.vue';
   import VuexEdit from '~/components/vuex_edit.vue';
   import bus from '~/components/bus.js';
-  import axios from '@nuxtjs/axios';
 
   interface contents {
     data: Array<item>
@@ -58,29 +58,22 @@
   })
 
   export default class Index extends Vue {
-
-
-
+    public result: Array<any> = [];
     // // SSR hook return Promise
     public asyncData (context: any ){
       return Promise.all([
-        context.store.dispatch('CONTENTS_READ')
-      ])
-      .then(res => {
-        console.log("@@@",res)
+        context.store.dispatch('CONTENTS_READ'),
+      ]).then(() => {
+          return { 'result': context.store.state.contents }
       })
-      .catch(res =>{
-          console.log("@@@@", res)
-      });
-      // return context.store.dispatch('CONTENTS_READ')
     }
 
     // // SSR hook
     // public async asyncData(context: any ): Promise<any> {
-    //   await context.store.dispatch('CONTENTS_READ');
+    //     await context.store.dispatch('CONTENTS_READ');
       
     //   //如果不寫compute也可用以下紀錄值
-    //   return { 'result': context.store.state.contents }
+    //  return { 'result': context.store.state.contents }
 
     //   // await Promise.all([
     //   //   store.dispatch('CONTENTS_READ'),
@@ -89,8 +82,6 @@
     //   //    console.log("@@@@", res)
     //   // });
     // }
-
-
 
 
 

@@ -64,17 +64,15 @@ export const actions = {
     //    context.commit('SET_CONTENT',res.data);
     // });
 
-    return new Promise((reslove, reject) => {
-      reslove(
-        axios.get('http://localhost:4000/contents')
-        .then((res)=>{
-          context.commit('SET_CONTENT',res.data);
-        })
-      )
-      reject(console.log("error!!!"))
-    })
-
-
+    return axios.get('http://localhost:4000/contents')
+      .then((res)=>{
+        if (res.status === 200)
+          Promise.resolve(context.commit('SET_CONTENT', res.data));
+        else
+          Promise.reject(console.log("server warning!!! --> ", res.status))
+      }).catch(err=>{
+          Promise.reject(console.log("server error!!! --> ", err))
+      });
   },
   CONTENT_UPDATE:(context,{id ,input})=>{
     let item=context.state.contents.find((item)=>{
