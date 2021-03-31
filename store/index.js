@@ -2,6 +2,7 @@
 // import Vuex from 'vuex';
 // import axios from 'axios'
 // Vue.use(Vuex)
+
 export const state = () => ({
     obj:'Path -> store/index.js',
     contents:[],//要共用的data

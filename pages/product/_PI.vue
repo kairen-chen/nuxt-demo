@@ -3,7 +3,7 @@
       .inline
         app-logo(msg="產品頁")
         com1
-      div /資料目錄為固定(product)／{{$route.params.PI}}
+      div /資料目錄為固定(product)／{{ $route.params.PI }}
       div#getID shop_id = {{$route.query.shop_id}}
       div#getID {{PI_msg}}
 

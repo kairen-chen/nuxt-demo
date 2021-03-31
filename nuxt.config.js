@@ -37,7 +37,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: 'red' },
   /*
   ** Build configuration
   */
@@ -49,7 +49,7 @@ module.exports = {
       {
         '$': 'jquery',
         'axios':'axios',
-        Vuex:'vuex',
+        // Vuex:'vuex',
         bus: ['~/components/bus.js', 'default']
       }
     )],
