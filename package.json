@@ -17,6 +17,7 @@
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/eslint-config-typescript": "^6.0.0",
+    "@nuxtjs/router": "^1.6.1",
     "babel-eslint": "^10.0.3",
     "bootstrap": "^4.0.0-alpha.6",
     "cross-env": "^5.2.0",
