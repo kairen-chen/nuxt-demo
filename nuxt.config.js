@@ -37,7 +37,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: 'red' },
+  loading: { color: '#3B8070' },
   /*
   ** Build configuration
   */
@@ -49,7 +49,7 @@ module.exports = {
       {
         '$': 'jquery',
         'axios':'axios',
-        // Vuex:'vuex',
+        Vuex:'vuex',
         bus: ['~/components/bus.js', 'default']
       }
     )],
@@ -69,6 +69,11 @@ module.exports = {
   },
   plugins: [],
   buildModules: [
-      ['@nuxt/typescript-build']
+      ['@nuxt/typescript-build'],
+      
+      // 外掛客製化router
+      ["@nuxtjs/router", {
+        fileName: "router.js"
+      }]
   ]
 }
