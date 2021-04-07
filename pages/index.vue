@@ -23,12 +23,19 @@
           | n-link-產品頁
           | 字太多用 '|'組
           //- a.button--grey(:href="'/product/'+PItest+'?shop_id='+shop_id" target="_self") 產品頁
-      nuxt-link.button--grey(:to="{name:'vuex'}") n-link-VUEX
 
-      router-link.button--grey(:to="{path:'/todolist'}") Todolist
+      .links
+        nuxt-link.button--grey(:to="{name:'vuex'}") n-link-VUEX
+
+      .links
+        router-link.button--grey(:to="{path:'/todolist'}") Todolist
+
+      .links
+        nuxt-link.button--grey(:to="{name:'pug'}") PUG
 
       .links
         a.button--green(href="/random/PI12374878744344" target="_self") (第二層名稱可變動)
+
       .links
         a.button--green(href="/random" target="_self") 別亂跑
 
@@ -38,7 +45,7 @@
       .links
         a.button--green(href=" https://medium.com/@dontz1230/nuxt-asyncdata-api-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F-b8bf01c2ae26" target="_self") nuxt life cycle
       
-      .test.button--green(@click = 'test')
+      .test.button--green(@click = 'getRouteName')
         img(src="~/assets/logo/logo.png")
 
       div bootstrap demo 哈哈夾雜著(pug + html)也行-->
@@ -84,8 +91,8 @@
         this.$store.commit('change_obj','kairen');
       },
       methods:{
-        test(){
-          alert(this.$route.name)
+        getRouteName(){
+          alert(`route.name -> ${this.$route.name}`)
           this.skill_arr.map((val,key) => console.log(key,val));
         }
       }
