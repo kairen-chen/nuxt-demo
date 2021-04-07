@@ -1,14 +1,16 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 // import Vuex from 'vuex';
 // import axios from 'axios'
 // Vue.use(Vuex)
 
 export const state = () => ({
-  contents:[],//要共用的data
-  update_param:''
+    obj:'Path -> store/index.js',
+    contents:[],//要共用的data
+    update_param:''
 })
 export const getters = {
-  getter_content: (state) => {
+  getter_content: state => {
+      alert("getter有cache機制")
       return state.contents.filter(item => item.id != null)
     },
   //使用上一個getter method dosomething
@@ -21,6 +23,9 @@ export const getters = {
   }
 }
 export const mutations = {
+  change_obj(state,data){
+    state.obj = data;
+  },
   SET_CONTENT(state,data){
       state.contents = data;
   },
@@ -43,21 +48,32 @@ export const mutations = {
 }
 
 export const actions = {
-  CONTENTS_READ:(context)=>{
-    return axios.get('http://localhost:4000/contents').then((res)=>{
-       context.commit('SET_CONTENT',res.data);
-    });
-  },
   // async CONTENTS_READ (context){
   //   var res = await axios.get('http://localhost:4000/contents');
   //   context.commit('SET_CONTENT',res.data);
   // },
-  CONTENTS_DELETE:(context,{target})=>{
-    let index=context.state.contents.indexOf(target)
-    if(index==-1) return false
-    return axios.delete(`http://localhost:4000/contents/${target.id}`).then((res)=>{
-      context.commit('DELETE_CONTENT', index);
-    })
+  CONTENTS_CREATE:(context,{input})=>{
+    return axios.post('http://localhost:4000/contents',{
+      content:input
+    }).then((res)=>{
+      context.commit('ADD_CONTENT',res.data);
+    });
+  },
+  CONTENTS_READ:(context)=>{
+    // return axios.get('http://localhost:4000/contents')
+    // .then((res)=>{
+    //    context.commit('SET_CONTENT',res.data);
+    // });
+
+    return axios.get('http://localhost:4000/contents')
+      .then((res)=>{
+        if (res.status === 200)
+          Promise.resolve(context.commit('SET_CONTENT', res.data));
+        else
+          Promise.reject(console.log("server warning!!! --> ", res.status))
+      }).catch(err=>{
+          Promise.reject(console.log("server error!!! --> ", err))
+      });
   },
   CONTENT_UPDATE:(context,{id ,input})=>{
     let item=context.state.contents.find((item)=>{
@@ -65,10 +81,17 @@ export const actions = {
     })
     if(!item) return false
     return axios.patch(
-        'http://localhost:4000/contents/'+item.id,{content:input}
+      'http://localhost:4000/contents/'+item.id,{content:input}
       ).then((res)=>{
         // item.content=input;//state資料不會同步更新
-      context.commit('UPDATE_CONTENT', {item,input});
+        context.commit('UPDATE_CONTENT', {item,input});
+      })
+    },
+  CONTENTS_DELETE:(context,{target})=>{
+    let index=context.state.contents.indexOf(target)
+    if(index==-1) return false
+    return axios.delete(`http://localhost:4000/contents/${target.id}`).then((res)=>{
+      context.commit('DELETE_CONTENT', index);
     })
   }
 }

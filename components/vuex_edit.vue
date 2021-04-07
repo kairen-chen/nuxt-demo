@@ -3,9 +3,13 @@
     p
       //- 因使用vuex state render computed內無法做set 故v-model會error,替代方案
       input(type='text' :value='get_uptate_obj.content' @keyup='keyup($event.currentTarget.value)')
+
       //- input(type='text'  v-model.trim='input')
 
-      a(href='javacript:;' @click='updateHandler')  UPDATE
+      span(@click='updateHandler')  UPDATE
+    p keepAlive demo -->
+
+      input(type='text')
 </template>
 
 
@@ -15,7 +19,7 @@
     },
     data(){
       return{
-        input:''
+        input:""
       }
     },
     computed:{
@@ -36,26 +40,30 @@
       bus.$on('call_method',()  => {
          this.component_method();
       });
+
+      
+    },
+    updated(){
+      this.input = this.get_uptate_obj.content;
     },
     methods:{
       keyup(val){
         this.input = val;
       },
       updateHandler (){
-        if(this.input){
+        if(this.input !== this.get_uptate_obj.content){
           this.$store.dispatch('CONTENT_UPDATE',{
             id:this.get_uptate_obj.id,
             input:this.input
           }).then(()=>{
             bus.$emit('update_show',false)
-            console.log('success')
           })
         }else{
           bus.$emit('update_show',false)
         }
       },
       component_method:()=>{
-        alert('component_method')
+       alert('我是vuex_edit method！！')
       }
     }
   }

@@ -2,6 +2,11 @@ const webpack = require('webpack');
 
 module.exports = {
   mode:'universal',
+  // mode:'spa',
+  // generate: {
+  //   dir: '/Users/kairenchen/Desktop/dist'
+  // },
+  // buildDir: '/Users/kairenchen/Desktop/test/.nuxt',
   server: {
     port: 80, // default: 3000
     host: '0.0.0.0', // default: localhostff
@@ -32,7 +37,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: 'red' },
   /*
   ** Build configuration
   */
@@ -44,23 +49,26 @@ module.exports = {
       {
         '$': 'jquery',
         'axios':'axios',
-        Vuex:'vuex',
+        // Vuex:'vuex',
         bus: ['~/components/bus.js', 'default']
       }
     )],
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
+    // extend (config, { isDev, isClient }) { 
+    //   if (isDev && isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+          // loader: 'eslint-loader',
+    //       exclude: /(node_modules)/
+    //     })
+    //   }
+    // }
   },
-  plugins: []
+  plugins: [],
+  buildModules: [
+      ['@nuxt/typescript-build']
+  ]
 }
