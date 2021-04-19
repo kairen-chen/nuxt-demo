@@ -8,6 +8,9 @@
 # install dependencies
 $ npm install # Or yarn install
 
+# start json-server
+npx json-server --watch db.json --port 4000
+
 # serve with hot reload at localhost:3000
 $ npm run dev
 
