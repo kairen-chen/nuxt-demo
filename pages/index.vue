@@ -37,9 +37,6 @@
         nuxt-link.button--grey(:to="{name:'vuex'}") n-link-VUEX
 
       .links
-        router-link.button--grey(:to="{path:'/todolist'}") Todolist
-
-      .links
         a.button--green(href="/random/PI12374878744344" target="_self") (第二層名稱可變動)
 
       .links
