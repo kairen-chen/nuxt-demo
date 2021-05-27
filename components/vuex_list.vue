@@ -127,7 +127,7 @@
         console.log('getter_demo(傳統):',this.$store.getters.getter_content_ById(index))
         //getter解構後可直接調用
         console.log('getter_demo(擴展1):',this.getter_content_ById(index))
-        console.log('getter_demo(擴展2):',this.getter_content_ById(index))
+        console.log('getter_demo(擴展2):',this.getter_content_count)
       },
       call_method:()=>{
         //模擬emit,on時call method(父、component)

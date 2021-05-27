@@ -16,7 +16,7 @@
     h1  
       a(href = "https://iter01.com/518446.html") ReadMe
 
-    //- try  --> h4(v-for="item in result") {{item.content}}
+    h1 asyncData內return 與 computed return 寫法都可達到SSR效果 ->
     h4(v-for="item in result") {{item.content}}
     hr
     h4(v-for="item in contents") {{item.content}}
@@ -95,13 +95,16 @@
     }
     // computed - End
 
-    // lifecycle hooks - Start
+    //nuxt lifecycle hooks - process
     public beforeCreate(): void {
-      console.log("beforeCreate");
-      
+      console.log("beforeCreate@@");
     }
 
-    public created(): void {}
+    //nuxt lifecycle hooks - process
+    public created(): void {
+      console.log("created@@");
+    }
+    
     public mounted(): void {
       console.log('測試:從index改變vuex的值,刷新之後會被洗掉－－>',this.$store.state.obj)
 
