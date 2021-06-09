@@ -1,7 +1,7 @@
 <template lang="pug">
     <div class="main_container">
         <transition-group tag="div" class="slidebox_container" :name="transitionName">
-            <div class="page" v-for="(img,index) of imgs" :key="index" v-show="index === show">
+            <div class="page" v-for="(img,index) of imgs" :key="img.src" v-show="index === show">
                 <img :src="img.src">
             </div>
         </transition-group>

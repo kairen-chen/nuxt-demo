@@ -56,7 +56,7 @@
       VuexEdit
     }
   })
-
+  
   export default class Index extends Vue {
     public result: Array<any> = [];
     // // SSR hook return Promise
@@ -97,12 +97,12 @@
 
     //nuxt lifecycle hooks - process
     public beforeCreate(): void {
-      console.log("beforeCreate@@");
+      console.log("server efficient hook -> beforeCreate@@");
     }
 
     //nuxt lifecycle hooks - process
     public created(): void {
-      console.log("created@@");
+      console.log("server efficient hook -> created@@");
     }
     
     public mounted(): void {
