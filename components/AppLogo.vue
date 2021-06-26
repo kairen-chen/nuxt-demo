@@ -7,7 +7,7 @@
         .Triangle.Triangle--three
         .Triangle.Triangle--four
       .text  父傳子 -->  {{msg}}
-      .links(v-show="btn_flag")
+      .links(v-if="btn_flag")
         a.button--green(href="javascript:;" @click="changeTitle") 可透過我改變父值
       .text(v-show="btn_flag")  子傳子 -->  {{child_to_child}}
     </section>
@@ -58,7 +58,7 @@
               this.$parent.$emit('changemag',this.compoent_msg+',透過(emit,on)修改_PI.vue 的 PI_msg')
         },
         route_match(){
-          this.btn_flag = this.$router.history.current.name.toString().match('product-PI')? 1:0;
+          this.btn_flag = this.$router.history.current.name.toString() == 'product-PI' ? 1:0;
         }
       }
     }
