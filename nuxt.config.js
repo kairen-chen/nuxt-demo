@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = {
-  target: 'static',
-  ssr: false,
+  // target: 'static',
+  // ssr: false,
   mode:'universal',
   // mode:'spa',
   // generate: {
@@ -10,8 +10,8 @@ module.exports = {
   // },
   // buildDir: '/Users/kairenchen/Desktop/test/.nuxt',
   server: {
-    // port: 80, // default: 3000
-    // host: '0.0.0.0', // default: localhost
+    port: 80, // default: 3000
+    host: '0.0.0.0', // default: localhost
   },
   /*
   ** Headers of the page
