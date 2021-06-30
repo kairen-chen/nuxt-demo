@@ -8,8 +8,8 @@ module.exports = {
   // },
   // buildDir: '/Users/kairenchen/Desktop/test/.nuxt',
   server: {
-    port: 80, // default: 3000
-    host: '0.0.0.0', // default: localhostff
+    // port: 80, // default: 3000
+    // host: '0.0.0.0', // default: localhostff
   },
   /*
   ** Headers of the page
