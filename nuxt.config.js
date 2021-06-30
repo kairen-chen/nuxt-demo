@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = {
+  target: 'static',
+  ssr: false,
   mode:'universal',
   // mode:'spa',
   // generate: {
