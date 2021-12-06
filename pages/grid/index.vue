@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <AppLogo />
     <div class="context1">
       <a
         class="item href"
@@ -23,7 +24,15 @@
     </div>
   </div>
 </template>
+<script>
+import AppLogo from "~/components/AppLogo.vue";
 
+export default {
+  components: {
+    AppLogo,
+  },
+};
+</script>
 <style lang="scss" scoped>
 .container {
   flex-direction: column;
