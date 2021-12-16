@@ -1,38 +1,37 @@
 {
-  "name": "nuxt-demo",
+  "name": "microFun",
   "version": "1.0.0",
-  "description": "nuxt-demo",
-  "author": "kairen",
+  "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
+    "dev": "cross-env MODE=dev nuxt",
+    "devBuild": "cross-env MODE=devOutsideNetwork nuxt build",
+    "stageBuild": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .ts,.js,.vue ."
+    "stageGenerate": "nuxt generate",
+    "devGenerate": "cross-env MODE=devOutsideNetwork nuxt generate",
+    "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "core-js": "^2.6.12",
+    "nuxt": "^2.15.8",
+    "qrcanvas-vue": "^2.1.0",
+    "view-design": "^4.6.1",
+    "vue-qrcode": "^1.0.0",
+    "webpack": "^4.46.0",
+    "xlsx": "^0.17.1"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.15.3",
-    "@nuxt/typescript-build": "^2.1.0",
-    "@nuxt/typescript-runtime": "^2.1.0",
-    "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/eslint-config-typescript": "^6.0.0",
+    "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/router": "^1.6.1",
-    "babel-eslint": "^10.0.3",
-    "bootstrap": "^4.0.0-alpha.6",
-    "cross-env": "^5.2.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^5.2.3",
-    "jquery": "^3.4.1",
-    "node-sass": "^4.14.1",
-    "nuxt": "^2.11.0",
-    "nuxt-property-decorator": "^2.9.1",
-    "pug": "^2.0.4",
-    "pug-plain-loader": "^1.0.0",
-    "sass-loader": "^8.0.2",
-    "vuex": "^3.6.2",
-    "webpack": "^4.39.3"
+    "@vue/test-utils": "^1.2.1",
+    "axios": "0.16.2",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^27.0.5",
+    "cross-env": "^7.0.3",
+    "crypto-js": "^3.1.9-1",
+    "jest": "^27.0.5",
+    "sass": "^1.37.5",
+    "sass-loader": "^10.2.0",
+    "vue-jest": "^3.0.4"
   }
 }
