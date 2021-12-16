@@ -1,0 +1,18 @@
+@import "@/assets/scss/common/_common.scss";
+.wrapper {
+  padding: $MobileHeaderHeight 0 10px;
+  @include BreakPointLarge {
+    padding-top: calc(#{$DesktopHeaderHeight});
+  }
+  .container {
+    padding-top: 0;
+    text-align: center;
+  }
+  &::v-deep {
+    .demo-carousel {
+      @include BreakPointLarge {
+        max-height: 540px;
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.headerContainer {
+  .rightContainer {
+    display: flex;
+    min-height: 45px;
+  }
+  .nav {
+    height: $MobileHeaderHeight;
+    .hamburgerBtn {
+      padding: 0;
+      margin: 0 10px;
+    }
+    .logo {
+      position: absolute;
+      left: calc(50% - 175px / 2);
+      top: -3px;
+      a {
+        transform: scale(0.8);
+        width: 175px;
+        height: 50px;
+        background-image: url("@/assets/images/header/nav/D/logo.svg");
+        @include BreakPointMinSmall {
+          transform: scale(0.7);
+        }
+      }
+    }
+    .login {
+      display: none;
+    }
+  }
+  .navContentSection {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    height: 100%;
+    transform: translateX(-100%);
+    background-color: map-get($color, "White30");
+    @include BreakPointMinSmall {
+      width: 270px;
+    }
+    ul {
+      margin-top: 50px;
+      overflow-y: auto;
+      padding: 20px;
+      li {
+        padding: 12px 0 11px 30px;
+        border-bottom: 1px solid map-get($color, "Gary50");
+      }
+      a {
+        justify-content: flex-start;
+        color: map-get($color, "Orange10");
+        font-size: 20px;
+        img {
+          margin-right: 20px;
+        }
+      }
+    }
+    .close {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 26px;
+      color: map-get($color, "Gary40");
+    }
+    .menuBtn {
+      align-self: flex-end;
+      justify-content: center;
+    }
+    i {
+      align-self: flex-end;
+    }
+    &.active {
+      transform: translateX(0);
+      transition: transform 0.3s;
+    }
+  }
+  .searchContentSection {
+    @include BreakPointMinSmall {
+      left: calc(50% - 300px / 2);
+      width: 300px;
+    }
+  }
+
+  .searchContentSection,
+  .navContentSection {
+    z-index: 12;
+  }
+  .navContentSection {
+    .navIcon {
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-right: 20px;
+      width: 24px;
+      height: 24px;
+    }
+    .new {
+      background-image: url("@/assets/images/header/nav/M/ic_volunteer_mobile.svg");
+    }
+    .enterprise {
+      background-image: url("@/assets/images/header/nav/M/ic_volunteer_company_mobile.svg");
+    }
+    .supply {
+      background-image: url("@/assets/images/header/nav/M/ic_supplies_mobile.svg");
+    }
+    .donate {
+      background-image: url("@/assets/images/header/nav/M/ic_money_mobile.svg");
+    }
+    .npo {
+      background-image: url("@/assets/images/header/nav/M/ic_event_mobile.svg");
+    }
+  }
+}

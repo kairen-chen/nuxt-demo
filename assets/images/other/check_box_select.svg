@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/ check box_select</title>
+    <g id="Icon/-check-box_select" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#EC6C01" stroke-width="2" fill="#EC6C01" x="1" y="1" width="14" height="14" rx="2"></rect>
+        <polygon id="Path" fill="#FFFFFF" points="6 13 1 8 2.41 6.59 6 10.17 13.59 2.58 15 4"></polygon>
+    </g>
+</svg>

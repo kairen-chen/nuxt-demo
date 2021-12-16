@@ -1,0 +1,202 @@
+@import "@/assets/scss/common/_common.scss";
+.container {
+  display: flex;
+  align-items: center;
+  background-color: map-get($color, White);
+  padding: 0;
+  @include BreakPointLarge {
+    width: 100%;
+    max-width: 100vw;
+    background-color: map-get($color, "White40");
+    padding-top: $DesktopHeaderHeight;
+    margin: 0px auto;
+  }
+  .loginLoading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(10px);
+    background-color: map-get($color, "White30_opacity");
+    z-index: 12;
+  }
+}
+.loginWrapper {
+  width: 320px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: calc(#{$MobileHeaderHeight} + 10px) 0;
+  background-color: map-get($color, White);
+  margin: 0 auto;
+  @include BreakPointMinSmall {
+    width: 270px;
+  }
+  @include BreakPointLarge {
+    border-radius: 16px;
+    box-shadow: 1px 5px 20px 1px rgb(0 0 0 / 30%);
+    width: 674px;
+    padding: 60px 0;
+    margin: 20px auto;
+  }
+  .titileContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    @include BreakPointLarge {
+      flex-direction: row;
+    }
+    .logo {
+      width: 70px;
+      margin-bottom: 10px;
+      @include BreakPointLarge {
+        width: 40px;
+        margin: 0 5px 0 0;
+      }
+    }
+    .orangeTitle {
+      margin-left: 20px;
+      letter-spacing: 20px;
+      font-size: 40px;
+      color: map-get($color, "Orange10");
+    }
+    .title {
+      position: relative;
+      font-size: 24px;
+      color: map-get($color, "Gary40");
+      font-family: PingFangTC;
+      font-weight: 500;
+      @include BreakPointLarge {
+        font-size: 36px;
+      }
+    }
+  }
+
+  .formContainer {
+    width: 100%;
+    margin: 0 auto;
+    @include BreakPointLarge {
+      width: 350px;
+    }
+    .inputContainer {
+      position: relative;
+      input {
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+        border: 1px solid map-get($color, "Gary30");
+        border-radius: 25px;
+        padding-left: 50px;
+        margin-bottom: 25px;
+      }
+
+      .password {
+        margin-bottom: 0;
+      }
+
+      .icon {
+        color: map-get($color, "Gary30");
+        position: absolute;
+        font-size: 24px;
+        top: 13px;
+        left: 18px;
+        opacity: 0.7;
+      }
+    }
+    .forgetPasswordContainer {
+      display: flex;
+      justify-content: flex-end;
+      .forgetPassword {
+        display: inline-block;
+        margin: 15px 0 40px;
+      }
+    }
+    .registMember {
+      display: flex;
+      justify-content: center;
+      margin-top: 21px;
+      div {
+        color: map-get($color, Black);
+      }
+    }
+    .orangeFullColorBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      height: 50px;
+      width: 100%;
+      border: 0;
+      font-weight: inherit;
+      color: map-get($color, White);
+      background-color: map-get($color, "Orange10");
+      margin-bottom: 20px;
+    }
+    .blueFullColorBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      height: 50px;
+      width: 100%;
+      border: 0;
+      font-weight: inherit;
+      color: map-get($color, White);
+      background-color: map-get($color, "Blue10");
+      margin-bottom: 20px;
+    }
+    .garyBorderBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 25px;
+      height: 50px;
+      color: map-get($color, "Gary40");
+      border: 1px solid map-get($color, "Gary30");
+      margin-bottom: 20px;
+      img {
+        margin-right: 10px;
+        width: 20px;
+      }
+    }
+    .blueBorderBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 25px;
+      height: 50px;
+      color: map-get($color, "Blue10");
+      border: 1px solid map-get($color, "Blue10");
+      margin-bottom: 20px;
+    }
+    .orangeBorderBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 25px;
+      height: 50px;
+      color: map-get($color, "Orange10");
+      border: 1px solid map-get($color, "Orange10");
+      margin-bottom: 20px;
+    }
+  }
+  a {
+    text-decoration: revert;
+  }
+  .orangeFullColorBtn,
+  .blueFullColorBtn,
+  .garyBorderBtn,
+  .blueBorderBtn,
+  .orangeBorderBtn {
+    text-decoration: unset;
+    cursor: pointer;
+    line-height: 15px;
+  }
+}

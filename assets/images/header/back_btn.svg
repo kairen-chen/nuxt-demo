@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>back_btn</title>
+    <g id="back_btn" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#BEBEBE" fill="#FFFFFF" cx="21" cy="21" r="20.5"></circle>
+        <path d="M25.5132079,18 L27,19.475971 L21.7433961,24.6943164 C21.3644118,25.0705424 20.76807,25.0994828 20.3556461,24.7811378 L20.2566039,24.6943164 L15,19.475971 L16.4867921,18 L21,22.4795392 L25.5132079,18 Z" id="Path-4" fill="#EC6C01" transform="translate(21.000000, 21.500000) scale(1, -1) translate(-21.000000, -21.500000) "></path>
+    </g>
+</svg>

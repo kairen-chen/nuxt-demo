@@ -1,0 +1,28 @@
+.modal::v-deep {
+  .ivu-modal-wrap {
+    display: flex;
+    align-items: center;
+  }
+  .ivu-modal {
+    top: 0;
+  }
+  .ivu-modal-body {
+    max-height: 70vh;
+    overflow: auto;
+  }
+  .ivu-btn-text,
+  .ivu-btn {
+    background-color: map-get($color, "Orange10");
+    border: 0;
+    color: map-get($color, White);
+  }
+  //   取消按鈕隱藏
+  .ivu-btn-text {
+    display: none;
+  }
+  &.cancelDisplay {
+    .ivu-btn-text {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon/ img_delete</title>
+    <g id="Icon/-img_delete" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#EC6C01" stroke-width="3" fill="#EC6C01" x="1.5" y="1.5" width="21" height="21" rx="3"></rect>
+        <path d="M13.6,4 L13.6,10.4 L20,10.4 L20,13.6 L13.6,13.6 L13.6,20 L10.4,20 L10.4,13.6 L4,13.6 L4,10.4 L10.4,10.4 L10.4,4 L13.6,4 Z" id="Combined-Shape" fill="#FFFFFF" transform="translate(12.000000, 12.000000) rotate(45.000000) translate(-12.000000, -12.000000) "></path>
+    </g>
+</svg>

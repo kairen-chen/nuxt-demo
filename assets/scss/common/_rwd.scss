@@ -1,0 +1,37 @@
+// Break points guildlines
+// https://www.notion.so/Grid-Layout-662a798ef98649d9b3955a92c48e119d
+
+$breakPoint: (
+  large: 1024px,
+  medium: 1023px,
+  min: 320px,
+);
+
+:export {
+  breakPointLarge: map-get($breakPoint, large);
+  breakPointMedium: map-get($breakPoint, medium);
+}
+
+@mixin BreakPointLarge() {
+  @media (min-width: map-get($breakPoint, large)) {
+    @content;
+  }
+}
+
+@mixin BreakPointSmall() {
+  @media screen and (max-width: map-get($breakPoint, medium)) {
+    @content;
+  }
+}
+
+@mixin BreakPointMinSmall() {
+  @media screen and (max-width: map-get($breakPoint, min)) {
+    @content;
+  }
+}
+
+@mixin ForIE() {
+  @media (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}

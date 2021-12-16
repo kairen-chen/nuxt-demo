@@ -1,0 +1,177 @@
+.headerContainer {
+  padding: 0 134px 0 70px;
+
+  .nav {
+    height: $DesktopHeaderHeight;
+    .hamburgerBtn {
+      display: none;
+    }
+    .logo {
+      a {
+        width: 175px;
+        height: 55px;
+        background-image: url("@/assets/images/header/nav/D/logo.svg");
+      }
+    }
+    .proLogo {
+      position: absolute;
+      width: 44px;
+      right: 50px;
+    }
+    .rightContainer {
+      display: flex;
+      .searchIcon {
+        margin-right: 10px;
+      }
+    }
+    .member,
+    .searchIcon {
+      display: none;
+    }
+    .login {
+      width: 100px;
+      height: 34px;
+      background-color: unset;
+      color: map-get($color, White);
+      border: 1px solid map-get($color, White);
+      border-radius: 17px;
+      background-color: map-get($color, "Orange20");
+    }
+  }
+  .navContentSection {
+    position: absolute;
+    top: 0px;
+    left: 270px;
+    box-shadow: unset;
+    .menuBtn {
+      display: none;
+    }
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      li {
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
+        a {
+          padding: 0 10px 0 10px;
+          height: $DesktopHeaderHeight;
+          color: map-get($color, White);
+          img {
+            width: 25px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+          }
+          &.router-link-exact-active {
+            background: map-get($color, White);
+            color: map-get($color, "Orange10");
+          }
+        }
+      }
+    }
+    .navIcon {
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 24px;
+      height: 24px;
+      margin-right: 11px;
+    }
+    .new {
+      background-image: url("@/assets/images/header/nav/D/ic_volunteer_w.svg");
+      &.active {
+        background-image: url("@/assets/images/header/nav/D/ic_volunteer_select.svg");
+      }
+    }
+    .enterprise {
+      background-image: url("@/assets/images/header/nav/D/ic_volunteer_company_w.svg");
+      &.active {
+        background-image: url("@/assets/images/header/nav/D/ic_volunteer_company_select.svg");
+      }
+    }
+    .supply {
+      background-image: url("@/assets/images/header/nav/D/ic_supplies_w.svg");
+      &.active {
+        background-image: url("@/assets/images/header/nav/D/ic_supplies_select.svg");
+      }
+    }
+    .donate {
+      background-image: url("@/assets/images/header/nav/D/ic_money_w.svg");
+      &.active {
+        background-image: url("@/assets/images/header/nav/D/ic_money_select.svg");
+      }
+    }
+    .npo {
+      background-image: url("@/assets/images/header/nav/D/ic_event_w.svg");
+      &.active {
+        background-image: url("@/assets/images/header/nav/D/ic_event_select.svg");
+      }
+    }
+  }
+  .photoContainer {
+    height: calc(#{$DesktopHeaderHeight} - 5px);
+    .poptip {
+      top: 50px;
+      right: 60px;
+    }
+  }
+}
+.searchContentSection {
+  display: flex;
+  left: auto;
+  top: 5px;
+  right: 245px;
+  width: 276px;
+  input {
+    height: 34px;
+    font-size: 16px;
+    border-radius: 17px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .headerContainer {
+    padding: 0 10px;
+    .navContentSection {
+      left: 220px;
+      ul li {
+        &:not(:last-child) {
+          margin-right: 0px;
+        }
+      }
+    }
+  }
+  .searchContentSection {
+    right: 115px;
+  }
+}
+
+@media (min-width: map-get($breakPoint, large)) and (max-width: 1140px) {
+  .headerContainer {
+    padding: 0 10px;
+    .navContentSection {
+      left: 195px;
+    }
+  }
+  .searchContentSection {
+    width: 176px;
+    right: 115px;
+    input {
+      padding: 0 10px 0 40px;
+    }
+    .searchIcon {
+      left: 10px;
+    }
+  }
+}
+
+@include ForIE {
+  .searchIcon {
+    top: 14px;
+  }
+  .proLogo {
+    top: 10px;
+  }
+}

@@ -1,52 +1,59 @@
 <template>
-  <div>
-    <nuxt/>
+  <div class="default_layout">
+    <client-only>
+      <noscript
+        ><iframe
+          :src="`https://www.googletagmanager.com/ns.html?id=${GTMID}`"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe
+      ></noscript>
+    </client-only>
+    <Header />
+    <transition name="fade" mode="out-in">
+      <router-view :route="Route"></router-view>
+    </transition>
+    <PageLoading />
+    <ToTop />
+    <Footer />
   </div>
 </template>
+<script>
+import GTMID from "@/plugins/common/GTM";
+import Header from "@/components/layoutUnit/Header.vue";
+import Footer from "@/components/layoutUnit/Footer.vue";
+import ToTop from "@/components/unit/ToTop.vue";
+import PageLoading from "@/components/layoutUnit/PageLoading.vue";
 
-<style>
-/* html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+export default {
+  components: {
+    Header,
+    Footer,
+    ToTop,
+    PageLoading,
+  },
+  middleware: "routeAuth",
+  data() {
+    return { Route: {}, GTMID };
+  },
+  created() {
+    if (process.client) {
+      document.addEventListener("gesturestart", (event) => {
+        event.preventDefault();
+      });
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.Route = { to, from };
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.layout {
+  background-color: white;
 }
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-} */
 </style>

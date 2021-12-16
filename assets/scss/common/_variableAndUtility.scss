@@ -1,0 +1,44 @@
+$color: (
+  White: #fff,
+  White10: #ddd,
+  White20: #f8f2ed,
+  White30: #f7f7f7,
+  White30_opacity: rgba(247, 247, 247, 0.7),
+  White40: #f3f3f3,
+  Black: #000,
+  Black10: #212121,
+  Gary10: rgb(189, 189, 189),
+  Gary20: rgb(153, 152, 152),
+  Gary20_opacity: rgba(196, 196, 196, 0.6),
+  Gary30: #bebebe,
+  Gary40: #646464,
+  Gary50: #d9d9d9,
+  Orange10: #ec6c01,
+  Orange20: #fe6151,
+  Orange10_opacity: rgba(236, 108, 0, 0.8),
+  Blue: #2d8cf0,
+  Blue10: #08a3d6,
+  Blue20: #3697ff,
+  Green: #28c488,
+  Yellow10: #f9c852,
+  Red: #ff6666,
+);
+
+$DesktopHeaderHeight: 60px;
+$MobileHeaderHeight: 50px;
+$ContainerMaxWidth: 960px;
+$MobileMaxWidth: 600px;
+
+// $fontWeightMap: (
+//   300: "Myriad W08 Light",
+//   400: "Myriad W08 Regular",
+//   600: "Myriad W08 Semibold",
+//   700: "Myriad W08 Bold_1166607",
+// );
+
+// $init-color: map-get($color, "Azure60");
+
+// @function fontSizeAdjustment($fontSize) {
+//   $result: $fontSize * 0.625;
+//   @return $result;
+// }

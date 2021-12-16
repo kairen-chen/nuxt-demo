@@ -1,0 +1,136 @@
+@import "@/assets/scss/common/_common.scss";
+
+.headerWrapper {
+  position: relative;
+  width: 100%;
+  .headerContainer {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 13;
+    background-image: linear-gradient(
+      to right,
+      map-get($color, "Orange10"),
+      map-get($color, "Orange20")
+    );
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .logo {
+        a {
+          display: flex;
+          margin: 0 auto;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      }
+      .searchIcon,
+      .member,
+      .proLogo {
+        width: 34px;
+      }
+    }
+    .menuBtn {
+      font-size: 40px;
+      color: map-get($color, White);
+      padding: 0 10px 0 0;
+      z-index: 1;
+      &.active {
+        opacity: 0;
+      }
+    }
+    .navContentSection {
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+
+    .over_lay {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(30, 30, 30, 0.7);
+      visibility: visible;
+      z-index: 11;
+    }
+    .photoContainer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: calc(#{$MobileHeaderHeight} - 5px);
+      img {
+        max-height: 100%;
+      }
+      .poptip {
+        position: absolute;
+        right: 10px;
+        top: 40px;
+        width: 100px;
+        background-image: linear-gradient(
+          to right,
+          map-get($color, "Orange10"),
+          map-get($color, "Orange20")
+        );
+        color: map-get($color, White);
+        border-radius: 10px;
+        border: 1px solid map-get($color, White);
+        text-align: center;
+        box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.13),
+          0 -2px 4px 0 rgba(0, 0, 0, 0.05);
+        a,
+        div {
+          display: block;
+          cursor: pointer;
+          margin: 10px 0;
+          font-weight: bold;
+          font-size: 16px;
+          color: map-get($color, White);
+        }
+      }
+    }
+  }
+  .searchContentSection {
+    position: fixed;
+    left: calc(50% - 350px / 2);
+    top: 100px;
+    display: none;
+    align-items: center;
+    height: 50px;
+    width: 350px;
+    z-index: 13;
+    @include BreakPointMinSmall {
+      left: calc(50% - 300px / 2);
+      width: 300px;
+    }
+    &.active {
+      display: flex;
+    }
+    input {
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      border-radius: 25px;
+      padding: 0 20px 0 60px;
+    }
+    .searchIcon {
+      position: absolute;
+      left: 20px;
+      color: map-get($color, "Gary30");
+      font-size: 33px;
+    }
+  }
+  @include BreakPointLarge {
+    @import "headerDesktop.scss";
+  }
+
+  @include BreakPointSmall {
+    @import "headerMobile.scss";
+  }
+}
