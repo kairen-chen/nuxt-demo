@@ -1,9 +1,9 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = {
-  // target: 'static',
+  //target: 'static',
   // ssr: false,
-  mode:'universal',
+  mode: "universal",
   // mode:'spa',
   // generate: {
   //   dir: '/Users/kairenchen/Desktop/dist'
@@ -11,66 +11,59 @@ module.exports = {
   // buildDir: '/Users/kairenchen/Desktop/test/.nuxt',
   server: {
     port: 80, // default: 3000
-    host: '0.0.0.0', // default: localhost
+    host: "0.0.0.0", // default: localhost
   },
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: 'nuxt-demo',
+    title: "nuxt-demo",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: "Nuxt.js project" },
     ],
     link: [
-    //   { rel: 'icon', type: 'image/x-icon', href: '' }
-    ]
+      //   { rel: 'icon', type: 'image/x-icon', href: '' }
+    ],
   },
 
-
   script: [
-    {type: 'text/javascript'},
+    { type: "text/javascript" },
     // { src: '~/store/store.js' }
   ],
-  css: [
-    { src: '~assets/main.scss', lang: 'scss' }
-  ],
+  css: [{ src: "~assets/main.scss", lang: "scss" }],
   /*
-  ** Customize the progress bar color
-  */
-  loading: { color: 'red' },
+   ** Customize the progress bar color
+   */
+  loading: { color: "red" },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
-
     plugins: [
       // 免import,build時自動判斷特別字,載入
-      new webpack.ProvidePlugin(
-      {
-        '$': 'jquery',
-        'axios':'axios',
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        axios: "axios",
         // Vuex:'vuex',
-        bus: ['~/components/bus.js', 'default']
-      }
-    )],
+        bus: ["~/components/bus.js", "default"],
+      }),
+    ],
     /*
-    ** Run ESLint on save
-    */
-    // extend (config, { isDev, isClient }) { 
+     ** Run ESLint on save
+     */
+    // extend (config, { isDev, isClient }) {
     //   if (isDev && isClient) {
     //     config.module.rules.push({
     //       enforce: 'pre',
     //       test: /\.(js|vue)$/,
-          // loader: 'eslint-loader',
+    // loader: 'eslint-loader',
     //       exclude: /(node_modules)/
     //     })
     //   }
     // }
   },
   plugins: [],
-  buildModules: [
-      ['@nuxt/typescript-build']
-  ]
-}
+  buildModules: [["@nuxt/typescript-build"]],
+};
