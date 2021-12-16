@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 
 module.exports = {
-  //target: 'static',
+  // target: 'static',
   // ssr: false,
   mode: "universal",
   // mode:'spa',
