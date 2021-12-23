@@ -220,7 +220,7 @@ export default {
         { property: "og:title", content: this.eventData.subject },
         { property: "og:description", content: this.eventData.description },
         { property: "og:image", content: this.eventData.thumbPath },
-        { property: "fb:app_id", content: "292691020832720" },
+        { property: "fb:app_id", content: process.env.FB_APP_ID },
       ],
       script: [
         {

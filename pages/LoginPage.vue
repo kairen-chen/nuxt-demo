@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="loginWrapper">
+    <div class="loginWrapper" @keyup.enter="handleSubmit">
       <div class="titileContainer">
         <div class="orangeTitle">
           登入

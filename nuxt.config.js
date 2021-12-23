@@ -11,6 +11,7 @@ export default {
   },
   generate: {
     fallback: "index.html",
+    nojekyll: false,
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -27,7 +28,7 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/default/favicon.ico" }],
   },
   loading: false,
   // loadingIndicator: '~/loading.html'
@@ -62,6 +63,14 @@ export default {
       },
     ],
     "@nuxtjs/moment",
+    [
+      "@nuxtjs/dotenv",
+      {
+        filename: process.env.MODE
+          ? `/static/default/.env.${process.env.MODE}`
+          : "/static/default/.env.stage",
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

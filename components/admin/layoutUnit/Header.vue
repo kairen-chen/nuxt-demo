@@ -225,12 +225,12 @@ export default {
                     message: '請輸入Android最新版本',
                     trigger: 'submit'
                 }],
-                questionnaireUrl: [{
-                    required: true,
-                    type: 'string',
-                    message: '請輸入簽退問卷連結',
-                    trigger: 'submit'
-                }],                
+                // questionnaireUrl: [{
+                //     required: true,
+                //     type: 'string',
+                //     message: '請輸入簽退問卷連結',
+                //     trigger: 'submit'
+                // }],                
             },                     
             isShowEditAPPConfigModal: false,
             loading: true,

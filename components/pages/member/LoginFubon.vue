@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="loginWrapper">
+    <div class="loginWrapper" @keyup.enter="handleSubmit">
       <div class="titileContainer">
         <img class="logo" src="@/assets/images/login/ic_fubon.svg" alt="" />
         <div class="title">

@@ -1,11 +1,4 @@
-let GTM_containerID = "";
-if (process.env.MODE === "dev") {
-  GTM_containerID = "GTM-WSFTPR5"; // local(Kairen)
-} else if (process.env.MODE === "devOutsideNetwork") {
-  GTM_containerID = "GTM-NV9ML5D"; // dev(Leo)
-} else {
-  GTM_containerID = "GTM-KPTPV2C"; // stage
-}
+let GTM_containerID = process.env.GTM_ID;
 
 if (process.client) {
   (function(w, d, s, l, i) {

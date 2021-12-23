@@ -546,7 +546,9 @@ export default {
       if (this.chooseResult) {
         // 單選傳入object
         if (this.chooseResult.id) {
-          eventSkillID = this.chooseResult.id;
+          if (typeof this.chooseResult == "object") {
+            eventSkillID = `${this.chooseResult.id}:1`;
+          }
         } else {
           // 物資id(多個)處理
           if (typeof this.chooseResult == "object") {

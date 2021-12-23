@@ -74,10 +74,14 @@ export default {
                     title: '監護人電話',
                     key: 'guardianPhone',
                 },
+                // {
+                //     title: '組別',
+                //     key: 'eventSkillGroupList',
+                // },
                 {
-                    title: '組別',
-                    key: 'eventSkillGroupList',
-                },
+                    title: '內容',
+                    key: 'note',
+                },                
                 {
                     title: '報名時間',
                     key: 'registerDate',
@@ -317,7 +321,7 @@ export default {
                         '生日': String(item.birthday),
                         '監護人姓名': String(item.guardianName),
                         '監護人電話': String(item.guardianPhone),
-                        '組別': item.eventSkillGroupList? String(item.eventSkillGroupList) : '',
+                        '內容': item.note? String(item.note) : '',
                         '報名時間': String(item.registerDate),
                         '是否已報到': item.isJoined? '是' : '否',
                         '是否已簽退': item.isLeaved? '是' : '否',

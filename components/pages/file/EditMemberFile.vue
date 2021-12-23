@@ -687,7 +687,7 @@ export default {
                 },
               ])
               .then((res) => {
-                if (!res.errors) {
+                if (!res[0].errors) {
                   this.$Notice.success({
                     title: "編輯成功!",
                     duration: 3,
@@ -695,7 +695,7 @@ export default {
                   this.getUsersData("reload");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 } else {
-                  this.errorNotice(res.errors[0].error);
+                  this.errorNotice(res[0].errors[0].error);
                 }
               });
           };
