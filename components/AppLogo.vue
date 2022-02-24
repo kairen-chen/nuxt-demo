@@ -1,15 +1,7 @@
   <template lang="pug">
     <section>
       .title  ～AppLogo Component～
-      .VueToNuxtLogo(@click='redirect')
-        .Triangle.Triangle--two
-        .Triangle.Triangle--one
-        .Triangle.Triangle--three
-        .Triangle.Triangle--four
-      .text  父傳子 -->  {{msg}}
-      .links(v-show="btn_flag")
-        a.button--green(href="javascript:;" @click="changeTitle") 可透過我改變父值
-      .text(v-show="btn_flag")  子傳子 -->  {{child_to_child}}
+
     </section>
   </template>
 
@@ -43,9 +35,7 @@
       created(){
         var _that = this;
         _that.route_match();
-        bus.$on('com1',function(res){
-           _that.child_to_child=res;
-        });
+ 
       },
       mounted(){},
       methods:{

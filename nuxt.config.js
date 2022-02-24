@@ -50,7 +50,6 @@ module.exports = {
         '$': 'jquery',
         'axios':'axios',
         Vuex:'vuex',
-        bus: ['~/components/bus.js', 'default']
       }
     )],
     /*
