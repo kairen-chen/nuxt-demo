@@ -2,7 +2,11 @@ const webpack = require("webpack");
 
 module.exports = {
   mode: "universal",
-  // mode:'spa',
+  // mode: "spa",
+  router: {
+    middleware: "routeHandler",
+  },
+
   // generate: {
   //   dir: '/Users/kairenchen/Desktop/dist'
   // },

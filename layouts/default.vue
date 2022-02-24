@@ -9,7 +9,7 @@
     <nuxt />
     <div class="lightbox" v-show="$route.meta.lightbox">
       <div class="content">
-        <router-view name="lightbox"></router-view>
+        <nuxt name="lightbox" />
         <button @click="closeHandler">X</button>
       </div>
     </div>
@@ -17,16 +17,15 @@
 </template>
 <script>
 export default {
-  middleware: "routeHandler",
+  // middleware: "routeHandler",
   data() {
-    return {
-      // test: false,
-    };
+    return {};
   },
   methods: {
     closeHandler() {
       let count = this.$store.state.lightbox * -1;
       this.$store.commit("RESET_LIGHTBOX");
+
       // 往回跑
       this.$router.go(count);
     },

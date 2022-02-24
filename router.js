@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 export function createRouter(context) {
   return new VueRouter({
     mode: "history", //可讓#字號消失
-    base: "/",
+    // base: "/",
     routes: [
       {
         path: "/",
