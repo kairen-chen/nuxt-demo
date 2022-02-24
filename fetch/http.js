@@ -3,25 +3,30 @@ import "@/plugins/common/view-ui";
 import { apiSignature, randomNumber } from "../common/util";
 import { Error } from "./error";
 import * as _config from "@/common/common";
-import baseURL from "@/common/baseConfig";
 import iView from "view-design";
 import decodeHtmlEntity from "@/plugins/common/decodeHtmlEntity";
+import { getClientDomain } from "@/common/baseConfig";
 
 // 服务遍历器
 const AjaxSend = {
   // 初始化
   init: function() {
     // axios 配置
-    axios.defaults.timeout = _config.timeout; // 原設置10000ms，改為600000ms(10min)
+    // axios.defaults.timeout = _config.timeout; // 原設置10000ms，改為600000ms(10min)
     axios.defaults.headers.common["Content-Type"] = _config.ContentType;
     axios.defaults.headers.common["Version"] = _config.Version;
     axios.defaults.headers.common["AccessKeyId"] = _config.AccessKeyId;
     axios.defaults.headers.common["SignatureMethod"] = _config.SignatureMethod;
     axios.defaults.headers.common["SignatureVersion"] =
       _config.SignatureVersion;
-    axios.defaults.baseURL = baseURL;
-
     if (process.client) {
+      getClientDomain().then((res) => {
+        localStorage.setItem("baseURL", btoa(res));
+        axios.defaults.baseURL = res;
+      });
+      if (!axios.defaults.baseURL) {
+        axios.defaults.baseURL = atob(localStorage.getItem("baseURL"));
+      }
       // 添加請求拦截器
       axios.interceptors.request.use(
         (config) => {

@@ -352,9 +352,10 @@ export default {
       border-bottom: 1px solid map-get($color, "Gary30");
       @include BreakPointLarge {
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
       }
       .contentLeft {
+        display: flex;
         width: 180px;
         img {
           width: 180px;

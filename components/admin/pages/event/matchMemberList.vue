@@ -29,6 +29,8 @@ export default {
     data() {
         return {
             // 分頁
+            eventType: '',
+            eventCity: '',
             total: 0,
             current: 0,
             pageSize: 10,
@@ -127,40 +129,57 @@ export default {
         getList(current, pageSize) {
             
             let _this = this
-            let eventType = _this.$route.params.eventType
-            let eventCity = _this.$route.params.eventCity
-            let str = 'skillsDescription like \'' + eventType + '\' or interest like \'' + eventCity + '\' and isPublic eq 1  '
+            let eventID = _this.$route.params.eventID
+
+
+            // str = ' npoId eq ' + localStorage.getItem('npoPostId')
+            
+
+            let str = ' npoId eq '+ localStorage.getItem('npoPostId') +' and id eq ' + eventID
             let params = {
                 search: str,
                 inlinecount: true,
-                // sort: _this.sort,
-                page: current,
-                size: pageSize
             }
-            if (_this.params) {
-                params.search = _this.params.search
-            }
-            params = new URLSearchParams(params)
-            _this.sortStr.forEach(s => {
-                params.append("sort", s);
+
+            this._API.getEvents.send(params).then((data) => {
+                if(data.results.length>0) {
+                    let eventData = data.results[0]
+                    let d = Date.now()
+                    let closeDate = eventData.closeDate
+                    this.eventType = eventData.volunteerType
+                    this.eventCity = eventData.addressCity
+
+                    if(new Date(closeDate).getTime()>d) {
+                        let substr = 'skillsDescription like \'' + this.eventType + '\' or interest like \'' + this.eventCity + '\' and isPublic eq 1  '
+                        let subparams = {
+                            search: substr,
+                            inlinecount: true,
+                            // sort: _this.sort,
+                            page: current,
+                            size: pageSize
+                        }
+                        // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
+                        this._API.getUsers.send(subparams).then((data) => {
+                            _this.list = data.results
+                            _this.total = data.count
+                            // console.log(data)
+                        })
+                    }else {
+                        // this.$Notice.warning({
+                        //     title: '提示',
+                        //     desc: '此活動已結束'
+                        // });
+                        this.$router.go(-1)                   
+                    }
+                }else {
+                    // this.$Notice.warning({
+                    //     title: '提示',
+                    //     desc: '此活動不存在'
+                    // });
+                    this.$router.go(-1)   
+                }
             })
-            // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
-            this._API.getUsers.send(params).then((data) => {
-                _this.list = data.results
-                _this.total = data.count
-                console.log(data)
-            })
-            .catch((err) => {
-            err
-                .then((info) => {
-                console.log(info);
-                this.getList();
-                })
-                .catch((info) => {
-                console.log(info);
-                });
-            });            
-            _this.accounts = []
+            
         },
         // 分頁
         pageChange(value) {
@@ -184,36 +203,43 @@ export default {
             let _this = this
             let params = {}
 
-            let eventType = _this.$route.params.eventType
-            let eventCity = _this.$route.params.eventCity
+            let eventType = _this.eventType
+            let eventCity = _this.eventCity
             let str = 'skillsDescription like \'' + eventType + '\' or interest like \'' + eventCity + '\' and isPublic eq 1  '
 
-            if (_this.params) {
-                params = {
-                    search: str,
-                    inlinecount: true,
-                    // sort: _this.sort,
-                    page: _this.current,
-                    size: _this.pageSize
-                }
-                // console.log('_this.params :' + JSON.stringify(_this.params))
-                if (_this.params.isConnected != null) {
-                    params.isConnected = _this.params.isConnected
-                }
-            } else {
-                let search = ''
-                params = {
-                    search: str,
-                    inlinecount: true,
-                    // sort: _this.sort,
-                    page: _this.current,
-                    size: _this.pageSize
-                }
+            params = {
+                search: str,
+                inlinecount: true,
+                // sort: _this.sort,
+                page: _this.current,
+                size: _this.pageSize
             }
-            params = new URLSearchParams(params)
-            _this.sortStr.forEach(s => {
-                params.append("sort", s);
-            })
+            // if (_this.params) {
+            //     params = {
+            //         search: str,
+            //         inlinecount: true,
+            //         // sort: _this.sort,
+            //         page: _this.current,
+            //         size: _this.pageSize
+            //     }
+            //     // console.log('_this.params :' + JSON.stringify(_this.params))
+            //     if (_this.params.isConnected != null) {
+            //         params.isConnected = _this.params.isConnected
+            //     }
+            // } else {
+            //     let search = ''
+            //     params = {
+            //         search: str,
+            //         inlinecount: true,
+            //         // sort: _this.sort,
+            //         page: _this.current,
+            //         size: _this.pageSize
+            //     }
+            // }
+            // params = new URLSearchParams(params)
+            // _this.sortStr.forEach(s => {
+            //     params.append("sort", s);
+            // })
 
             // this.$service.getUserRolesPage.requestCommon(_this.params, _this.current, _this.pageSize)
             this._API.getUsers.send(params).then((data) => {

@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import baseURL from "@/common/baseConfig";
+// import baseURL from "@/common/baseConfig";
+import { getClientDomain } from "@/common/baseConfig";
 import SearchModal from './searchModal.vue'
 import Page from '@/components/admin/layoutUnit/page.vue'
 
@@ -67,11 +68,11 @@ export default {
                         return h('div', [
                             h('a', {
                                 attrs: {
-                                    name: 'google',
-                                    href: baseURL+'backend/NpoInvite/edit/'+params.row.uid,
+                                    // name: 'google',
+                                    href: atob(localStorage.getItem("baseURL"))+'backend',
                                     target: '_blank'
                                 },
-                            }, baseURL+'backend/NpoInvite/edit/'+params.row.uid),                          
+                            }, atob(localStorage.getItem("baseURL"))+'backend/'),                          
                         ])
                     }
                 },

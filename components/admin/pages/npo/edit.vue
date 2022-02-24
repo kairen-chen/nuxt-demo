@@ -166,25 +166,25 @@
 
                     </Row>
                     <Row>
-                        <i-Col span="4">                  
+                        <i-Col span="6">                  
                             <FormItem class="edit-form-item" label="是否已核可" prop="isVerified">
                                 <Checkbox v-model="editFormValidate.isVerified"></Checkbox>
                                 <!-- <Input v-model.trim="editFormValidate.isVerified" maxlength="64" ></Input> -->
                             </FormItem>
                         </i-Col>                        
-                        <i-Col span="4">
+                        <i-Col span="6">
                             <FormItem class="edit-form-item" label="是否同時為物資需求組織" prop="isInventory">
                                 <Checkbox v-model="editFormValidate.isInventory"></Checkbox>
                                 <!-- <Input v-model.trim="editFormValidate.isInventory" maxlength="20"  disabled></Input> -->
                             </FormItem>
                         </i-Col>
-                        <i-Col span="4">
+                        <i-Col span="6">
                             <FormItem class="edit-form-item" label="是否為企業" prop="isEnterprise">
                                 <Checkbox v-model="editFormValidate.isEnterprise"></Checkbox>
                                 <!-- <Input v-model.trim="editFormValidate.isEnterprise" maxlength="64" ></Input> -->
                             </FormItem>
                         </i-Col>
-                        <i-Col span="4">
+                        <i-Col span="6">
                             <FormItem class="edit-form-item" label="愛心小編推薦" prop="promote">
                                 <Checkbox v-model="editFormValidate.promote"></Checkbox>
                                 <!-- <Input v-model.trim="editFormValidate.isEnterprise" maxlength="64" ></Input> -->

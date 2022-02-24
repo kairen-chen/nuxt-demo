@@ -167,8 +167,15 @@ export default {
             let _this = this
             let str = ''
             let eventId = this.$route.params.eventId
-            str = ' eventId eq ' + eventId
+            let isStaff = localStorage.getItem('isStaff')
+            let npoId = localStorage.getItem('npoId')
 
+            if (isStaff=='true') {
+                str = ' eventId eq ' + eventId
+            } else {
+                str = ' eventId eq ' + eventId + ' and uid eq ' + npoId
+            }
+            // str = ' eventId eq ' + eventId
             let params = {
                 search: str,
                 inlinecount: true,

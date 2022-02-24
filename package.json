@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env MODE=dev nuxt",
-    "uatGenerate": "cross-env MODE=uat nuxt generate",
-    "stageGenerate": "nuxt generate",
-    "devBuild": "cross-env MODE=dev nuxt build",
-    "uatBuild": "cross-env MODE=uat nuxt build",
-    "stageBuild": "nuxt build",
+    "dev": "cross-env protocol=http nuxt",
+    "generate": "cross-env nuxt generate",
+    "ssrBuild": "cross-env nuxt build",
     "start": "nuxt start"
   },
   "dependencies": {

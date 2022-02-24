@@ -67,7 +67,7 @@ export default {
       padding: 0;
       margin: 0 auto;
       flex-direction: row;
-      width: map-get($breakPoint, large);
+      max-width: map-get($breakPoint, large);
       flex-wrap: nowrap;
     }
   }

@@ -33,7 +33,7 @@ export default {
         rolePassword: {
           type: "rolePassword",
           val: `密碼`,
-          role: /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d]{8,12}/i, //須有英文、數字ㄝ,且為8-12碼
+          role: /^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z\d]{8,12}/i, //須有英文、數字,且為8-12碼
         },
         checkPassword: {
           type: "checkPassword",

@@ -1,8 +1,5 @@
 const webpack = require("webpack");
 export default {
-  env: {
-    MODE: process.env.MODE,
-  },
   mode: "universal",
   // mode: "spa", //spa / universal
   server: {
@@ -28,7 +25,7 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/default/favicon.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
   loading: false,
   // loadingIndicator: '~/loading.html'
@@ -47,7 +44,6 @@ export default {
     "@/plugins/common/view-ui",
     "@/plugins/common/common",
     "@/plugins/common/init.client.js",
-    { src: "@/plugins/common/GTM", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -63,14 +59,6 @@ export default {
       },
     ],
     "@nuxtjs/moment",
-    [
-      "@nuxtjs/dotenv",
-      {
-        filename: process.env.MODE
-          ? `/static/default/.env.${process.env.MODE}`
-          : "/static/default/.env.stage",
-      },
-    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -78,6 +66,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    publicPath: "/src/",
     // extractCSS: true,
     // Nuxt build will not bundle files in node_modules, so if you want to bundle all dependencies into .nuxt, you should use nuxt build --standalone.
     standalone: true,

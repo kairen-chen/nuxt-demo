@@ -388,7 +388,7 @@ export default {
 
       npoBindData: [
         { title: "富邦集團員工", type: "isFubon" },
-        { title: "台灣大哥大員工", type: "isTwm" },
+        // { title: "台灣大哥大員工", type: "isTwm" },
       ],
       reloadFlag: false,
     };

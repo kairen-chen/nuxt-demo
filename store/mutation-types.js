@@ -24,3 +24,5 @@ export const DEL_SEARCHSTR = "DEL_SEARCHSTR";
 export const SET_PROFILE = "SET_PROFILE";
 // 頁籤切換flag
 export const SET_WEBVISIBILITY = "SET_WEBVISIBILITY";
+// referer
+export const SET_EVN = "SET_EVN";

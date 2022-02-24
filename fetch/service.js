@@ -459,7 +459,11 @@ let PublicObjService = {
   postPushMessage: {
     method: "post",
     requestUrl: "api/v1/notifications/pushMessage",
-  },    
+  },  
+  getNotificationsMenu: {
+    method: "get",
+    requestUrl: "api/v1/notifications/menu",
+  },     
 };
 
 AjaxSend.loopServiceApi(PublicObjService);

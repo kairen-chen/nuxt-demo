@@ -48,7 +48,7 @@
           ></Input>
         </div>
         <div class="privacyRoleContainer">
-          <div class="checkBox" @click="privacReaded = !privacReaded"></div>
+          <div class="checkBox" @click="privacHandler"></div>
           <img
             class="icon"
             :src="
@@ -84,6 +84,8 @@
           modalShow = flag;
         }
       "
+      @privacOKHandler="privacOKHandler"
+      v-prevent-re-click
     />
     <div class="loginLoading"></div>
   </div>
@@ -101,7 +103,7 @@ export default {
       account: null,
       password: null,
       checkPassword: null,
-      privacReaded: true,
+      privacReaded: !true,
       disabled: false,
       modalShow: false,
     };
@@ -121,6 +123,16 @@ export default {
     }
   },
   methods: {
+    privacHandler() {
+      if (!this.privacReaded) {
+        this.modalShow = true;
+      } else {
+        this.privacReaded = false;
+      }
+    },
+    privacOKHandler(val) {
+      this.privacReaded = val;
+    },
     handleSubmit() {
       if (this.privacReaded) {
         this._validate(

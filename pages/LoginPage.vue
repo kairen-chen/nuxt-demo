@@ -123,10 +123,8 @@ export default {
   },
   data() {
     return {
-      account: "admin@twmf.com",
-      password: "twmf5180",
-      // account: null,
-      // password: null,
+      account: null,
+      password: null,
       twmLoginAPI: "",
     };
   },
@@ -159,16 +157,14 @@ export default {
       document.getElementsByClassName("loading")[0].style.display = "none";
       document.getElementsByClassName("loginLoading")[0].style.display = "none";
       this.twmLoginAPI =
-        process.env.MODE === "dev"
-          ? `https://stage.oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`
+        this.$store.state.env.data.MODE === "production"
+          ? `https://oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`
           : `https://stage.oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`;
-      // : `https://oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`;
     }
   },
   methods: {
     protocolHandler() {
-      let protocol = location.host.search(/stage/) < 0 ? "http" : "https";
-      return `${protocol}://${location.host}`;
+      return location.origin;
     },
     redirectHandler() {
       //導回哪裡

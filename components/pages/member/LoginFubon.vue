@@ -79,8 +79,8 @@ export default {
   },
   data() {
     return {
-      account: "rebecca.lai@fubon.com",
-      password: "Fb1234",
+      account: null,
+      password: null,
     };
   },
   mounted() {

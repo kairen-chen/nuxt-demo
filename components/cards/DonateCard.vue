@@ -85,15 +85,21 @@ export default {
     width: calc((#{$ContainerMaxWidth} - 7px * 8) / 4);
   }
   .logo {
-    max-height: calc(100vw / 2 - 50px);
-    min-height: 1px;
-    width: 100%;
+    // max-height: calc(100vw / 2 - 50px);
+    height: calc(100vw / 2 - 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @include BreakPointLarge {
-      height: auto;
+      // height: auto;
+      width: 186px;
+      height: 186px;
     }
     img {
-      width: 100%;
-      min-height: 1px;
+      // width: 100%;
+      // min-height: 1px;
+      max-height: 100%;
+      max-width: 100%;
     }
   }
   .donaTitie {

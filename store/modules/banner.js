@@ -18,7 +18,7 @@ const actions = {
     let { method, requestUrl } = service.getBanner;
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         sort: `displaySort,desc`,

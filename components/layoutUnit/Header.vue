@@ -129,7 +129,7 @@ export default {
       return [
         {
           title: "志工",
-          link: "new",
+          link: "index",
         },
         {
           title: "企業志工",

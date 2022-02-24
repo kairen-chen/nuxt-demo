@@ -14,14 +14,14 @@
                     <Row>
                         <i-Col span="12">
                             <FormItem class="add-form-item" label="訊息主題" prop="subject">
-                                <Input v-model.trim="addFormValidate.subject" maxlength="300"></Input>
+                                <Input v-model.trim="addFormValidate.subject" maxlength="65" placeholder="限制輸入65字元內"></Input>
                             </FormItem>
                         </i-Col>
                     </Row>
                     <Row>
                         <i-Col span="24">
                             <FormItem class="add-form-item" label="訊息內容" prop="content">
-                                <Input v-model.trim="addFormValidate.content" type="textarea" :rows="5"></Input>
+                                <Input v-model.trim="addFormValidate.content" type="textarea"  maxlength="240" placeholder="限制輸入240字元內" :rows="5"></Input>
                             </FormItem>
                         </i-Col>
                     </Row>
@@ -99,7 +99,7 @@ export default {
                 },
                 {
                     value: 1,
-                    label: '特定關注NPO的會員'
+                    label: '關注特定NPO的會員'
                 },
                 {
                     value: 2,
@@ -144,7 +144,30 @@ export default {
                 msgSubscribeNpoId: null,
             },
             addRuleValidate: {
-                
+                subject: [{
+                    required: true,
+                    type: 'string',
+                    message: '請輸入訊息主題',
+                    trigger: 'submit'
+                }],  
+                content: [{
+                    required: true,
+                    type: 'string',
+                    message: '請輸入訊息內容',
+                    trigger: 'submit'
+                }],                 
+                pageType: [{
+                    required: true,
+                    type: 'string',
+                    message: '請選擇訊息連結頁面類型',
+                    trigger: 'submit'
+                }],    
+                msgType: [{
+                    required: true,
+                    type: 'integer',
+                    message: '請選擇推送對象',
+                    trigger: 'submit'
+                }],                 
             },
         };
 
@@ -178,7 +201,7 @@ export default {
                 inlinecount: true,
             }
             // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
-            this._API.getUsersMenu.send(params).then((data) => {
+            this._API.getNotificationsMenu.send(params).then((data) => {
                 this.usersList = data
             })
         },        
@@ -187,6 +210,7 @@ export default {
             let str = ' id eq ' + this.$route.params.id
             let params = {
                 type: 1,
+                closeDate: this.getCurrentDateTime('yyyy-MM-dd hh:mm:ss'),
                 inlinecount: true,
             }
             // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
@@ -199,6 +223,7 @@ export default {
             let str = ' id eq ' + this.$route.params.id
             let params = {
                 type: 2,
+                closeDate: this.getCurrentDateTime('yyyy-MM-dd hh:mm:ss'),
                 inlinecount: true,
             }
             // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
@@ -211,6 +236,7 @@ export default {
             let str = ' id eq ' + this.$route.params.id
             let params = {
                 type: 3,
+                closeDate: this.getCurrentDateTime('yyyy-MM-dd hh:mm:ss'),
                 inlinecount: true,
             }
             // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
@@ -296,6 +322,25 @@ export default {
                 }
             })
         },
+        getCurrentDateTime: (fmt) => {
+            let date = new Date()
+            let o = {
+                'M+': date.getMonth() + 1,
+                'd+': date.getDate(),
+                'h+': date.getHours(),
+                'm+': date.getMinutes(),
+                's+': date.getSeconds()
+            }
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+            }
+            for (let k in o) {
+                if (new RegExp('(' + k + ')').test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+                }
+            }
+            return fmt
+        },         
     }
 };
 </script>

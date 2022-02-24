@@ -177,22 +177,27 @@ export default {
                     key: 'name',
                     width: '120px',
                     render: (h, params) => {
-                        return h('div', [
-                            h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.goMatchMemberList(params.row);
+                        let d = Date.now()
+                        if(new Date(params.row.closeDate).getTime()>d) {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.goMatchMemberList(params.row);
+                                        }
                                     }
-                                }
-                            }, '媒合會員列表'),
-                        ])
+                                }, '媒合會員列表'),
+                            ])
+                        }else {
+                            return null
+                        }
                     }
                 },
                 {
@@ -499,8 +504,9 @@ export default {
             this.$router.push({
                 name: 'backendEventMatchMemberList',
                 params: {
-                    eventType: row.volunteerType,
-                    eventCity: row.addressCity,
+                    eventID: row.id,
+                    // eventType: row.volunteerType,
+                    // eventCity: row.addressCity,
                 }
             })            
         }

@@ -39,7 +39,11 @@ export default function({ store, redirect, route }) {
   // }
   if (route.meta[0].requiresFrontStationAuth || route.name === "signInEvent") {
     if (!store.getters.accessToken) {
-      if (process.client && route.name === "footerJoin") {
+      if (
+        process.client &&
+        route.name === "footerJoin" &&
+        !localStorage.getItem("accessToken")
+      ) {
         alert("請先註冊微樂志工帳號後，再點選「成為夥伴」");
       }
       return redirect(`/login?redirect=${route.path}`);

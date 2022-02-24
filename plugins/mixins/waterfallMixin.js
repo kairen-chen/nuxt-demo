@@ -88,8 +88,9 @@ export default {
         if (this.searchStrGetter) {
           inputResult = ` and subject like ${this.searchStrGetter}`;
         }
+        // isFull eq false and 未額滿
         return this.searchStr === null
-          ? `isFull eq false and closeDate gte '${this.$moment().format(
+          ? `closeDate gte '${this.$moment().format(
               "YYYY-MM-DD HH:mm:ss"
             )}${inputResult}`
           : this.searchStr + inputResult;

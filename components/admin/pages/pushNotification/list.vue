@@ -62,22 +62,7 @@ export default {
                 },
                 
             ],
-            // list: [],
-            list: [
-                {
-                    id: 18,
-                    message: '防疫優先，愛不停歇！一起支持視障遠距服務看不見，如何線上學習？疫情衝擊改變了孩童的學習模式，然而現行的遠距平台沒有無障礙化，以致視障學習障礙倍增。北視家協需要投入更多資源，不讓孩童變成數位弱勢。邀請您與我們疫起加油，讓視障服務不間斷！',
-                    count: '1',
-                    sendDate: '2016-10-03'
-                },
-                {
-                    id: 19,
-                    message: '防疫優先，愛不停歇！一起支持視障遠距服務看不見，如何線上學習？疫情衝擊改變了孩童的學習模式，然而現行的遠距平台沒有無障礙化，以致視障學習障礙倍增。北視家協需要投入更多資源，不讓孩童變成數位弱勢。邀請您與我們疫起加油，讓視障服務不間斷！',
-                    count: '1',
-                    sendDate: '2016-10-03'
-                },
-                
-            ]
+            list: [],
 
         };
 
@@ -93,7 +78,7 @@ export default {
             let params = {
                 // search: str,
                 inlinecount: true,
-                // sort: _this.sort,
+                sort: _this.sort,
                 page: current,
                 size: pageSize
             }
@@ -161,7 +146,7 @@ export default {
             // })
 
             // this.$service.getUserRolesPage.requestCommon(_this.params, _this.current, _this.pageSize)
-            this._API.getBanner.send(params).then((data) => {
+            this._API.getPushMessage.send(params).then((data) => {
                 _this.list = data.results
                 _this.total = data.count
             })

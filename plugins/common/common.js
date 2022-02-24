@@ -4,10 +4,6 @@ import moment from "moment";
 import "./IEPolyfill";
 import { breakPointLarge } from "@/assets/scss/common/_rwd.scss";
 
-if (process.client) {
-  Window.TO_PAGE_FLAG = true;
-}
-
 const LogPlugin = {
   install(Vue) {
     // --------Global prototype start--------
@@ -197,6 +193,12 @@ const LogPlugin = {
               break;
             case "imageTypeInValid":
               noticeConfig.desc = "Image type invalid";
+              break;
+            case "invalidAccessTask Access task is out-of-date or invalid":
+              noticeConfig.desc = "訪問過期或無效! 請重新發送信件";
+              break;
+            case "invalidAccessCode":
+              noticeConfig.desc = "訪問過期或無效! 請重新發送信件";
               break;
             default:
               noticeConfig.desc = error;

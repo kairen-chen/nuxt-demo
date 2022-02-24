@@ -25,7 +25,7 @@ const actions = {
     let { method, requestUrl } = service.getEvents;
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,
@@ -42,7 +42,7 @@ const actions = {
     let { method, requestUrl } = service.getNpos;
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,

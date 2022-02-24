@@ -145,7 +145,7 @@
                                     <i-Col class="groupSection" span="8" v-for="(item, index) in editFormValidate.skillGroups" :key="item.id">
                                         <Row class="groupSection">
                                             <Col span="12">
-                                            <FormItem label="組別">
+                                            <FormItem label="組別" prop="skillGroupsList">
                                                 <Input type="text" v-model="item.name" placeholder="組別名稱"></Input>
                                             </FormItem>
                                             </Col>
@@ -179,7 +179,7 @@
                         </i-Col>
                     </Row>
                     <Row>
-                        <i-Col span="6">
+                        <i-Col span="6" v-show="!editFormValidate.requiredGroup">
                             <FormItem class="edit-form-item" label="捐贈數量上限" prop="requiredVolunteerNum">
                                 <Input v-model.trim="editFormValidate.requiredVolunteerNum" maxlength="20"></Input>
                             </FormItem>
@@ -283,28 +283,46 @@ export default {
             }
         }
         const validateLat = (rule, value, callback) => {
-
             let lat = this.editFormValidate.lat
-            let valid = (lat.match(/^-?\d*(\.\d+)?$/))
             if (lat == '') {
                 callback(new Error('請輸入緯度'))
-            } else if (!valid) {
-                callback(new Error('請輸入正確經緯度格式'))
             } else {
-                callback()
+                let valid = (lat.match(/^-?\d*(\.\d+)?$/))
+                if(!valid) {
+                    callback(new Error('請輸入正確經緯度格式'))
+                }else {
+                    callback()
+                }          
             }
         }
         const validateLng = (rule, value, callback) => {
-            let lng = this.editFormValidate.lng
-            let valid = (lng.match(/^-?\d*(\.\d+)?$/))
+            let lng = this.editFormValidate.lng    
             if (lng == '') {
                 callback(new Error('請輸入經度'))
-            } else if (!valid) {
-                callback(new Error('請輸入正確經緯度格式'))
+            } else{
+                let valid = (lng.match(/^-?\d*(\.\d+)?$/))
+                if(!valid) {
+                    callback(new Error('請輸入正確經緯度格式'))
+                }else {
+                    callback()
+                }        
+            } 
+        }
+        const validateSkillGroupsList = (rule, value, callback) => {
+            // callback(new Error('請輸入組別'))
+            let requiredGroup = this.editFormValidate.requiredGroup
+            let skillGroups = this.editFormValidate.skillGroups
+            console.log(JSON.stringify(skillGroups))
+            if (requiredGroup) {
+                if(skillGroups[0].name=='') {
+                    callback(new Error('請輸入組別'))
+                }else {
+                    callback()
+                }
             } else {
                 callback()
             }
-        }
+        }          
         return {
             isStaff: null,
             deleteSkillGroupItemIndex: '',
@@ -337,6 +355,7 @@ export default {
                 isShort: false,
                 isUrgent: false,
                 promote: false,
+                addressCity: '台北市',
                 skillsDescription: '',
                 eventHour: 0,
                 skillGroups: [{
@@ -346,7 +365,10 @@ export default {
                     name: '',
                     skillsDescription: '',
                     volunteerNumber: ''
-                }]
+                }],
+                lat: '',
+                lng: '',
+                requiredVolunteerNum: '0'
             },
             editRuleValidate: {
                 volunteerType: [{
@@ -427,6 +449,12 @@ export default {
                     message: '請選擇勸募字號到期時間',
                     trigger: 'submit'
                 }],
+                skillGroupsList: [{
+                    // required: true,
+                    type: 'string',
+                    validator: validateSkillGroupsList,
+                    trigger: 'submit'
+                }],                 
                 lat: [{
                     required: true,
                     type: 'string',
@@ -521,6 +549,7 @@ export default {
 
                     let donationStartDate = moment(this.editFormValidate.donationStartDate).format('YYYY-MM-DD HH:mm:ss')
                     let donationEndDate = moment(this.editFormValidate.donationEndDate).format('YYYY-MM-DD HH:mm:ss')
+                    let requiredVolunteerNum = this.returnRequiredVolunteerNum()
 
                     data.push({
                         id: this.$route.params.id,
@@ -541,7 +570,7 @@ export default {
                         volunteerTrainingDesc: this.editFormValidate.volunteerTrainingDesc?this.editFormValidate.volunteerTrainingDesc: '',
                         lat: this.editFormValidate.lat,
                         lng: this.editFormValidate.lng,
-                        requiredVolunteerNum: this.editFormValidate.requiredVolunteerNum, //人數上限
+                        requiredVolunteerNum: requiredVolunteerNum, //人數上限
 
                         // currentVolunteerNum: this.editFormValidate.youtubeCode,
                         requiredGroup: this.editFormValidate.requiredGroup,
@@ -610,11 +639,9 @@ export default {
                                 image: _this.npoIconFile[0]
                             }).then((data) => {
                                 if (data.errors) {
-                                    console.log('xxxx:' + data.errors)
                                 }
                             }).catch((error) => {
                                 // delete data
-                                console.log('xxxx')
                                 // this.itemDelete(this.editFormValidate.code)
                             })
                         }
@@ -836,47 +863,55 @@ export default {
                 label: val
             });
         },
-        deleteSkillGroupItemHandle(index) {
-            if (this.deleteSkillGroupItem) {
-                let errorDesc = ''
-                this._API.deleteSkillGroup.send(this.deleteSkillGroupItem).then((data) => {
-                    for (let f = 0; f < data.length; f++) {
-                        if (data[f].errors) {
-                            _this.modal_loading = false
-                            for (let i in data[f].errors) {
-                                switch (data[f].errors[i].error) {
-                                    case 'invalidRequest':
-                                        errorDesc = '參數無效或無法識別'
-                                        break
-                                    case 'invalidToken':
-                                        errorDesc = '憑證已過期無效請重新執行此操作'
-                                        break
-                                    case 'npoNotFound':
-                                        errorDesc = '此NPO不存在'
-                                        break
-                                    case 'requestUnavailable':
-                                        errorDesc = '稍後重試請求'
-                                        break
-                                    case 'internalError':
-                                        errorDesc = '內部錯誤'
-                                        break
-                                    default:
-                                        errorDesc = '系統忙碌中'
-                                        break
+        deleteSkillGroupItemHandle(index) {    
+            let skillGroups = this.editFormValidate.skillGroups
+            if(skillGroups.length==1) {
+                this.$Notice.warning({
+                    title: '提示',
+                    desc: '請至少保留一組設定'
+                });
+            }else {           
+                if (this.deleteSkillGroupItem) {
+                    let errorDesc = ''
+                    this._API.deleteSkillGroup.send(this.deleteSkillGroupItem).then((data) => {
+                        for (let f = 0; f < data.length; f++) {
+                            if (data[f].errors) {
+                                _this.modal_loading = false
+                                for (let i in data[f].errors) {
+                                    switch (data[f].errors[i].error) {
+                                        case 'invalidRequest':
+                                            errorDesc = '參數無效或無法識別'
+                                            break
+                                        case 'invalidToken':
+                                            errorDesc = '憑證已過期無效請重新執行此操作'
+                                            break
+                                        case 'npoNotFound':
+                                            errorDesc = '此NPO不存在'
+                                            break
+                                        case 'requestUnavailable':
+                                            errorDesc = '稍後重試請求'
+                                            break
+                                        case 'internalError':
+                                            errorDesc = '內部錯誤'
+                                            break
+                                        default:
+                                            errorDesc = '系統忙碌中'
+                                            break
+                                    }
                                 }
                             }
                         }
-                    }
-                    if (errorDesc == '') {
-                        this.deleteSkillGroupItemConfirmModal = false
-                        this.editFormValidate.skillGroups.splice(this.deleteSkillGroupItemIndex, 1);
-                        this.$Notice.success({
-                            title: '成功',
-                            desc: '刪除成功',
-                            duration: Config.successDuration
-                        })
-                    }
-                })
+                        if (errorDesc == '') {
+                            this.deleteSkillGroupItemConfirmModal = false
+                            this.editFormValidate.skillGroups.splice(this.deleteSkillGroupItemIndex, 1);
+                            this.$Notice.success({
+                                title: '成功',
+                                desc: '刪除成功',
+                                duration: Config.successDuration
+                            })
+                        }
+                    })
+                }
             }
         },
         getCurrentDateTime: (fmt) => {
@@ -898,6 +933,20 @@ export default {
             }
             return fmt
         },
+        returnRequiredVolunteerNum() {
+            let requiredVolunteerNum = 0
+            let check = this.editFormValidate.requiredGroup
+            if(check) {
+                this.editFormValidate.skillGroups.forEach(element => {
+                    if(element.volunteerNumber) {
+                        requiredVolunteerNum += parseInt(element.volunteerNumber)
+                    }
+                });
+            }else {
+                requiredVolunteerNum = this.editFormValidate.requiredVolunteerNum
+            }
+            return requiredVolunteerNum
+        }
     }
 };
 </script>

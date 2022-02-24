@@ -1,7 +1,7 @@
 <template>
 <div class="main">
     <div style="font-size: 45pt">{{detail.subject}}</div>
-    <div style="font-size: 24pt; margin: 20px 0;">請用手機 App 掃描 QR Code 以完成簽退手續</div>
+    <div style="font-size: 24pt; margin: 20px 0;">請用微樂志工App掃描QR Code以完成簽退手續</div>
     <div style="background: #f6f5fa; padding: 20px; width: 640px; margin: 0 auto;">
         <div id="qrcodeTable">
             <QRCanvas :options="options" />

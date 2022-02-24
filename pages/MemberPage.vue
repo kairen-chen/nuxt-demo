@@ -22,7 +22,7 @@
         </div>
         <div class="right">
           <div class="memberName">
-            <span>{{ proFile.username }}</span>
+            <span> {{ proFile.username }}</span>
             <div class="row">
               <router-link class="editProfile" :to="{ name: 'meEdit' }">
                 <img src="@/assets/images/other/ic_edit_member.svg" alt="" />
@@ -701,6 +701,7 @@ export default {
       color: map-get($color, "Black10");
       margin-bottom: 10px;
       font-weight: bold;
+      word-break: break-all;
       @include BreakPointLarge {
         margin-top: 20px;
       }

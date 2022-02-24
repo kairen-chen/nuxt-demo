@@ -17,11 +17,14 @@
             v-model="chooseResult"
           />
           <label :for="`radio_${index}`" class="chooseContent">
-            <div class="left">{{ item.name }} :</div>
-            <div class="right">
-              {{ item.skillsDescription }}(剩餘
-              {{ item.volunteerNumber - item.currentVolunteerNumber }}
-              人)
+            <div class="left">
+              <div class="infoTitle">
+                {{ item.name }}
+                <span>:</span>
+                {{ item.skillsDescription }}(剩餘
+                {{ item.volunteerNumber - item.currentVolunteerNumber }}
+                人)
+              </div>
             </div>
           </label>
         </div>
@@ -55,9 +58,10 @@
           v-for="(item, index) of data.skillGroups"
           :key="index"
         >
-          <div class="left">{{ item.name }} :</div>
-          <div class="right">
-            <div>
+          <div class="left">
+            <div class="infoTitle">
+              {{ item.name }}
+              <span>:</span>
               {{ item.skillsDescription }}(剩餘
               {{ item.volunteerNumber - item.currentVolunteerNumber }}
               份)
@@ -214,10 +218,9 @@ export default {
         }
       }
       .countContent {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         position: relative;
-        margin-top: 5px;
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
           -webkit-appearance: none;
@@ -275,10 +278,7 @@ export default {
         }
       }
       .left {
-        white-space: nowrap;
-      }
-      .right {
-        margin-left: 5px;
+        word-break: break-all;
       }
     }
   }

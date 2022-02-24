@@ -86,11 +86,11 @@ export function createRouter(context) {
     routes: [
       {
         path: "/",
-        redirect: "/new",
+        redirect: "/index",
       },
       {
         name: "home",
-        path: "/new",
+        path: "/index",
         component: VolunteerPage,
       },
       {
@@ -389,7 +389,7 @@ export function createRouter(context) {
       },
       {
         name: "backendEventMatchMemberList",
-        path: "/backend/Event/matchMemberList/:eventType/:eventCity",
+        path: "/backend/Event/matchMemberList/:eventID",
         component: EventMatchMember,
       },
       {

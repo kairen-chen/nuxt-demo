@@ -38,7 +38,7 @@ const mutations = {
     state.accessToken = res.accessToken;
     localStorage.setItem("accessToken", res.accessToken);
     state.refreshToken = res.refreshToken;
-    localStorage.setItem("refreshToken", res.refreshToken);
+    // localStorage.setItem("refreshToken", res.refreshToken);
   },
   [types.DEL_TOKEN](state) {
     localStorage.removeItem("accessToken");

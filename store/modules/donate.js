@@ -21,7 +21,7 @@ const actions = {
     let { method, requestUrl } = service.getDonationNpos;
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,

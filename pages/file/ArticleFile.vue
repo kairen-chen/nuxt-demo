@@ -220,7 +220,10 @@ export default {
         { property: "og:title", content: this.eventData.subject },
         { property: "og:description", content: this.eventData.description },
         { property: "og:image", content: this.eventData.thumbPath },
-        { property: "fb:app_id", content: process.env.FB_APP_ID },
+        {
+          property: "fb:app_id",
+          content: this.$store.state.env.data.FB_APP_ID,
+        },
       ],
       script: [
         {
@@ -463,9 +466,12 @@ export default {
   methods: {
     getReferer() {
       this.domain = this.domain.replace(/http:\/\/|https:\/\//, "");
-      return `${!process.env.MODE ? "https://" : "http://"}${this.domain}${
-        this.$route.path
-      }`;
+      return `${
+        this.$store.state.env.data.MODE === "stage" ||
+        this.$store.state.env.data.MODE === "production"
+          ? "https://"
+          : "http://"
+      }${this.domain}${this.$route.path}`;
     },
     getEvents() {
       return this.$store.dispatch("getArticleFileData", {
@@ -588,7 +594,7 @@ export default {
         display: flex;
         line-height: 1em;
         div {
-          width: 4px;
+          min-width: 4px;
           margin-right: 10px;
           border-radius: 2px;
           background-color: map-get($color, "Orange10");

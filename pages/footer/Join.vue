@@ -4,7 +4,7 @@
     <div class="content-event">
       <h1>我要成為夥伴</h1>
       <div class="detailContainer">
-        <div class="detailcontent">
+        <div class="detailContent">
           <div class="title">我也想要加入微樂志工平台成為夥伴之一</div>
           <div class="inputContent">
             <div class="inputTitle">微樂帳號</div>
@@ -37,7 +37,7 @@
               />
               <label for="npo">NPO / 團體機關</label>
             </div>
-            <div>
+            <!-- <div>
               <input
                 type="radio"
                 id="enterprise"
@@ -46,7 +46,7 @@
                 v-model="organizationType"
               />
               <label for="enterprise">企業</label>
-            </div>
+            </div> -->
           </div>
           <div class="submitContent">
             <div
@@ -60,7 +60,7 @@
             <div v-else class="submit">請稍後</div>
           </div>
         </div>
-        <div class="detailcontent">
+        <div class="detailContent">
           <div class="title">親愛的志工團隊您好：</div>
           <p class="content">
             微樂志工為您做最佳活動推廣服務。
@@ -68,6 +68,26 @@
             如您希望能將您的招募活動上架於
             微樂志工平台，請填妥左邊資料，我們將盡快與您聯繫。
           </p>
+          <div class="downLoad">
+            <a
+              href="/./document/5180上架申請表修改版(含微樂志工推廣)_final(20200317).doc"
+              download="微樂志工_5180即時捐上架申請表"
+              target="_blank"
+              >5180即時捐上架申請表</a
+            >
+            <a
+              href="/./document/5180上架流程與資格說明_20210601.pdf"
+              download="微樂志工_5180即時捐上架流程與資格說明"
+              target="_blank"
+              >5180即時捐上架流程與資格說明</a
+            >
+            <a
+              href="/./document/微樂志工平台─數位捐款功能申請書final.pdf"
+              download="微樂志工_數位捐款功能申請表"
+              target="_blank"
+              >數位捐款功能申請表</a
+            >
+          </div>
         </div>
       </div>
       <div class="joinContainer">
@@ -94,7 +114,9 @@ export default {
           this.account = this.profileGetter.username;
           this.userId = this.profileGetter.id;
         } else {
-          this.$router.replace({ name: "login" }).catch(() => {});
+          if (!localStorage.getItem("accessToken")) {
+            this.$router.replace({ name: "login" }).catch(() => {});
+          }
         }
       },
     },
@@ -178,7 +200,7 @@ h1 {
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  .detailcontent {
+  .detailContent {
     width: 100%;
     padding: 0 10px 20px;
     &:not(:last-child) {
@@ -255,10 +277,26 @@ h1 {
         }
       }
     }
+    .downLoad {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      display: inline-block;
+      a {
+        display: inline-block;
+        color: map-get($color, "Orange10");
+        font-weight: bold;
+        font-size: 20px;
+        margin: 5px 0;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
   @include BreakPointLarge {
     flex-direction: row;
-    .detailcontent {
+    .detailContent {
       width: 50%;
     }
   }

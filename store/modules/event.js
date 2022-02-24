@@ -71,7 +71,7 @@ const actions = {
       let { method, requestUrl } = service.getEvents;
       return axiosInstance({
         method: method,
-        url: `${getDomain()}${requestUrl}`,
+        url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
         ...headerConfig(),
         ...paramsHandler(),
       })
@@ -101,7 +101,7 @@ const actions = {
 
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...eventConfig,
@@ -119,7 +119,7 @@ const actions = {
     let { method, requestUrl } = service.getVolunteerEvent;
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,
@@ -146,7 +146,7 @@ const actions = {
     // )
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,
@@ -173,7 +173,7 @@ const actions = {
     // )
     return axiosInstance({
       method: method,
-      url: `${getDomain()}${requestUrl}`,
+      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
       ...headerConfig(),
       params: {
         ...params,

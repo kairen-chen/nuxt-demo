@@ -165,7 +165,7 @@
                                     <i-Col class="groupSection" span="8" v-for="(item, index) in editFormValidate.skillGroups" :key="item.index">
                                         <Row class="groupSection">
                                             <Col span="12">
-                                            <FormItem label="組別">
+                                            <FormItem label="組別" prop="skillGroupsList">
                                                 <Input type="text" v-model="item.name" placeholder="組別名稱"></Input>
                                             </FormItem>
                                             </Col>
@@ -199,7 +199,7 @@
                         </i-Col>
                     </Row>
                     <Row>
-                        <i-Col span="12">
+                        <i-Col span="12" v-show="!editFormValidate.requiredGroup">
                             <FormItem class="edit-form-item" label="志工報名人數上限" prop="requiredVolunteerNum">
                                 <Input v-model.trim="editFormValidate.requiredVolunteerNum" maxlength="20"></Input>
                             </FormItem>
@@ -276,28 +276,46 @@ export default {
             }
         }
         const validateLat = (rule, value, callback) => {
-
             let lat = this.editFormValidate.lat
-            let valid = (lat.match(/^-?\d*(\.\d+)?$/))
             if (lat == '') {
                 callback(new Error('請輸入緯度'))
-            } else if (!valid) {
-                callback(new Error('請輸入正確經緯度格式'))
             } else {
-                callback()
+                let valid = (lat.match(/^-?\d*(\.\d+)?$/))
+                if(!valid) {
+                    callback(new Error('請輸入正確經緯度格式'))
+                }else {
+                    callback()
+                }          
             }
         }
         const validateLng = (rule, value, callback) => {
-            let lng = this.editFormValidate.lng
-            let valid = (lng.match(/^-?\d*(\.\d+)?$/))
+            let lng = this.editFormValidate.lng    
             if (lng == '') {
                 callback(new Error('請輸入經度'))
-            } else if (!valid) {
-                callback(new Error('請輸入正確經緯度格式'))
+            } else{
+                let valid = (lng.match(/^-?\d*(\.\d+)?$/))
+                if(!valid) {
+                    callback(new Error('請輸入正確經緯度格式'))
+                }else {
+                    callback()
+                }        
+            } 
+        }
+        const validateSkillGroupsList = (rule, value, callback) => {
+            // callback(new Error('請輸入組別'))
+            let requiredGroup = this.editFormValidate.requiredGroup
+            let skillGroups = this.editFormValidate.skillGroups
+            // console.log(JSON.stringify(skillGroups))
+            if (requiredGroup) {
+                if(skillGroups[0].name=='') {
+                    callback(new Error('請輸入組別'))
+                }else {
+                    callback()
+                }
             } else {
                 callback()
             }
-        }
+        }          
         return {
             npoList: [],
             tagsList: [],
@@ -333,7 +351,10 @@ export default {
                     name: '',
                     skillsDescription: '',
                     volunteerNumber: ''
-                }]
+                }],
+                lat: '',
+                lng: '',
+                requiredVolunteerNum: '0'
             },
             editRuleValidate: {
                 volunteerType: [{
@@ -402,6 +423,12 @@ export default {
                     message: '請輸入志工報名人數上限',
                     trigger: 'submit'
                 }],
+                skillGroupsList: [{
+                    // required: true,
+                    type: 'string',
+                    validator: validateSkillGroupsList,
+                    trigger: 'submit'
+                }],                 
                 lat: [{
                     required: true,
                     type: 'string',
@@ -454,6 +481,7 @@ export default {
                     let closeDate = moment(this.editFormValidate.closeDate).format('YYYY-MM-DD HH:mm:ss')
                     let registerDeadlineDate = moment(this.editFormValidate.registerDeadlineDate).format('YYYY-MM-DD HH:mm:ss')
                     let tags = this.editFormValidate.tags?this.editFormValidate.tags.join():''
+                    let requiredVolunteerNum = this.returnRequiredVolunteerNum()
 
                     data.push({
                         npoId: npoId,
@@ -474,7 +502,7 @@ export default {
                         volunteerTrainingDesc: this.editFormValidate.volunteerTrainingDesc?this.editFormValidate.volunteerTrainingDesc: '',
                         lat: this.editFormValidate.lat,
                         lng: this.editFormValidate.lng,
-                        requiredVolunteerNum: this.editFormValidate.requiredVolunteerNum, //人數上限
+                        requiredVolunteerNum: requiredVolunteerNum, //人數上限
 
                         // currentVolunteerNum: this.editFormValidate.youtubeCode,
                         requiredGroup: this.editFormValidate.requiredGroup,
@@ -495,7 +523,7 @@ export default {
                         promote: this.editFormValidate.promote, //小編推薦 
                         cooperationNpoIds: this.editFormValidate.cooperationNposArray,
                     })
-                    // console.log(data)
+                    console.log(data)
                     let _this = this
                     let errorDesc = ''
                     this._API.postEvents.send(data).then((data) => {
@@ -774,7 +802,20 @@ export default {
             }
             return fmt
         },
-
+        returnRequiredVolunteerNum() {
+            let requiredVolunteerNum = 0
+            let check = this.editFormValidate.requiredGroup
+            if(check) {
+                this.editFormValidate.skillGroups.forEach(element => {
+                    if(element.volunteerNumber) {
+                        requiredVolunteerNum += parseInt(element.volunteerNumber)
+                    }
+                });
+            }else {
+                requiredVolunteerNum = this.editFormValidate.requiredVolunteerNum
+            }
+            return requiredVolunteerNum
+        }
     }
 };
 </script>

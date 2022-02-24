@@ -47,8 +47,8 @@ export default {
             pageSize: 10,
             params: '',
             isSearchModal: true,
-            sort: 'enterpriseSerialNumber',
-            sortStr: ['enterpriseSerialNumber'],
+            sort: 'enterpriseSerialNumber,asc',
+            sortStr: ['enterpriseSerialNumber,asc'],
             columns: [
                 {
                     title: '真實姓名',

@@ -379,6 +379,16 @@ export default {
         }
       },
     },
+    profileGetter: {
+      immediate: true,
+      handler() {
+        if (this.profileGetter) {
+          this.name = this.profileGetter.name;
+          this.tel = this.profileGetter.phone;
+          this.email = this.profileGetter.email;
+        }
+      },
+    },
   },
   data() {
     return {
@@ -415,6 +425,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.profileGetter);
     window.addEventListener("resize", this.debounce(this.resizeHandler));
     this.resizeHandler();
 

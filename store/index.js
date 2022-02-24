@@ -8,6 +8,7 @@ import npo from "./modules/npo";
 import search from "./modules/search";
 import webVisibility from "./modules/webVisibility";
 import file from "./modules/file";
+import env from "./modules/env";
 
 Vue.use(Vuex);
 const store = () => {
@@ -21,6 +22,7 @@ const store = () => {
       search,
       webVisibility,
       file,
+      env,
     },
   });
 };

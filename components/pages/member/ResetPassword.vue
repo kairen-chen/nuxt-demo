@@ -78,11 +78,23 @@ export default {
               accessCode: this.accessCode,
             };
             this._API.resetPassword.send(postData).then((res) => {
+              // 密碼格式不正確
               if (res.error === "badPassword") {
                 document.getElementsByClassName(
                   "loginLoading"
                 )[0].style.display = "none";
                 this.errorNotice(res.error);
+              }
+              // accessCode fail
+              else if (
+                res.error ===
+                  "invalidAccessTask Access task is out-of-date or invalid" ||
+                res.error === "invalidAccessCode"
+              ) {
+                this.errorNotice(res.error);
+                this.$router
+                  .replace({ name: "forgetPassword" })
+                  .catch(() => {});
               } else if (!res) {
                 this.$router
                   .replace({
@@ -92,7 +104,8 @@ export default {
                     this.$Notice.success({
                       title: "密碼已成功變更，請使用新密碼登入",
                     });
-                  });
+                  })
+                  .catch(() => {});
               } else {
                 this.errorNotice(res.error);
               }

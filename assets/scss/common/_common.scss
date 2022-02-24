@@ -83,16 +83,33 @@ label {
   }
 }
 
+// 列印設定
 @media print {
   .headerContainer,
+  .ivu-breadcrumb,
+  .ivu-tabs-container,
+  .socialContent,
+  .topContainer,
   .searchContentSection,
   .footerContainer {
     display: none !important;
   }
+
+  .articleFileContainer {
+    display: block !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .contentNormalStyle {
+    page-break-inside: avoid;
+    &.introduceContent {
+      margin-top: 20px !important;
+    }
+  }
 }
 @page {
   size: A4 portrait;
-  margin: 1.2cm; // 一般頁面的邊距
-  orphans: 4; //orphans 是指頁面最後一個段落的行數、widow 則是頁面第一個段落的行數，初始值都是2，表示限制頁面頂部及底部的段落不能只顯示一行就被分頁
-  widows: 2;
+  margin: 1.5cm; // 一般頁面的邊距
+  orphans: 2; //orphans 是指頁面最後一個段落的行數、
+  widows: 2; // widow 則是頁面第一個段落的行數，初始值都是2，表示限制頁面頂部及底部的段落不能只顯示一行就被分頁
 }
