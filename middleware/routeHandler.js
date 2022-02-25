@@ -3,8 +3,6 @@ export default ({ app, route, redirect }) => {
   /*
     請勿在universal使用
     
-    利用router進行component互換
-    
     !!!! mode: "universal",時首次會跑SSR,beforeEach不執行,所以首次點擊list方框不會開啟lightbox
 
     !!!! 解法:在PicList.vue內做beforeRouteLeave
