@@ -169,11 +169,17 @@ export function createRouter(context) {
         name: "bindFubon",
         path: "/bind/bindFubon",
         component: BindFubon,
+        meta: {
+          requiresFrontStationAuth: true, //需要登入才能訪問
+        },
       },
       {
         name: "bindTWM",
         path: "/bind/bindTWM",
         component: BindTWM,
+        meta: {
+          requiresFrontStationAuth: true, //需要登入才能訪問
+        },
       },
       // ----會員中心頁內點擊綁定用----
 

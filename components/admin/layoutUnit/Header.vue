@@ -263,7 +263,7 @@ export default {
                 title: "活動管理",
                 imgSrc: "https://www.isharing.tw/static/images/new.png",
                 imgSrcActive: "https://www.isharing.tw/static/images/enterprise.png",
-                link: "/backend/Event/list",
+                link: "/backend/NPOEvent/list",
                 alt: "活動管理",
             }, ],
             adminMenu: [{
@@ -594,3 +594,18 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.ivu-menu-horizontal {
+    /* height: 60px; */
+    line-height: 60px;
+    height: auto;
+}
+
+@media only screen and (max-width: 1217px) {
+    .ivu-menu-horizontal .ivu-menu-item, .ivu-menu-horizontal .ivu-menu-submenu {
+        padding: 0 10px;
+    }
+}
+
+</style>

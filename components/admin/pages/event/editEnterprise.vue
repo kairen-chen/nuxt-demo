@@ -774,12 +774,8 @@ export default {
                                 desc: '編輯成功',
                                 duration: Config.successDuration
                             })
-                            // this.getDetail()
-                            // if(_this.isStaff=="true") {
-                            //     this.$router.push({ name: 'backendAdminEventList', params: { npouid: _this.editFormValidate.npoId }})
-                            // }else {    
-                            //     this.$router.push({ name: 'backendNPOEventList'})
-                            // }
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})   
                             this.$router.back()
                             
                         }
@@ -941,6 +937,8 @@ export default {
                                 desc: '刪除成功',
                                 duration: Config.successDuration
                             })
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})                               
                         }
                     })
                 }

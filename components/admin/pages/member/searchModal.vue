@@ -25,10 +25,15 @@
                         </FormItem>
                     </i-Col>                    
                     <i-Col span="6">
-                        <FormItem class="search-form-item" label="名稱" prop="name">
-                            <Input v-model.trim="searchFormValidate.name" maxlength="64" placeholder="請輸入關鍵字"></Input>
+                        <FormItem class="search-form-item" label="台灣大員工" prop="isTwm">
+                            <Checkbox v-model="searchFormValidate.isTwm"><span>&nbsp;</span></Checkbox>
                         </FormItem>
                     </i-Col>
+                    <i-Col span="6">
+                        <FormItem class="search-form-item" label="富邦愛心志工社" prop="isFubon">
+                            <Checkbox v-model="searchFormValidate.isFubon"><span>&nbsp;</span></Checkbox>
+                        </FormItem>
+                    </i-Col>                    
 
                 </Row>
             </i-Col>
@@ -63,6 +68,8 @@ export default {
                 id: '',
                 username: '',
                 name: '',
+                isTwm: false,
+                isFubon: false,
             },
             searchRuleValidate: {}
         }
@@ -120,7 +127,14 @@ export default {
                         num += 1
                         str += ' and name like \'' + this.searchFormValidate.name + '\'  '
                     }
-
+                    if (this.searchFormValidate.isTwm) {
+                        num += 1
+                        str += ' and isTwm eq true '
+                    }
+                    if (this.searchFormValidate.isFubon) {
+                        num += 1
+                        str += ' and isFubon eq true '
+                    }                    
                     if (num === 0) {
                         data = ''
                     } else {

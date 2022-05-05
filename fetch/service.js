@@ -464,6 +464,34 @@ let PublicObjService = {
     method: "get",
     requestUrl: "api/v1/notifications/menu",
   },     
+  refreshDumpFile: {
+    method: "post",
+    requestUrl: "api/v1/appConfigs/dumpFile",
+  },
+  // Admin解除TWM綁定
+  adminUnbindTWM: {
+    method: "delete",
+    requestCommon: function(id) {
+      this.requestUrl = "api/v1/users/" + id + "/twm/";
+    },    
+  },
+  // Admin解除Fubon綁定
+  adminUnbindFubon: {
+    method: "delete",
+    requestCommon: function(id) {
+      this.requestUrl = "api/v1/users/" + id + "/fubon/";
+    },    
+  },
+  // 取得User List
+  getUsersTwm: {
+    method: "get",
+    requestUrl: "api/v1/users/twm",
+  },  
+  // 取得User List
+  getUserScoreRecords: {
+    method: "get",
+    requestUrl: "api/v1/scoreRecords",
+  },    
 };
 
 AjaxSend.loopServiceApi(PublicObjService);

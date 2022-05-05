@@ -118,6 +118,7 @@ export default {
                     this.exportStatusData()
                     break;    
                 case "rankingData":
+                    this.isPageLoading = true
                     this.exportRankingData()
                     break;
                 case "bindFubonData":
@@ -417,12 +418,12 @@ export default {
                             '志工時數': String(item.eventHour),
                             '員工帳號': String(item.userName),
                             '真實姓名': String(item.enterpriseSerialName),
-                            '公司電子信箱': String(item.enterpriseSerialName),
-                            '員工編號': String(item.enterpriseSerialEmail),
-                            '身分證字號': String(item.enterpriseSerialNumber),
+                            '公司電子信箱': String(item.enterpriseSerialEmail),
+                            '員工編號': String(item.enterpriseSerialNumber),
+                            '身分證字號後五碼': String(item.enterpriseSerialSecurityId),
                             '電話': String(item.enterpriseSerialPhone),
                             '部門': String(item.enterpriseSerialDepartment),
-                            '公司別': String(item.enterpriseSerialType),
+                            // '公司別': String(item.enterpriseSerialType),
                             '企業志工分組': String(item.enterpriseSerialGroup),
                         }
 
@@ -437,10 +438,9 @@ export default {
                         '真實姓名': '',
                         '公司電子信箱': '',
                         '員工編號': '',
-                        '身分證字號': '',
+                        '身分證字號後五碼': '',
                         '電話': '',
                         '部門': '',
-                        '公司別': '',
                         '企業志工分組': '',
                     })
                 }

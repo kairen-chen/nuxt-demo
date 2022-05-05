@@ -36,6 +36,7 @@
         >
       </div>
     </div>
+    <div class="loginLoading"></div>
   </div>
 </template>
 <script>
@@ -52,6 +53,7 @@ export default {
   },
   mounted() {
     document.getElementsByClassName("loading")[0].style.display = "none";
+    document.getElementsByClassName("loginLoading")[0].style.display = "none";
     // if (this.$route.params.account) {
     //   this.account = this.$route.params.account;
     // }
@@ -62,6 +64,8 @@ export default {
         [{ account: this.account }, { password: this.password }],
         (pass) => {
           if (pass) {
+            document.getElementsByClassName("loginLoading")[0].style.display =
+              "block";
             let postData = {
               username: this.account,
               password: this.password,
@@ -79,6 +83,9 @@ export default {
                   })
                   .catch(() => {});
               } else {
+                document.getElementsByClassName(
+                  "loginLoading"
+                )[0].style.display = "none";
                 this.errorNotice(res.errors[0].error);
               }
             });

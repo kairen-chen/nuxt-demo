@@ -149,9 +149,10 @@
                             </FormItem>
                         </i-Col>
                          <i-Col span="12">
-                            <FormItem class="edit-form-item" label="Youtube網址(輸入範例:https://www.youtube.com/watch?v=iDeCfy)" prop="youtubeCode">
-                                <Input v-model.trim="editFormValidate.youtubeCode" maxlength="200"></Input>
+                            <FormItem class="edit-form-item" label="Youtube影片代碼" prop="youtubeCode">
+                                <Input v-model.trim="editFormValidate.youtubeCode" maxlength="200"></Input>                              
                             </FormItem>
+                            <div class="hint">(範例: https://www.youtube.com/watch?v=<span style="color:red">za8Rh8HlNPo</span>，紅色字體即為影片代碼)</div>
                         </i-Col>
 
                     </Row>
@@ -386,11 +387,10 @@ export default {
                             }
                         }
 
-                        if (_this.npoIconFile) {
-                                
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
+                        if (_this.npoIconFile || _this.verifiedImageFile || _this.registerImageFile) {
+                            if(_this.npoIconFile) {
+                                // let data = []
+                                // let errorDesc = ''
                                 // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
                                 this._API.putNposFile.requestCommon(this.id,'icon')
                                 this._API.putNposFile.fileUpload({
@@ -398,59 +398,131 @@ export default {
                                     type: 'icon',
                                     image: _this.npoIconFile[0]
                                 }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
+                                    if(_this.verifiedImageFile || _this.registerImageFile) {
+                                        if(_this.verifiedImageFile) {
+                                            // let data = []
+                                            // let errorDesc = ''
+                                            this._API.putNposFile.requestCommon(this.id,'verifiedImg')
+                                            this._API.putNposFile.fileUpload({
+                                                id: this.id,
+                                                type: 'verifiedImg',
+                                                image: _this.verifiedImageFile[0]
+                                            }).then((data) => {
+                                                // if (data.errors) {
+                                                //     console.log('xxxx:'+data.errors)
+                                                // }
+                                                if(_this.registerImageFile) {
+                                                    // let data = []
+                                                    // let errorDesc = ''
+                                                    this._API.putNposFile.requestCommon(this.id,'registerImg')
+                                                    this._API.putNposFile.fileUpload({
+                                                        id: this.id,
+                                                        type: 'registerImg',
+                                                        image: _this.registerImageFile[0]
+                                                    }).then((data) => {
+                                                        if (data.errors) {
+                                                            console.log('xxxx:'+data.errors)
+                                                        }
+                                                    }).catch((error) => {
+                                                        // delete data
+                                                        console.log('xxxx')
+                                                        // this.itemDelete(this.editFormValidate.code)
+                                                    })                                                    
+                                                }
+                                            }).catch((error) => {
+                                                // delete data
+                                                console.log('xxxx')
+                                                // this.itemDelete(this.editFormValidate.code)
+                                            })                                           
+                                        }else {
+                                            if(_this.registerImageFile) {
+                                                // let data = []
+                                                // let errorDesc = ''
+                                                this._API.putNposFile.requestCommon(this.id,'registerImg')
+                                                this._API.putNposFile.fileUpload({
+                                                    id: this.id,
+                                                    type: 'registerImg',
+                                                    image: _this.registerImageFile[0]
+                                                }).then((data) => {
+                                                    if (data.errors) {
+                                                        console.log('xxxx:'+data.errors)
+                                                    }
+                                                }).catch((error) => {
+                                                    // delete data
+                                                    console.log('xxxx')
+                                                    // this.itemDelete(this.editFormValidate.code)
+                                                })                                                    
+                                            }                                            
+                                        }
                                     }
+
                                 }).catch((error) => {
                                     // delete data
                                     console.log('xxxx')
                                     // this.itemDelete(this.editFormValidate.code)
                                 })
+
+                            }else {
+                                if(_this.verifiedImageFile) {
+                                    // let data = []
+                                    // let errorDesc = ''
+                                    this._API.putNposFile.requestCommon(this.id,'verifiedImg')
+                                    this._API.putNposFile.fileUpload({
+                                        id: this.id,
+                                        type: 'verifiedImg',
+                                        image: _this.verifiedImageFile[0]
+                                    }).then((data) => {
+                                        // if (data.errors) {
+                                        //     console.log('xxxx:'+data.errors)
+                                        // }
+                                        if(_this.registerImageFile) {
+                                            // let data = []
+                                            // let errorDesc = ''
+                                            this._API.putNposFile.requestCommon(this.id,'registerImg')
+                                            this._API.putNposFile.fileUpload({
+                                                id: this.id,
+                                                type: 'registerImg',
+                                                image: _this.registerImageFile[0]
+                                            }).then((data) => {
+                                                if (data.errors) {
+                                                    console.log('xxxx:'+data.errors)
+                                                }
+                                            }).catch((error) => {
+                                                // delete data
+                                                console.log('xxxx')
+                                                // this.itemDelete(this.editFormValidate.code)
+                                            })                                                    
+                                        }
+                                    }).catch((error) => {
+                                        // delete data
+                                        console.log('xxxx')
+                                        // this.itemDelete(this.editFormValidate.code)
+                                    })                                           
+                                }else {
+                                    if(_this.registerImageFile) {
+                                        // let data = []
+                                        // let errorDesc = ''
+                                        this._API.putNposFile.requestCommon(this.id,'registerImg')
+                                        this._API.putNposFile.fileUpload({
+                                            id: this.id,
+                                            type: 'registerImg',
+                                            image: _this.registerImageFile[0]
+                                        }).then((data) => {
+                                            if (data.errors) {
+                                                console.log('xxxx:'+data.errors)
+                                            }
+                                        }).catch((error) => {
+                                            // delete data
+                                            console.log('xxxx')
+                                            // this.itemDelete(this.editFormValidate.code)
+                                        })                                                    
+                                    }                                    
+                                }
+                                    
+                            }
+                             
+                                
                         } 
-
-                        if (_this.verifiedImageFile) {
-                                
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putNposFile.requestCommon(this.id,'verifiedImg')
-                                this._API.putNposFile.fileUpload({
-                                    id: this.id,
-                                    type: 'verifiedImg',
-                                    image: _this.verifiedImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
-                                    }
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
-                        }
-
-                        if (_this.registerImageFile) {
-                                
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putNposFile.requestCommon(this.id,'registerImg')
-                                this._API.putNposFile.fileUpload({
-                                    id: this.id,
-                                    type: 'registerImg',
-                                    image: _this.registerImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
-                                    }
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
-                        }
 
 
                         if (errorDesc) {
@@ -462,7 +534,7 @@ export default {
                         } else {
                             _this.$Notice.success({
                                 title: '成功',
-                                desc: '編輯成功',
+                                desc: '編輯成功，請等待審核通過即可上架活動',
                                 duration: Config.successDuration
                             })
                             this.getDetail()
@@ -602,7 +674,26 @@ export default {
                 }
             };
         },
-        
+        async executePutFile(id, type, file) {
+            // upload plane photo
+            let data = []
+            let errorDesc = ''
+            // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
+            this._API.putNposFile.requestCommon(id, type)
+            await this._API.putNposFile.fileUpload({
+                id: id,
+                type: type,
+                image: file
+            }).then((data) => {
+                if (data.errors) {
+                    console.log('xxxx:'+data.errors)
+                }
+            }).catch((error) => {
+                // delete data
+                console.log('xxxx')
+                // this.itemDelete(this.editFormValidate.code)
+            })
+        }
     }
 };
 </script>
@@ -610,5 +701,9 @@ export default {
 <style lang="scss" scoped>
 .previewPlanes {
     width: 100px;
+}
+.hint {
+    padding-bottom: 10px;
+    margin: 10px
 }
 </style>

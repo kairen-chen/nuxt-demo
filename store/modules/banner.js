@@ -15,20 +15,12 @@ const actions = {
   getBannerData(context) {
     if (context.state.bannerData && context.state.bannerData.results.length > 0)
       return;
-    let { method, requestUrl } = service.getBanner;
-    return axiosInstance({
-      method: method,
-      url: `${getDomain(context.rootState.env.data)}${requestUrl}`,
-      ...headerConfig(),
-      params: {
+    this._vm._API.getBanner
+      .send({
         sort: `displaySort,desc`,
-      },
-    })
-      .then((res) => {
-        context.commit(types.GET_BANNER, res.data);
       })
-      .catch((err) => {
-        console.warn("#### getBannerData fail! #### (" + err + ") ");
+      .then((res) => {
+        context.commit(types.GET_BANNER, res);
       });
   },
 };

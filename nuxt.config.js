@@ -3,7 +3,7 @@ export default {
   mode: "universal",
   // mode: "spa", //spa / universal
   server: {
-    port: 3333, // default: 3000
+    port: 5432, // default: 3000
     host: "0.0.0.0", // default: localhost
   },
   generate: {
@@ -77,4 +77,5 @@ export default {
       }),
     ],
   },
+  serverMiddleware: ["@/middleware/test"],
 };

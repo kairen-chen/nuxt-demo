@@ -79,6 +79,7 @@ export default {
             type: "password",
             trigger: "blur",
             validateType: "password",
+            maxlength: 12,
           };
         case "tel":
           return {

@@ -48,8 +48,10 @@ export default {
         return {
             isShowForgotModal: false,
             loginFormValidate: {
-                username: 'admin@twmf.com',
-                password: 'twmf5180'
+                username: '',
+                password: ''                
+                // username: 'admin@twmf.com',
+                // password: 'twmf5180'
                 // username: 'leochlai@fih-foxconn.com',
                 // password: 'Admin*123'
             },
@@ -107,6 +109,8 @@ export default {
                     //     name: 'backendNPOEventList' // 導頁至預設頁面
                     // })
                 }
+            }else if(localStorage.getItem('accessToken') && localStorage.getItem('isStaff') == 'true' ) {
+                location.href = '/backend/Npo/list'
             }
         }
 

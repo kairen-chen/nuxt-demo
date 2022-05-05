@@ -351,6 +351,8 @@ export default {
                             duration: Config.successDuration
                         })                        
                     }
+                    // 更新dumpFile
+                    this._API.refreshDumpFile.send(data).then((data) => {})                       
                     this.getDetail()
                 }).catch((error) => {
                     // delete data
@@ -378,6 +380,8 @@ export default {
                     duration: Config.successDuration
                 })   
                 this.deleteConfirmModal = false
+                // 更新dumpFile
+                this._API.refreshDumpFile.send(data).then((data) => {})                   
                 this.getDetail()
 
             }).catch((error) => {

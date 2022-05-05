@@ -205,46 +205,38 @@ export default {
                             })
                         } else {
                             let bannerID = data[0].id
-
-                            if (_this.file[0]) {
-                                // console.log('file:'+JSON.stringify(this.file[0]))
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putBanner.requestCommon(bannerID, 'image')
-                                this._API.putBanner.fileUpload({
-                                    id: bannerID,
-                                    type: 'image',
-                                    image: _this.file[0]
-                                }).then((data) => {
-
-
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.addFormValidate.code)
-
-                                })
-                            }
-                            if (_this.verifiedImageFile) {
-
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putBanner.requestCommon(bannerID, 'smallImage')
-                                this._API.putBanner.fileUpload({
-                                    id: bannerID,
-                                    type: 'smallImage',
-                                    image: _this.verifiedImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
+                            if(_this.file || _this.verifiedImageFile) {
+                                if (_this.file) {
+                                    this._API.putBanner.requestCommon(bannerID, 'image')
+                                    this._API.putBanner.fileUpload({
+                                        id: bannerID,
+                                        type: 'image',
+                                        image: _this.file[0]
+                                    }).then((data) => {
+                                        if (_this.verifiedImageFile) {
+                                            this._API.putBanner.requestCommon(bannerID, 'smallImage')
+                                            this._API.putBanner.fileUpload({
+                                                id: bannerID,
+                                                type: 'smallImage',
+                                                image: _this.verifiedImageFile[0]
+                                            }).then((data) => {
+                                            }).catch((error) => {
+                                            })
+                                        }                                        
+                                    }).catch((error) => {
+                                    })
+                                } else {
+                                    if (_this.verifiedImageFile) {
+                                        this._API.putBanner.requestCommon(bannerID, 'smallImage')
+                                        this._API.putBanner.fileUpload({
+                                            id: bannerID,
+                                            type: 'smallImage',
+                                            image: _this.verifiedImageFile[0]
+                                        }).then((data) => {
+                                        }).catch((error) => {
+                                        })
                                     }
-                                }).catch((error) => {
-                                    // delete data
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
+                                }
                             }
                             _this.$Notice.success({
                                 title: '成功',

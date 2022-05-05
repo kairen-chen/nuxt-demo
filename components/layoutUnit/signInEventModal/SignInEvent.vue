@@ -425,7 +425,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.profileGetter);
+    // console.log(this.profileGetter);
     window.addEventListener("resize", this.debounce(this.resizeHandler));
     this.resizeHandler();
 

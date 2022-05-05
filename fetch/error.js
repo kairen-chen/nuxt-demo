@@ -146,11 +146,12 @@ export const responseDataError500 = (re) => {
       error = "系統忙碌中";
       break;
   }
-  iView.Notice.error({
-    title: "錯誤",
-    desc: error,
-    duration: Config.errorDuration,
-  });
+  // 不顯示系統錯誤
+  // iView.Notice.error({
+  //   title: "錯誤",
+  //   desc: error,
+  //   duration: Config.errorDuration,
+  // });
 };
 export const responseDataError503 = (re) => {
   let error = "";

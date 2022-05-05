@@ -150,7 +150,8 @@ export default {
                     this.eventCity = eventData.addressCity
 
                     if(new Date(closeDate).getTime()>d) {
-                        let substr = 'skillsDescription like \'' + this.eventType + '\' or interest like \'' + this.eventCity + '\' and isPublic eq 1  '
+                        let substr = ' skillsDescription like ' + this.eventType +' or interest like ' + this.eventCity + ' and isPublic eq 1  '
+                        // let substr = 'skillsDescription like \'' + this.eventType + '\' or interest like \'' + this.eventCity + '\' and isPublic eq 1  '
                         let subparams = {
                             search: substr,
                             inlinecount: true,
@@ -205,7 +206,7 @@ export default {
 
             let eventType = _this.eventType
             let eventCity = _this.eventCity
-            let str = 'skillsDescription like \'' + eventType + '\' or interest like \'' + eventCity + '\' and isPublic eq 1  '
+            let str = ' skillsDescription like ' + eventType +' or interest like ' + eventCity + ' and isPublic eq 1  '
 
             params = {
                 search: str,

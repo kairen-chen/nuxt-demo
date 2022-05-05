@@ -59,8 +59,8 @@
             ref="_email"
             :type="'email'"
             v-model.trim="profile.email"
-            :required="true"
           ></Input>
+          <!-- :required="true" -->
         </div>
         <div class="column">
           <div class="rowTitle publicPage">
@@ -388,7 +388,7 @@ export default {
 
       npoBindData: [
         { title: "富邦集團員工", type: "isFubon" },
-        // { title: "台灣大哥大員工", type: "isTwm" },
+        { title: "台灣大哥大員工", type: "isTwm" },
       ],
       reloadFlag: false,
     };
@@ -670,46 +670,47 @@ export default {
         });
         return;
       }
-      this._validate([{ email: this.profile.email }], (pass) => {
-        if (pass) {
-          let sumbit = () => {
-            this._API.editProfile
-              .send([
-                {
-                  username: this.profile.email,
-                  name: this.profile.name,
-                  phone: this.profile.tel,
-                  email: this.profile.email,
-                  public: this.profile.publicProfile,
-                  interest: this.profile.serviceLoaction,
-                  skillsDescription: this.profile.serviceSkill,
-                  aboutMe: this.profile.aboutMe,
-                },
-              ])
-              .then((res) => {
-                if (!res[0].errors) {
-                  this.$Notice.success({
-                    title: "編輯成功!",
-                    duration: 3,
-                  });
-                  this.getUsersData("reload");
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                } else {
-                  this.errorNotice(res[0].errors[0].error);
-                }
+      // email必填驗證
+      // this._validate([{ email: this.profile.email }], (pass) => {
+      // if (pass) {
+      let sumbit = () => {
+        this._API.editProfile
+          .send([
+            {
+              username: this.resetProfile.username,
+              name: this.profile.name,
+              phone: this.profile.tel,
+              email: this.profile.email,
+              public: this.profile.publicProfile,
+              interest: this.profile.serviceLoaction,
+              skillsDescription: this.profile.serviceSkill,
+              aboutMe: this.profile.aboutMe,
+            },
+          ])
+          .then((res) => {
+            if (!res[0].errors) {
+              this.$Notice.success({
+                title: "編輯成功!",
+                duration: 3,
               });
-          };
-          this.uploadLicense().then(() => {
-            sumbit();
+              this.getUsersData("reload");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              this.errorNotice(res[0].errors[0].error);
+            }
           });
-        } else {
-          this.$Notice.warning({
-            title: `請輸入電子信箱!`,
-            duration: 3,
-          });
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
+      };
+      this.uploadLicense().then(() => {
+        sumbit();
       });
+      // } else {
+      //   this.$Notice.warning({
+      //     title: `請輸入電子信箱!`,
+      //     duration: 3,
+      //   });
+      //   window.scrollTo({ top: 0, behavior: "smooth" });
+      // }
+      // });
     },
     // 密碼欄清空
     resetPasswordHandler() {

@@ -14,10 +14,9 @@
                 <Row>
                     <i-Col span="12">
                         <FormItem class="edit-form-item" label="NPO User Account" prop="userId">
-                            {{username}}
-                            <!-- <Select v-model="editFormValidate.userId" :transfer="true" placeholder="請選擇或搜尋帳號" filterable disabled>
-                                <Option v-for="item in userList" :value="item.userId" :key="item.userId">{{item.name}}</Option>
-                            </Select>    -->
+                            <Select v-model="editFormValidate.userId" :transfer="true" placeholder="請選擇或搜尋帳號" filterable>
+                                <Option v-for="item in usersList" :value="item.id" :key="item.id">{{item.username}}</Option>
+                            </Select>   
                         </FormItem>
                         
                     </i-Col>
@@ -246,12 +245,19 @@ export default {
             registerImageFile: null,  //npo icon          
             //
             detail: [],
-            userList: [],
+            usersList: [],
             editFormValidate: {
-                user: '',
+                // userId: '',
                 name: '',
             },
             editRuleValidate: {
+                userId: [{
+                        required: true,
+                        message: '請選擇NPO帳號',
+                        trigger: 'submit',
+                        type: 'number'
+                    },
+                ],                
                 name: [{
                         required: true,
                         message: '請輸入NPO名稱',
@@ -320,7 +326,7 @@ export default {
     },
     mounted() {
         this.getDetail()
-        // this.getUsersMenu()
+        this.getUsersMenu()
     },    
     computed: {
         npoTitle(){
@@ -377,30 +383,43 @@ export default {
                 // _this.editFormValidate.verifiedImageURL = baseURL+'uploads/'+_this.editFormValidate.verifiedImage
                 // _this.editFormValidate.registerImageURL = baseURL+'uploads/'+_this.editFormValidate.registerImage
                 // _this.editFormValidate.registerImageURL = 'https://www.isharing.tw/uploads/'+_this.editFormValidate.registerImage
-                _this.getUsers(_this.editFormValidate.userId)
+                // _this.getUsers(_this.editFormValidate.id)
 
                 // _this.total = data.count
                 console.log(JSON.stringify(_this.editFormValidate))
+                
             })
         },
-        getUsers(uid) {
-            let _this = this
-            let str = ' id eq ' + uid
-            let params = {
-                search: str,
-                inlinecount: true,
-                // sort: 'username,asc',
-                // page: current,
-                // size: pageSize
-            }
+        // getUsers(uid) {
+        //     let _this = this
+        //     let str = ' id eq ' + uid
+        //     let params = {
+        //         search: str,
+        //         inlinecount: true,
+        //         // sort: 'username,asc',
+        //         // page: current,
+        //         // size: pageSize
+        //     }
 
+        //     // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
+        //     this._API.getUsers.send(params).then((data) => {
+        //         _this.userDetail = data.results[0]
+        //         _this.username = _this.userDetail.username
+        //         // console.log(data)
+        //     })
+        // },   
+        getUsersMenu() {
+            let _this = this
+            // let str = ' id eq ' + this.$route.params.id
+            let params = {
+                // search: str,
+                inlinecount: true,
+            }
             // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
-            this._API.getUsers.send(params).then((data) => {
-                _this.userDetail = data.results[0]
-                _this.username = _this.userDetail.username
-                // console.log(data)
+            this._API.getUsersMenu.send(params).then((data) => {
+                this.usersList = data
             })
-        },        
+        },               
         editHandleSubmit(name) {
             this.$refs[name].validate((valid, error) => {
                 if (valid) {
@@ -423,20 +442,21 @@ export default {
                         contact2Phone: this.editFormValidate.contact2Phone,
                         contact2Email: this.editFormValidate.contact2Email,
                         contact2Job: this.editFormValidate.contact2Job,
-                        userId: this.editFormValidate.userId,
                         contactAddress: this.editFormValidate.contactAddress,
                         contactWebsite: this.editFormValidate.contactWebsite,
                         contactSite: this.editFormValidate.contactSite,
-
+                        
                         youtubeCode: this.editFormValidate.youtubeCode,
                         verified: this.editFormValidate.isVerified,
                         inventory: this.editFormValidate.isInventory, //是否為物資需求組織
                         enterprise: this.editFormValidate.isEnterprise,
-                        promote: this.editFormValidate.promote,   //小編推薦                   
+                        promote: this.editFormValidate.promote,   //小編推薦   
+                        admViewed: true                
                     })
                     // console.log(data)
                     let _this = this
                     let errorDesc = ''
+                    let npoId = this.$route.params.id
                     this._API.patchNpos.send(data).then((data) => {
                         
                         for (let f = 0; f < data.length; f++) {
@@ -453,6 +473,9 @@ export default {
                                         case 'npoNotFound':
                                             errorDesc = '此NPO不存在'
                                             break
+                                        case 'userNpoExists':
+                                            errorDesc = 'NPO User Account已關聯其他NPO，請重新選擇'
+                                            break                                            
                                         case 'requestUnavailable':
                                             errorDesc = '稍後重試請求'
                                             break
@@ -467,71 +490,185 @@ export default {
                             }
                         }
 
-                        if (_this.npoIconFile) {
-                                
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
+                        if (_this.npoIconFile || _this.verifiedImageFile || _this.registerImageFile) {
+                            if(_this.npoIconFile) {
+                                // let data = []
+                                // let errorDesc = ''
                                 // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putNposFile.requestCommon(this.$route.params.id,'icon')
+                                this._API.putNposFile.requestCommon(npoId,'icon')
                                 this._API.putNposFile.fileUpload({
-                                    id: this.$route.params.id,
+                                    id: npoId,
                                     type: 'icon',
                                     image: _this.npoIconFile[0]
                                 }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
+                                    if(_this.verifiedImageFile || _this.registerImageFile) {
+                                        if(_this.verifiedImageFile) {
+                                            // let data = []
+                                            // let errorDesc = ''
+                                            this._API.putNposFile.requestCommon(npoId,'verifiedImg')
+                                            this._API.putNposFile.fileUpload({
+                                                id: npoId,
+                                                type: 'verifiedImg',
+                                                image: _this.verifiedImageFile[0]
+                                            }).then((data) => {
+                                                // if (data.errors) {
+                                                //     console.log('xxxx:'+data.errors)
+                                                // }
+                                                if(_this.registerImageFile) {
+                                                    // let data = []
+                                                    // let errorDesc = ''
+                                                    this._API.putNposFile.requestCommon(npoId,'registerImg')
+                                                    this._API.putNposFile.fileUpload({
+                                                        id: npoId,
+                                                        type: 'registerImg',
+                                                        image: _this.registerImageFile[0]
+                                                    }).then((data) => {
+                                                        if (data.errors) {
+                                                        }
+                                                    }).catch((error) => {
+                                                        // delete data
+                                                        // this.itemDelete(this.editFormValidate.code)
+                                                    })                                                    
+                                                }
+                                            }).catch((error) => {
+                                                // delete data
+                                                // this.itemDelete(this.editFormValidate.code)
+                                            })                                           
+                                        }else {
+                                            if(_this.registerImageFile) {
+                                                // let data = []
+                                                // let errorDesc = ''
+                                                this._API.putNposFile.requestCommon(npoId,'registerImg')
+                                                this._API.putNposFile.fileUpload({
+                                                    id: npoId,
+                                                    type: 'registerImg',
+                                                    image: _this.registerImageFile[0]
+                                                }).then((data) => {
+                                                    if (data.errors) {
+                                                    }
+                                                }).catch((error) => {
+                                                    // delete data
+                                                    // this.itemDelete(this.editFormValidate.code)
+                                                })                                                    
+                                            }                                            
+                                        }
                                     }
+
                                 }).catch((error) => {
                                     // delete data
-                                    console.log('xxxx')
                                     // this.itemDelete(this.editFormValidate.code)
                                 })
+
+                            }else {
+                                if(_this.verifiedImageFile) {
+                                    // let data = []
+                                    // let errorDesc = ''
+                                    this._API.putNposFile.requestCommon(npoId,'verifiedImg')
+                                    this._API.putNposFile.fileUpload({
+                                        id: npoId,
+                                        type: 'verifiedImg',
+                                        image: _this.verifiedImageFile[0]
+                                    }).then((data) => {
+                                        // if (data.errors) {
+                                        //     console.log('xxxx:'+data.errors)
+                                        // }
+                                        if(_this.registerImageFile) {
+                                            // let data = []
+                                            // let errorDesc = ''
+                                            this._API.putNposFile.requestCommon(npoId,'registerImg')
+                                            this._API.putNposFile.fileUpload({
+                                                id: npoId,
+                                                type: 'registerImg',
+                                                image: _this.registerImageFile[0]
+                                            }).then((data) => {
+                                                if (data.errors) {
+                                                }
+                                            }).catch((error) => {
+                                                // delete data
+                                                // this.itemDelete(this.editFormValidate.code)
+                                            })                                                    
+                                        }
+                                    }).catch((error) => {
+                                        // delete data
+                                        // this.itemDelete(this.editFormValidate.code)
+                                    })                                           
+                                }else {
+                                    if(_this.registerImageFile) {
+                                        // let data = []
+                                        // let errorDesc = ''
+                                        this._API.putNposFile.requestCommon(npoId,'registerImg')
+                                        this._API.putNposFile.fileUpload({
+                                            id: npoId,
+                                            type: 'registerImg',
+                                            image: _this.registerImageFile[0]
+                                        }).then((data) => {
+                                            if (data.errors) {
+                                            }
+                                        }).catch((error) => {
+                                            // delete data
+                                            // this.itemDelete(this.editFormValidate.code)
+                                        })                                                    
+                                    }                                    
+                                }
+                                    
+                            }
+                             
+                                
                         } 
 
-                        if (_this.verifiedImageFile) {
+                        // if (_this.npoIconFile) {
                                 
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putNposFile.requestCommon(this.$route.params.id,'verifiedImg')
-                                this._API.putNposFile.fileUpload({
-                                    id: this.$route.params.id,
-                                    type: 'verifiedImg',
-                                    image: _this.verifiedImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
-                                    }
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
-                        }
+                        //         // upload plane photo
+                        //         let data = []
+                        //         let errorDesc = ''
+                        //         // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
+                        //         this._API.putNposFile.requestCommon(this.$route.params.id,'icon')
+                        //         this._API.putNposFile.fileUpload({
+                        //             id: this.$route.params.id,
+                        //             type: 'icon',
+                        //             image: _this.npoIconFile[0]
+                        //         }).then((data) => {
+                        //             if (data.errors) {
+                        //             }
+                        //         }).catch((error) => {
+                        //         })
+                        // } 
 
-                        if (_this.registerImageFile) {
+                        // if (_this.verifiedImageFile) {
                                 
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putNposFile.requestCommon(this.$route.params.id,'registerImg')
-                                this._API.putNposFile.fileUpload({
-                                    id: this.$route.params.id,
-                                    type: 'registerImg',
-                                    image: _this.registerImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
-                                        console.log('xxxx:'+data.errors)
-                                    }
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
-                        }
+                        //         // upload plane photo
+                        //         let data = []
+                        //         let errorDesc = ''
+                        //         // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
+                        //         this._API.putNposFile.requestCommon(this.$route.params.id,'verifiedImg')
+                        //         this._API.putNposFile.fileUpload({
+                        //             id: this.$route.params.id,
+                        //             type: 'verifiedImg',
+                        //             image: _this.verifiedImageFile[0]
+                        //         }).then((data) => {
+                        //             if (data.errors) {
+                        //             }
+                        //         }).catch((error) => {
+                        //         })
+                        // }
+
+                        // if (_this.registerImageFile) {
+                                
+                        //         // upload plane photo
+                        //         let data = []
+                        //         let errorDesc = ''
+                        //         // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
+                        //         this._API.putNposFile.requestCommon(this.$route.params.id,'registerImg')
+                        //         this._API.putNposFile.fileUpload({
+                        //             id: this.$route.params.id,
+                        //             type: 'registerImg',
+                        //             image: _this.registerImageFile[0]
+                        //         }).then((data) => {
+                        //             if (data.errors) {
+                        //             }
+                        //         }).catch((error) => {
+                        //         })
+                        // }
 
 
                         if (errorDesc) {
@@ -546,6 +683,8 @@ export default {
                                 desc: '編輯成功',
                                 duration: Config.successDuration
                             })
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})
                             // this.getDetail()
                             this.$router.push({ name: 'backendNpoList'})    
                         }

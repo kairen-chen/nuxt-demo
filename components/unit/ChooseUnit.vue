@@ -4,7 +4,7 @@
       <div class="title">
         {{ data.requiredGroup ? "請選擇您要參加的組別？" : "您需具備的技能" }}
       </div>
-      <div v-if="data.requiredGroup">
+      <div v-if="data.requiredGroup && data.skillGroups">
         <div
           class="inputContent"
           v-for="(item, index) of data.skillGroups"
@@ -126,20 +126,23 @@ export default {
             });
             // 志工
           } else {
+            this.data.skillsDescription = this.data.skillsDescription
+              ? this.data.skillsDescription
+              : "無";
             this.chooseResult = this.data.skillGroups
               ? this.data.skillGroups[0]
-              : "";
+              : "noId";
           }
         } else {
           this.data.skillsDescription = this.data.skillsDescription
             ? this.data.skillsDescription
             : "無";
           // 處理requiredGroup=0,有/無skillGroups id
-          if (this.data.skillGroups && this.data.requiredGroup) {
-            this.chooseResult = this.data.skillGroups[0].id || "";
-          } else {
-            this.chooseResult = "noId";
-          }
+          // if (this.data.skillGroups && this.data.requiredGroup) {
+          // this.chooseResult = this.data.skillGroups[0].id || "";
+          // } else {
+          this.chooseResult = "noId";
+          // }
         }
       },
     },

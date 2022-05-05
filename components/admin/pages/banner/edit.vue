@@ -251,59 +251,50 @@ export default {
                             })
                         } else {
                             let bannerID = data[0].id
-                            console.log('file:' + JSON.stringify(_this.file))
-                            if (_this.file) {
-
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putBanner.requestCommon(this.$route.params.id, 'image')
-                                this._API.putBanner.fileUpload({
-                                    id: this.$route.params.id,
-                                    type: 'image',
-                                    image: _this.file[0]
-                                }).then((data) => {
-                                    console.log('SUCCESS')
-
-                                }).catch((error) => {
-                                    // delete data
-                                    console.log('xxxx')
-                                    // this.itemDelete(this.editFormValidate.code)
-
-                                })
-                            } 
-                            if (_this.verifiedImageFile) {
-
-                                // upload plane photo
-                                let data = []
-                                let errorDesc = ''
-                                // console.log('xxxx:'+_this.file[0]+'|bannerID:'+bannerID)
-                                this._API.putBanner.requestCommon(this.$route.params.id, 'smallImage')
-                                this._API.putBanner.fileUpload({
-                                    id: this.$route.params.id,
-                                    type: 'smallImage',
-                                    image: _this.verifiedImageFile[0]
-                                }).then((data) => {
-                                    if (data.errors) {
+                            if(_this.file || _this.verifiedImageFile) {
+                                if (_this.file) {
+                                    // upload plane photo
+                                    this._API.putBanner.requestCommon(bannerID, 'image')
+                                    this._API.putBanner.fileUpload({
+                                        id: bannerID,
+                                        type: 'image',
+                                        image: _this.file[0]
+                                    }).then((data) => {
+                                        if (_this.verifiedImageFile) {
+                                            this._API.putBanner.requestCommon(bannerID, 'smallImage')
+                                            this._API.putBanner.fileUpload({
+                                                id: bannerID,
+                                                type: 'smallImage',
+                                                image: _this.verifiedImageFile[0]
+                                            }).then((data) => {
+                                            }).catch((error) => {
+                                            })
+                                        } 
+                                    }).catch((error) => {})
+                                } 
+                                else {
+                                    if (_this.verifiedImageFile) {
+                                        this._API.putBanner.requestCommon(bannerID, 'smallImage')
+                                        this._API.putBanner.fileUpload({
+                                            id: bannerID,
+                                            type: 'smallImage',
+                                            image: _this.verifiedImageFile[0]
+                                        }).then((data) => {
+                                        }).catch((error) => {
+                                        })
                                     }
-                                }).catch((error) => {
-                                    // delete data
-                                    // this.itemDelete(this.editFormValidate.code)
-                                })
+                                }               
                             }
-                            
-                            
-                                _this.$Notice.success({
-                                    title: '成功',
-                                    desc: '編輯成功',
-                                    duration: Config.successDuration
-                                })
-                                this.$router.push({
-                                    name: 'backendBannerList'
-                                })
-                            
-
+                                                  
+                            _this.$Notice.success({
+                                title: '成功',
+                                desc: '編輯成功',
+                                duration: Config.successDuration
+                            })
+                            this.$router.push({
+                                name: 'backendBannerList'
+                            })
+            
                         }
                     })
                 }

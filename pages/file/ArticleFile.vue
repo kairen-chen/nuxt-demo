@@ -609,6 +609,9 @@ export default {
       padding: 5px 10px 0 !important;
     }
     .introduceContent {
+      section {
+        word-break: break-all;
+      }
       p {
         line-height: 25px;
         color: #595757;

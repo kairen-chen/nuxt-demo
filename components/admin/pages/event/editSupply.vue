@@ -73,7 +73,7 @@
                                 </i-Col>
                             </Row>
                         </i-Col>
-                        <i-Col span="6">
+                        <!-- <i-Col span="6">
                             <FormItem class="edit-form-item" label="緯度" prop="lat">
                                 <Input v-model.trim="editFormValidate.lat"></Input>
                             </FormItem>
@@ -83,7 +83,7 @@
                             <FormItem class="edit-form-item" label="經度" prop="lng">
                                 <Input v-model.trim="editFormValidate.lng"></Input>
                             </FormItem>
-                        </i-Col>
+                        </i-Col> -->
                     </Row>
                     <Row>
                         <i-Col span="12">
@@ -455,18 +455,18 @@ export default {
                     validator: validateSkillGroupsList,
                     trigger: 'submit'
                 }],                 
-                lat: [{
-                    required: true,
-                    type: 'string',
-                    validator: validateLat,
-                    trigger: 'submit'
-                }],
-                lng: [{
-                    required: true,
-                    type: 'string',
-                    validator: validateLng,
-                    trigger: 'submit'
-                }],
+                // lat: [{
+                //     required: true,
+                //     type: 'string',
+                //     validator: validateLat,
+                //     trigger: 'submit'
+                // }],
+                // lng: [{
+                //     required: true,
+                //     type: 'string',
+                //     validator: validateLng,
+                //     trigger: 'submit'
+                // }],
             },
         };
 
@@ -568,8 +568,8 @@ export default {
                         insuranceDescription: '',
                         volunteerTraining: false,
                         volunteerTrainingDesc: this.editFormValidate.volunteerTrainingDesc?this.editFormValidate.volunteerTrainingDesc: '',
-                        lat: this.editFormValidate.lat,
-                        lng: this.editFormValidate.lng,
+                        lat: 0,
+                        lng: 0,
                         requiredVolunteerNum: requiredVolunteerNum, //人數上限
 
                         // currentVolunteerNum: this.editFormValidate.youtubeCode,
@@ -748,6 +748,8 @@ export default {
                                 desc: '編輯成功',
                                 duration: Config.successDuration
                             })
+                                // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})                           
                             this.$router.back()
                             // this.$router.push({ name: 'backendBannerList'})    
                         }

@@ -1,7 +1,8 @@
 // local
 const local = {
   MODE: "local",
-  API_BASE_URL: "http://10.57.52.8:8100/",
+  // API_BASE_URL: "http://10.57.52.8:8100/",
+  API_BASE_URL: "https://stage-gcp-isharing.fihcloud.com/",
   GTM_ID: "GTM-WSFTPR5",
   FB_APP_ID: "292691020832720",
 };
@@ -9,7 +10,8 @@ const local = {
 // dev
 const dev = {
   MODE: "dev",
-  API_BASE_URL: "https://isharing.fihcloud.com/",
+  // API_BASE_URL: "https://isharing.fihcloud.com/",
+  API_BASE_URL: "https://stage-gcp-isharing.fihcloud.com/",
   GTM_ID: "GTM-NV9ML5D",
   FB_APP_ID: "292691020832720",
 };

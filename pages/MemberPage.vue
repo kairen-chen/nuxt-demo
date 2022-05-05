@@ -564,6 +564,10 @@ export default {
     getCommon() {
       if (this.currentTab === "volunteerTime") {
         this.volunteerTime = {};
+      } else if (this.currentTab === "licenseImage") {
+        this._API.getLicenseImage
+          .send()
+          .then((res) => (this.licenseImages = res.results));
       } else if (this.currentTab !== "proFile") {
         this.loadingFlag = true;
         this._API[

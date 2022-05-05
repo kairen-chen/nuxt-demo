@@ -249,7 +249,8 @@ export default {
                                 desc: '編輯成功',
                                 duration: Config.successDuration
                             })
-                            // this.getDetail()
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})   
                             this.$router.push({ name: 'backendDonateNPOList'})    
                         }
                     })

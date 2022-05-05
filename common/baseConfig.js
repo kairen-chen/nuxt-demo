@@ -1,14 +1,18 @@
 let domain;
+import fetch from "cross-fetch";
+
 export default domain;
 
-// csr getDomain
 export const getClientDomain = async () => {
-  if (process.client) {
-    const response = await fetch(`${window.location.origin}/env.json`);
+  try {
+    const response = await fetch(
+      `${process.client ? window.location.origin : process.hostName}/env.json`
+    );
     const data = await response.json();
     domain = data.API_BASE_URL;
+    process.APIDomain = data.API_BASE_URL;
     return data.API_BASE_URL;
-  }
+  } catch (e) {}
 };
 // ssr getDomain
 export const getDomain = (env) => {

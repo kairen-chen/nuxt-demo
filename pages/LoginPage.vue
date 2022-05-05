@@ -158,7 +158,7 @@ export default {
       document.getElementsByClassName("loginLoading")[0].style.display = "none";
       this.twmLoginAPI =
         this.$store.state.env.data.MODE === "production"
-          ? `https://oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`
+          ? `https://oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=isharing&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`
           : `https://stage.oauth.taiwanmobile.com/MemberOAuth/authPageLogin?response_type=code&client_id=fihcloud&redirect_uri=${this.protocolHandler()}/oauth/twmcallback`;
     }
   },
@@ -204,43 +204,50 @@ export default {
               username: this.account,
               password: this.password,
             };
-            this._API.authToken.send(postData).then((res) => {
-              if (res.accessToken) {
-                this.$store.dispatch("delToken");
-                this.$store
-                  .dispatch("setToken", {
-                    accessToken: res.accessToken,
-                    refreshToken: res.refreshToken,
-                    loginType: "isharing",
-                  })
-                  .then(() => {
-                    this._API.getProfile.send().then((profile) => {
-                      this.$store.dispatch("setProfile", profile);
-                      // redirect
-                      this.$router
-                        .replace({
-                          path: this.redirectHandler().path,
-                        })
-                        .catch();
+            this._API.authToken
+              .send(postData)
+              .then((res) => {
+                if (res.accessToken) {
+                  this.$store.dispatch("delToken");
+                  this.$store
+                    .dispatch("setToken", {
+                      accessToken: res.accessToken,
+                      refreshToken: res.refreshToken,
+                      loginType: "isharing",
+                    })
+                    .then(() => {
+                      this._API.getProfile.send().then((profile) => {
+                        this.$store.dispatch("setProfile", profile);
+                        // redirect
+                        this.$router
+                          .replace({
+                            path: this.redirectHandler().path,
+                          })
+                          .catch();
+                      });
                     });
-                  });
-              } else {
+                } else {
+                  document.getElementsByClassName(
+                    "loginLoading"
+                  )[0].style.display = "none";
+                  /**
+                   * 1.帳號或密碼錯誤
+                   * 2.未在微樂註冊
+                   * */
+                  let error = res.error;
+                  this.errorNotice(error);
+                  if (error === "userNotFound") {
+                    this.$router.push({
+                      name: "regist",
+                    });
+                  }
+                }
+              })
+              .catch((e) => {
                 document.getElementsByClassName(
                   "loginLoading"
                 )[0].style.display = "none";
-                /**
-                 * 1.帳號或密碼錯誤
-                 * 2.未在微樂註冊
-                 * */
-                let error = res.error;
-                this.errorNotice(error);
-                if (error === "userNotFound") {
-                  this.$router.push({
-                    name: "regist",
-                  });
-                }
-              }
-            });
+              });
           }
         }
       );

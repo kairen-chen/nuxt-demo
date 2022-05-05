@@ -97,21 +97,89 @@
                         </FormItem>
                     </i-Col>
                 </Row>  
-                <Divider style="margin:16px 0px" />            
+                <Divider style="margin:16px 0px" />     
+                <Row>
+                    <i-Col span="24">
+                        <FormItem class="edit-form-item" label="點數紀錄">
+                           <Table :columns="columns" :data="userScoreList" no-data-text="暫無資料" height="300"></Table>
+                        </FormItem>
+                    </i-Col>
+                </Row>                  
+                <Divider style="margin:16px 0px" />     
                 <Row>
                     <i-Col span="12">
                         <FormItem class="edit-form-item" label="是否已綁定台灣大哥大企業帳號" prop="isTtwm">
-                            {{editFormValidate.isTwm? "是":"否"}}
-                            <!-- <Input v-model.trim="editFormValidate.skillsDescription" ></Input> -->
+                            <div class="alignCenter">
+                                {{editFormValidate.isTwm? "是":"否"}}&nbsp;
+                                <Button v-if="editFormValidate.isTwm" type="error" size="small" @click="unbindConfirm('Twm')">解除綁定</Button>
+                            </div>
                         </FormItem>
                     </i-Col>
+                </Row>       
+                <Row v-if="editFormValidate.isTwm">
+                    <i-Col span="6">
+                        <FormItem class="edit-form-item" label="真實姓名">
+                            <div>
+                                {{userTwm.enterpriseSerialName}}
+                            </div>
+                        </FormItem>
+                    </i-Col>
+                    <i-Col span="6">
+                        <FormItem class="edit-form-item" label="公司電子信箱">
+                            <div>
+                                {{userTwm.enterpriseSerialEmail}}
+                            </div>
+                        </FormItem>
+                    </i-Col>
+                     <i-Col span="6">
+                        <FormItem class="edit-form-item" label="員工編號">
+                            <div>
+                                {{userTwm.enterpriseSerialNumber}}
+                            </div>
+                        </FormItem>
+                    </i-Col>
+                     <i-Col span="6">
+                        <FormItem class="edit-form-item" label="身分證字號後五碼">
+                            <div>
+                                {{userTwm.enterpriseSerialSecurityId}}
+                            </div>
+                        </FormItem>
+                    </i-Col>                                      
+                </Row>   
+                <Row v-if="editFormValidate.isTwm">
+                    <i-Col span="6">
+                        <FormItem class="edit-form-item" label="電話">
+                            <div>
+                                {{userTwm.enterpriseSerialPhone}}
+                            </div>
+                        </FormItem>
+                    </i-Col>
+                    <i-Col span="6">
+                        <FormItem class="edit-form-item" label="部門">
+                            <div>
+                                {{userTwm.enterpriseSerialDepartment}}
+                            </div>
+                        </FormItem>
+                    </i-Col>
+                     <i-Col span="6">
+                        <FormItem class="edit-form-item" label="企業志工分組">
+                            <div>
+                                {{userTwm.enterpriseSerialGroup}}
+                            </div>
+                        </FormItem>
+                    </i-Col>                                  
+                </Row>      
+                <Divider style="margin:16px 0px" />            
+                <Row>
                     <i-Col span="12">
                         <FormItem class="edit-form-item" label="是否已綁定富邦愛心志工社帳號" prop="isFubon">
-                            {{editFormValidate.isFubon? "是":"否"}}
-                            <!-- <Input v-model.trim="editFormValidate.aboutMe" maxlength="64" ></Input> -->
+                            <div class="alignCenter">
+                                {{editFormValidate.isFubon? "是":"否"}}&nbsp;
+                                <Button v-if="editFormValidate.isFubon" type="error" size="small" @click="unbindConfirm('Fubon')">解除綁定</Button>
+                            </div>
                         </FormItem>
                     </i-Col>
-                </Row>                 
+                </Row>                       
                 <!-- <FormItem class="edit-form-item edit-form-action">
                     <Button v-if="cancelConfirm" style="width:150px" @click="cancelConfirmModal=true">{{$t("LocaleString.B00015")}}</Button>
                     <Button v-if="!cancelConfirm" style="width:150px" @click="goList()">{{$t("LocaleString.B00015")}}</Button>
@@ -139,13 +207,25 @@
         </div>
     </div>
     </Layout>
+
+    <Modal
+        v-model="confirmModal"
+        title="提醒"
+        ok-text="確定解除"
+        cancel-text="取消"
+        :closable="false"
+        :mask-closable="false"
+        @on-ok="unbind">
+        <p>{{confirmText}}</p>
+    </Modal>
+
 </div>
 </template>
 
 <script>
 import SearchModal from './searchModal.vue'
 import Page from '@/components/admin/layoutUnit/page.vue'
-
+import Config from '@/common/config'
 export default {
     layout: 'backend',
     components: {
@@ -154,6 +234,10 @@ export default {
     },
     data() {
         return {
+            userScoreList: [],
+            confirmText: '',
+            unbindCompany: '',
+            confirmModal: false,
             detail: [],
             userList: [],
             editFormValidate: {
@@ -197,6 +281,27 @@ export default {
                     trigger: 'submit'
                 }],
             },
+            userTwm: {},
+            columns: [      
+                {
+                    title: '活動名稱',
+                    key: 'eventName'
+                },                
+
+                {
+                    title: '累積點數',
+                    key: 'score'
+                },                
+                {
+                    title: '紀錄',
+                    key: 'comment'
+                }, 
+                {
+                    title: '紀錄時間',
+                    key: 'addDate'
+                },                                 
+            ],
+            list: [],            
         };
 
     },
@@ -218,6 +323,19 @@ export default {
                 // _this.detail = data.results
                 _this.editFormValidate = _this.dataCopy(data.results[0])
 
+                if(data.results[0].isTwm) {
+                    let str2 = ' id eq ' + data.results[0].uid
+                    let params2 = {
+                        search: str,
+                        inlinecount: true,
+                    }                   
+                    this._API.getUsersTwm.send(params2).then((data2) => {
+                        _this.userTwm = _this.dataCopy(data2.results[0])
+                        
+
+                    })
+                }
+                _this.getUserScoreRecords(data.results[0].id)
                 // _this.editFormValidate.photoURL = 'https://www.isharing.tw/uploads/'+_this.editFormValidate.photo
                 // _this.total = data.count
                 console.log(JSON.stringify(_this.editFormValidate))
@@ -241,12 +359,65 @@ export default {
                 console.log(data)
             })
         },        
+        getUserScoreRecords(userId) {
+            let _this = this
+            let str = ' userId eq '+userId
+            let params = {
+                search: str,
+                inlinecount: true,
+                sort: 'addDate,desc',
+                // page: current,
+                // size: pageSize
+            }
+
+            // this.$service.getUserRolesPage.requestCommon(_this.queryStr, current, pageSize)
+            this._API.getUserScoreRecords.send(params).then((data) => {
+                _this.userScoreList = data.results
+                // _this.total = data.count
+                console.log(data)
+            })
+        },   
         editHandleSubmit() {
 
         },
-        goList() {
-
+        unbindConfirm(type) {
+            this.unbindCompany = type
+            switch(type) {
+                case "Fubon":
+                    this.confirmText = "確定解除綁定富邦愛心志工社帳號？"
+                    break;
+                default:
+                    this.confirmText = "確定解除綁定台灣大哥大企業帳號？"
+                    break;                    
+            }
+            this.confirmModal = true
         },
+        unbind() {
+            switch(this.unbindCompany) {
+                case "Fubon":
+                    this._API.adminUnbindFubon.requestCommon(this.editFormValidate.id)
+                    this._API.adminUnbindFubon.send(this.editFormValidate.id).then((data) => {
+                        this.$Notice.success({
+                            title: '成功',
+                            desc: '解除綁定成功',
+                            duration: Config.successDuration
+                        })  
+                        this.getDetail()            
+                    })                    
+                    break;
+                default:
+                    this._API.adminUnbindTWM.requestCommon(this.editFormValidate.id)
+                    this._API.adminUnbindTWM.send(this.editFormValidate.id).then((data) => {
+                        this.$Notice.success({
+                            title: '成功',
+                            desc: '解除綁定成功',
+                            duration: Config.successDuration
+                        })  
+                        this.getDetail()
+                    })             
+                    break;                    
+            }
+        },        
         // 数据深拷贝
         dataCopy: function (data) {
             let obj = {}
@@ -260,5 +431,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    .alignCenter{
+        display: flex;
+        align-items: center;
+    }
 </style>

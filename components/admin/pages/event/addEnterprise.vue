@@ -652,6 +652,8 @@ export default {
                                 desc: '新增成功',
                                 duration: Config.successDuration
                             })
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})                            
                             this.$router.back()
                         }
                     })

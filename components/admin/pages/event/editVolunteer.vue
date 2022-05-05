@@ -763,6 +763,8 @@ export default {
                                 desc: '編輯成功',
                                 duration: Config.successDuration
                             })
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})                            
                             this.$router.back()
                             // this.$router.push({ name: 'backendBannerList'})    
                         }

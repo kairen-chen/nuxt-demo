@@ -75,7 +75,7 @@
 
                             </Row>
                         </i-Col>
-                        <i-Col span="6">
+                        <!-- <i-Col span="6">
                             <FormItem class="edit-form-item" label="緯度" prop="lat">
                                 <Input v-model.trim="editFormValidate.lat"></Input>
                             </FormItem>
@@ -85,7 +85,7 @@
                             <FormItem class="edit-form-item" label="經度" prop="lng">
                                 <Input v-model.trim="editFormValidate.lng"></Input>
                             </FormItem>
-                        </i-Col>
+                        </i-Col> -->
 
                     </Row>
                     <Row>
@@ -343,8 +343,8 @@ export default {
                     skillsDescription: '',
                     volunteerNumber: ''
                 }],
-                lat: '',
-                lng: '',
+                lat: 0,
+                lng: 0,
                 requiredVolunteerNum: '0'
             },
             editRuleValidate: {
@@ -432,18 +432,18 @@ export default {
                     validator: validateSkillGroupsList,
                     trigger: 'submit'
                 }],                 
-                lat: [{
-                    required: true,
-                    type: 'string',
-                    validator: validateLat,
-                    trigger: 'submit'
-                }],
-                lng: [{
-                    required: true,
-                    type: 'string',
-                    validator: validateLng,
-                    trigger: 'submit'
-                }],
+                // lat: [{
+                //     required: true,
+                //     type: 'string',
+                //     validator: validateLat,
+                //     trigger: 'submit'
+                // }],
+                // lng: [{
+                //     required: true,
+                //     type: 'string',
+                //     validator: validateLng,
+                //     trigger: 'submit'
+                // }],
             },
         };
 
@@ -658,6 +658,8 @@ export default {
                                 desc: '新增成功',
                                 duration: Config.successDuration
                             })
+                            // 更新dumpFile
+                            this._API.refreshDumpFile.send(data).then((data) => {})                               
                             this.$router.back()
                             // this.$router.push({ name: 'backendBannerList'})    
                         }

@@ -5,9 +5,9 @@
             <div>
                 <!-- <H1>宣傳圖片</H1> -->
             </div>
-            <div>
+            <!-- <div>
                 <Button type="warning" @click="goTwm()">台灣大員工綁定資料管理</Button>
-            </div>
+            </div> -->
         </div>        
         <div class="search-form">
             <SearchModal v-if="isSearchModal" @searchData="searchData" @paramData="paramData" :sort="sort" />

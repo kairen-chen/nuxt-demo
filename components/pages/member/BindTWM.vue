@@ -41,14 +41,13 @@
         </div>
         <div class="inputContainer">
           <Icon type="ios-card-outline" class="icon" />
-
+          <!-- :type="'idNumber'" -->
           <Input
             class="orangeBorder"
             ref="_idNumber"
             v-model.trim="idNumber"
-            :type="'idNumber'"
             :required="true"
-            :placetext="'身分證字號'"
+            :placetext="'身分證字號後五碼'"
           />
         </div>
         <div class="inputContainer">
@@ -59,10 +58,10 @@
             v-model.trim="tel"
             :type="'tel'"
             :required="true"
-            :placetext="'電話'"
+            :placetext="'手機號碼'"
           />
         </div>
-        <div class="inputContainer">
+        <!-- <div class="inputContainer">
           <Icon type="ios-people" class="icon" />
           <Input
             class="orangeBorder"
@@ -91,7 +90,7 @@
             :required="true"
             :placetext="'企業志工分組'"
           />
-        </div>
+        </div> -->
         <!-- <div class="inputContainer">
           <Icon type="md-lock" class="icon" />
           <Input
@@ -114,6 +113,7 @@
         >
       </div>
     </div>
+    <div class="loginLoading"></div>
   </div>
 </template>
 <script>
@@ -129,13 +129,14 @@ export default {
       enterpriseSerialNumber: "",
       idNumber: "",
       tel: "",
-      department: "",
-      company: "",
-      corporateVolunteerGroup: "",
+      // department: "",
+      // company: "",
+      // corporateVolunteerGroup: "",
     };
   },
   mounted() {
     document.getElementsByClassName("loading")[0].style.display = "none";
+    document.getElementsByClassName("loginLoading")[0].style.display = "none";
     // if (this.$route.params.account) {
     //   this.account = this.$route.params.account;
     // }
@@ -150,15 +151,17 @@ export default {
         ],
         (pass) => {
           if (pass) {
+            document.getElementsByClassName("loginLoading")[0].style.display =
+              "block";
             let postData = {
-              enterpriseSerialName: this.name,
-              enterpriseSerialEmail: this.email,
               enterpriseSerialNumber: this.enterpriseSerialNumber,
-              enterpriseSerialDepartment: this.department + "",
-              enterpriseSerialId: this.idNumber + "",
+              enterpriseSerialEmail: this.email,
+              enterpriseSerialName: this.name,
+              enterpriseSerialSecurityId: this.idNumber + "",
               enterpriseSerialPhone: this.tel + "",
-              enterpriseSerialType: this.company + "",
-              enterpriseSerialGroup: this.corporateVolunteerGroup + "",
+              // enterpriseSerialDepartment: this.department + "",
+              // enterpriseSerialType: this.company + "",
+              // enterpriseSerialGroup: this.corporateVolunteerGroup + "",
             };
             this._API.bindTWM.send(postData).then((res) => {
               if (!res.errors) {
@@ -171,6 +174,9 @@ export default {
                   name: "meEdit",
                 });
               } else {
+                document.getElementsByClassName(
+                  "loginLoading"
+                )[0].style.display = "none";
                 if (res.errors[0].error === "userNotFound") {
                   res.errors[0].error = "twm_userNotFound";
                 }

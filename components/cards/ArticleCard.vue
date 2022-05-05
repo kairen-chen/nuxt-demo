@@ -204,7 +204,9 @@ export default {
         .activityState {
           align-self: flex-end;
           color: red;
-          margin-left: 5px;
+          position: absolute;
+          right: 0;
+          margin-right: 18px;
         }
       }
       img {

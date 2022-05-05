@@ -25,7 +25,7 @@
                         </FormItem>
                     </i-Col>
                     <i-Col span="6">
-                        <FormItem class="search-form-item" label="可捐贈物資NPO" prop="name">
+                        <FormItem class="search-form-item" label="可捐贈物資NPO" prop="isInventory">
                             <Checkbox v-model="searchFormValidate.isInventory"><span>&nbsp;</span></Checkbox>
                         </FormItem>
                     </i-Col>
@@ -62,7 +62,7 @@ export default {
                 id: '',
                 type: 'all',
                 name: '',
-                // isInventory: false
+                isInventory: false
             },
             searchRuleValidate: {}
         }

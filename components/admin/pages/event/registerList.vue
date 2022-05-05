@@ -173,7 +173,7 @@ export default {
             if (isStaff=='true') {
                 str = ' eventId eq ' + eventId
             } else {
-                str = ' eventId eq ' + eventId + ' and uid eq ' + npoId
+                str = ' eventId eq ' + eventId + ' and npoId eq ' + npoId
             }
             // str = ' eventId eq ' + eventId
             let params = {
