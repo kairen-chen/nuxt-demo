@@ -48,6 +48,9 @@
       .links
         nuxt-link.button--grey(:to="{name:'grid'}") grid
 
+      .links
+        nuxt-link.button--green(:to="{name:'imgLazyLoad'}") Img lazy load
+
       .test.button--green(@click = 'getRouteName')
         img(src="~/assets/logo/logo.png")
 

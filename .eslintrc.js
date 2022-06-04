@@ -11,9 +11,12 @@ module.exports = {
   },
   // required to lint *.vue files
   extends: [
-    "plugin:vue/base"
+    "vue", 
+    "standard",
+    "plugin:vue/recommended"
   ],
   plugins: [
+    "import",
     'vue'
   ],
   // add your custom rules here
