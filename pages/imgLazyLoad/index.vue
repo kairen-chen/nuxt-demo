@@ -3,32 +3,32 @@
     <app-logo msg="Lazy Load" />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
     <img
       class="orignImg fadeup"
-      data-img="https://www.hdwallpapers.in/thumbs/2022/brown_squirrel_is_eating_nuts_standing_on_stone_in_blur_green_background_hd_squirrel-t2.jpg"
+      data-img="https://fakeimg.pl/250x100/84e1be/"
       alt=""
     />
   </div>
@@ -47,6 +47,7 @@ export default {
           let imageUrl = entry.target.getAttribute("data-img");
           if (imageUrl) {
             entry.target.src = imageUrl;
+            entry.target.removeAttribute("data-img");
             entry.target.classList.add("in-view");
             observer.unobserve(entry.target);
           }
