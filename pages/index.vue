@@ -15,14 +15,15 @@
       h1.title {{title}}
       ol.subtitle
         li( v-for ="item in skill_arr" ) {{item}}
+      .links
+        router-link.button--grey(:to="{path:'/product/'+PItest, query: {shop_id:shop_id }}") router-link-產品頁
 
-      router-link.button--grey(:to="{path:'/product/'+PItest, query: {shop_id:shop_id }}") router-link-產品頁
-
-      n-link.button--grey(:to="{name:'product-PI',params: { PI:'P2-'+this.PItest } , query: {shop_id:shop_id }}")
-        span
-          | n-link-產品頁
-          | 字太多用 '|'組
-          //- a.button--grey(:href="'/product/'+PItest+'?shop_id='+shop_id" target="_self") 產品頁
+      .links
+        n-link.button--grey(:to="{name:'product-PI',params: { PI:'P2-'+this.PItest } , query: {shop_id:shop_id }}")
+          span
+            | n-link-產品頁
+            | 字太多用 '|'組
+            //- a.button--grey(:href="'/product/'+PItest+'?shop_id='+shop_id" target="_self") 產品頁
 
       .links
         nuxt-link.button--grey(:to="{name:'vuex'}") n-link-VUEX
@@ -51,6 +52,7 @@
       .links
         nuxt-link.button--green(:to="{name:'downloadZip'}") downloadZip
 
+      .links
         nuxt-link.button--green(:to="{name:'imgLazyLoad'}") Img lazy load
 
       .test.button--green(@click = 'getRouteName')
