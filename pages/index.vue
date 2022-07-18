@@ -48,6 +48,10 @@
       .links
         nuxt-link.button--grey(:to="{name:'grid'}") grid
 
+      .links
+        nuxt-link.button--green(:to="{name:'downloadZip'}") downloadZip
+
+
       .test.button--green(@click = 'getRouteName')
         img(src="~/assets/logo/logo.png")
 
