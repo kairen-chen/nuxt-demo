@@ -345,9 +345,9 @@ export default {
         },
         companyIcon(){
             if(this.editFormValidate.isEnterprise){
-                return '企業代表圖示'
+                return '企業代表圖示(尺寸建議為正方形1:1，寬度小於720px)'
             }else {
-                return 'NPO代表圖示'
+                return 'NPO代表圖示(尺寸建議為正方形1:1，寬度小於720px)'
             }
         },
         companyDescription(){

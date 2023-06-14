@@ -45,8 +45,8 @@ const actions = {
           params: {
             ...eventConfig,
             search: `isFull eq false and closeDate gte '${moment().format(
-              "YYYY-MM-DD HH:mm:ss'"
-            )} and promote eq true`,
+              "YYYY-MM-DD HH:mm:ss"
+            )}' and promote eq true`,
           },
         };
       } else {
@@ -55,8 +55,8 @@ const actions = {
             page: eventConfig.page,
             size: eventConfig.size - context.state.eventData.results.length,
             search: `isFull eq false and closeDate gte '${moment().format(
-              "YYYY-MM-DD HH:mm:ss'"
-            )} and promote eq false`,
+              "YYYY-MM-DD HH:mm:ss"
+            )}' and promote eq false`,
             sort: `closeDate,asc`,
           },
         };

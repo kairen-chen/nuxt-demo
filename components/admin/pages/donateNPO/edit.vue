@@ -25,7 +25,7 @@
                     </Row>
                     <Row>
                         <i-Col span="12">
-                            <FormItem class="edit-form-item" label="企業代表圖示" prop="npoIcon">
+                            <FormItem class="edit-form-item" label="企業代表圖示(尺寸建議為正方形1:1，寬度小於720px)" prop="npoIcon">
                                 <!-- <div v-if="editFormValidate.mapPath" class="align-r" >
                                 <Icon type="md-close" @click="removeFile()" />
                             </div>                             -->
@@ -99,6 +99,13 @@ export default {
     components: {
     },
     data() {
+        const validateUpload = (rule, value, callback) => {
+            if (this.editFormValidate.npoIcon === null) {
+                callback(new Error('請選擇NPO代表圖示'))
+            } else {
+                callback()
+            }
+        }           
         return {
             maxSize: 100, //MB
             NpoIconUpdSRC: '',
@@ -110,6 +117,8 @@ export default {
             editFormValidate: {
                 user: '',
                 name: '',
+                npoIcon: {},
+                newebpayUrl: ''
             },
             editRuleValidate: {
                 name: [{
@@ -119,6 +128,7 @@ export default {
                 }, ],
                 npoIcon: [{
                     required: true,
+                    validator: validateUpload,
                     message: '請選擇NPO代表圖示',
                     trigger: 'submit'
                 }],
@@ -127,6 +137,11 @@ export default {
                     message: '請輸入NPO詳細資訊',
                     trigger: 'submit'
                 }],
+                newebpayUrl: [{
+                    required: false,
+                    message: '請輸入藍新數位捐款連結',
+                    trigger: 'submit'
+                }],                  
             },
         };
 
@@ -148,6 +163,7 @@ export default {
             this._API.getDonationNpos.send(params).then((data) => {
                 // _this.detail = data.results
                 _this.editFormValidate = _this.dataCopy(data.results[0])
+                _this.editFormValidate.npoIcon = _this.editFormValidate.npoIcon
 
                 // _this.editFormValidate.npoIconURL = 'https://www.isharing.tw/uploads/'+_this.editFormValidate.npoIcon
                 // _this.total = data.count
@@ -281,7 +297,7 @@ export default {
                 //利用Blob预览本地上传的图片
                 this.handlePreview('NpoIconUpdSRC');
 
-                // this.editFormValidate.npoIcon = file
+                this.editFormValidate.npoIcon = file
                 // console.log('this.editFormValidate.mapPath:' + this.editFormValidate.mapPath)
                 // 选择文件后触发验证关闭错误提示
                 // this.$refs['editFormValidate'].validate(() => {})

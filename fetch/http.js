@@ -6,6 +6,7 @@ import * as _config from "@/common/common";
 import iView from "view-design";
 import decodeHtmlEntity from "@/plugins/common/decodeHtmlEntity";
 import { getClientDomain } from "@/common/baseConfig";
+
 // 服务遍历器
 const AjaxSend = {
   // 初始化
@@ -18,18 +19,15 @@ const AjaxSend = {
     axios.defaults.headers.common["SignatureMethod"] = _config.SignatureMethod;
     axios.defaults.headers.common["SignatureVersion"] =
       _config.SignatureVersion;
-
-    if (process.client || process.server) {
+    if (process.client) {
       getClientDomain().then((res) => {
-        process.client && localStorage.setItem("baseURL", btoa(res));
+        localStorage.setItem("baseURL", btoa(res));
         axios.defaults.baseURL = res;
       });
       if (!axios.defaults.baseURL) {
-        process.client &&
-          (axios.defaults.baseURL = atob(localStorage.getItem("baseURL")));
+        axios.defaults.baseURL = atob(localStorage.getItem("baseURL"));
       }
       // 添加請求拦截器
-
       axios.interceptors.request.use(
         (config) => {
           let timestamp = new Date().getTime() + "";
@@ -43,21 +41,14 @@ const AjaxSend = {
           config.headers.common["X-Access-Token"] = process.client
             ? localStorage.getItem("accessToken")
             : null;
-          if (!config.baseURL) {
-            config.baseURL = process.domain;
-            config.url = process.APIDomain + config.url;
-          }
           return config;
         },
         (error) => {
-          if (process.client) {
-            Error(error);
-            document.getElementsByClassName("loading")[0]
-              ? (document.getElementsByClassName("loading")[0].style.display =
-                  "none")
-              : false;
-          }
-          return Promise.reject(error);
+          Error(error);
+          process.client && document.getElementsByClassName("loading")[0]
+            ? (document.getElementsByClassName("loading")[0].style.display =
+                "none")
+            : false;
         }
       );
 
@@ -76,11 +67,8 @@ const AjaxSend = {
           return response.data;
         },
         (error) => {
-          let obj;
-          if (process.client) {
-            iView.Notice.destroy();
-            obj = Error(error);
-          }
+          iView.Notice.destroy();
+          let obj = Error(error);
           process.client && document.getElementsByClassName("loading")[0]
             ? (document.getElementsByClassName("loading")[0].style.display =
                 "none")

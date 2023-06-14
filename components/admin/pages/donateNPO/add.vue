@@ -25,7 +25,7 @@
                     </Row>
                     <Row>
                         <i-Col span="12">
-                            <FormItem class="edit-form-item" label="企業代表圖示" prop="npoIcon">
+                            <FormItem class="edit-form-item" label="企業代表圖示(尺寸建議為正方形1:1，寬度小於720px)" prop="npoIcon">
                                 <!-- <div v-if="editFormValidate.mapPath" class="align-r" >
                                 <Icon type="md-close" @click="removeFile()" />
                             </div>                             -->
@@ -36,6 +36,7 @@
                                 <Upload ref="uploadImg" action="" :show-upload-list="false" accept="image/png, image/jpeg" :before-upload="handleUploadNpoIcon">
                                     <Button icon="ios-cloud-upload-outline">更新檔案</Button>
                                 </Upload>
+
 
                                 <!-- <Input v-model.trim="editFormValidate.npoIcon" maxlength="20" ></Input> -->
                             </FormItem>
@@ -118,6 +119,7 @@ export default {
                 user: '',
                 name: '',
                 npoIcon: null,
+                newebpayUrl: ''
             },
             editRuleValidate: {
                 name: [{
@@ -136,6 +138,11 @@ export default {
                     message: '請輸入NPO詳細資訊',
                     trigger: 'submit'
                 }],
+                newebpayUrl: [{
+                    required: false,
+                    message: '請輸入藍新數位捐款連結',
+                    trigger: 'submit'
+                }],                
             },
         };
 

@@ -155,7 +155,7 @@
                         </FormItem>
                     </i-Col>
                     <i-Col span="6">
-                        <FormItem class="edit-form-item" label="部門">
+                        <FormItem class="edit-form-item" label="部門代碼">
                             <div>
                                 {{userTwm.enterpriseSerialDepartment}}
                             </div>

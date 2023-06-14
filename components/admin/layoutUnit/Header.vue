@@ -581,6 +581,7 @@ export default {
                     // this.loginStatus = false
                     break;
                 default:
+                    if (!this.loginStatus) this.logout();
                     this.activeName = "活動管理";
                     break;
             }

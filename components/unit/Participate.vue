@@ -28,6 +28,14 @@
         {{ data.isVolunteerEvent ? "您已簽退" : "您已捐贈成功" }}
       </button>
       <button
+        v-else-if="isRegistered && !data.overRegisterDateFlag"
+        class="marginLeft registCancel cursor"
+        @click="deleteRegistSubmit"
+        v-prevent-re-click
+      >
+        {{ data.isVolunteerEvent ? "取消報名" : "取消捐贈" }}
+      </button>
+      <button
         v-else-if="
           data.overRegisterDateFlag ||
             (data.isFull && !data.overRegisterDateFlag)
@@ -37,14 +45,7 @@
         {{ data.isVolunteerEvent ? "報名結束" : "募集結束" }}
       </button>
       <!-- 取消 -->
-      <button
-        v-else-if="isRegistered"
-        class="marginLeft registCancel cursor"
-        @click="deleteRegistSubmit"
-        v-prevent-re-click
-      >
-        {{ data.isVolunteerEvent ? "取消報名" : "取消捐贈" }}
-      </button>
+
       <button
         v-else-if="data.isVolunteerEvent"
         class="marginRight cursor"

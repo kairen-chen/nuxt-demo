@@ -93,9 +93,9 @@ export default {
         size: 12,
         // 預設未額滿且closeDate大於等於現在
         // isFull eq false and 未額滿
-        search: `closeDate gte '${context
+        search: `isFull eq false and closeDate gte '${context
           .$moment()
-          .format("YYYY-MM-DD HH:mm:ss")}`,
+          .format("YYYY-MM-DD HH:mm:ss")}'`,
       }),
       context.store.dispatch("getEvent"),
       context.store.dispatch("getNpoPromote"),

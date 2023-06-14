@@ -205,6 +205,11 @@ export function createRouter(context) {
         component: About,
       },
       {
+        name: "GCPfooterAbout",
+        path: "/about/index.html",
+        component: About,
+      },      
+      {
         name: "footerJoin",
         path: "/join",
         component: Join,
@@ -226,6 +231,11 @@ export function createRouter(context) {
         component: Faq,
       },
       {
+        name: "footerFaqAPP",
+        path: "/faq/plain",
+        component: Faq,
+      },      
+      {
         name: "footerDownload",
         path: "/download",
         component: Download,
@@ -235,6 +245,11 @@ export function createRouter(context) {
         path: "/privacy",
         component: Privacy,
       },
+      {
+        name: "GCPfooterPrivacy",
+        path: "/privacy/index.html",
+        component: Privacy,
+      },      
       {
         name: "footerTos",
         path: "/tos",
